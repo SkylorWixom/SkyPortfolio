@@ -1,0 +1,37 @@
+<main class="blog-page">
+  <!-- Blog Header -->
+  <section class="blog-intro">
+    <h1>Welcome to My Blog</h1>
+    <p>
+      This blog is a personal reflection of my journey through development, hobbies, and life. 
+      Explore posts on learning, tools, reviews, travel, cooking, and more.
+    </p>
+  </section>
+
+  <!-- Category Filter -->
+  <section class="blog-categories">
+    <h2>Categories</h2>
+    <ul>
+      <li><button (click)="filterCategory('all')">All Posts</button></li>
+      <li><button (click)="filterCategory('learning')">Learning Experiences</button></li>
+      <li><button (click)="filterCategory('reviews')">Product & Tool Reviews</button></li>
+      <li><button (click)="filterCategory('responses')">Article Responses</button></li>
+      <li><button (click)="filterCategory('personal')">Personal (Cooking/Travel)</button></li>
+    </ul>
+  </section>
+
+  <!-- Blog Post List -->
+  <section class="blog-posts">
+    <h2>{{ selectedCategory | titlecase }} Posts</h2>
+    <div *ngIf="filteredPosts.length === 0">
+      <p>No posts available in this category yet.</p>
+    </div>
+    <ul>
+      <li *ngFor="let post of filteredPosts">
+        <h3>{{ post.title }}</h3>
+        <p>{{ post.summary }}</p>
+        <small>Category: {{ post.category }}</small>
+      </li>
+    </ul>
+  </section>
+</main>
