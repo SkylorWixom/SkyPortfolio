@@ -1,0 +1,50 @@
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Angular build outputs
+/frontend/swfront/dist/
+/frontend/swfront/out-tsc/
+*.log
+
+# Environment files
+*.env
+*.env.*
+
+# IDEs and Editors
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Dependency directories
+/backend/node_modules/
+/frontend/swfront/node_modules/
+
+# Compiled output
+/dist/
+/out-tsc/
+/target/
+/coverage/
+*.dll
+*.exe
+*.out
+*.app
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+# Miscellaneous
+*.bak
+*.tmp
+*.swp
+*.swo
+*.swn
+
+# TypeScript
+*.tsbuildinfo
