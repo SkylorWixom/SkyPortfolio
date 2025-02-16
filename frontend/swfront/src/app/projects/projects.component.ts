@@ -2,10 +2,9 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-projects',
-  imports: [],
   templateUrl: './projects.component.html',
-  styleUrl: './projects.component.css'
+  styleUrls: ['./projects.component.css']  // Corrected from 'styleUrl'
 })
 export class ProjectsComponent {
-
+  // This class will handle any logic for the Projects page
 }
