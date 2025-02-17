@@ -1,6 +1,8 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
+import ProjectRoutes from './projectRoutes.js';
+
 
 dotenv.config();
 
@@ -8,7 +10,7 @@ const app = express();
 
 // Middleware
 app.use(express.json()); // To parse JSON request bodies
-
+app.use('/projects', ProjectRoutes);
 // MongoDB Connection
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('MongoDB Connected'))
