@@ -6,14 +6,11 @@ import { ProjectsComponent } from './projects/projects.component';
 import { ContactComponent } from './contact/contact.component';
 import { ResumeComponent } from './resume/resume.component';
 
-// Temporary placeholders
-import { Component } from '@angular/core';
-
 export const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'blog', component: BlogComponent },
   { path: 'learn-with-me', component: LwmComponent },
-  { path: 'projects', component: ProjectsComponent },  
+  { path: 'projects', component: ProjectsComponent },
   { path: 'contact', component: ContactComponent },
   { path: 'resume', component: ResumeComponent }
 ];

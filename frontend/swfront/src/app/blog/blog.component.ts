@@ -1,33 +1,40 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common'; // <-- Import this for titlecase pipe
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { BlogService, Blog } from '../services/blog.service';
 
 @Component({
   selector: 'app-blog',
   standalone: true,
-  imports: [CommonModule], // <-- Add this here
+  imports: [CommonModule],
   templateUrl: './blog.component.html',
   styleUrls: ['./blog.component.css']
 })
-export class BlogComponent {
-  // Current category
+export class BlogComponent implements OnInit {
   selectedCategory: string = 'all';
 
-  // Sample blog posts
-  posts = [
-    { title: 'Learning Angular: My Struggles & Solutions', summary: 'Sharing my experience learning Angular and the hurdles I overcame.', category: 'learning' },
-    { title: 'PostgreSQL vs MongoDB: My Thoughts', summary: 'A comparison based on my personal projects and performance tests.', category: 'reviews' },
-    { title: 'Article Response: AI in Education', summary: 'My thoughts on a recent article about the role of AI in modern education.', category: 'responses' },
-    { title: 'My Trip to Yellowstone', summary: 'Travel tips and highlights from my adventure to Yellowstone National Park.', category: 'personal' },
-    { title: 'Mastering Debugging Techniques', summary: 'Lessons learned while working on my thesis about delta debugging.', category: 'learning' }
-  ];
+  // We'll load real blog data here once the service call completes
+  posts: Blog[] = [];
+  filteredPosts: Blog[] = [];
 
-  // Filtered posts displayed to the user
-  filteredPosts = this.posts;
+  // Inject the service so we can call getAllBlogs()
+  constructor(private blogService: BlogService) {}
 
-  // Method to filter posts by category
+  // Fetch data from the server as soon as this component is initialized
+  ngOnInit(): void {
+    this.blogService.getAllBlogs().subscribe({
+      next: (data: Blog[]) => {
+        this.posts = data;
+        this.filteredPosts = data;
+      },
+      error: (err) => {
+        console.error('Error fetching blogs:', err);
+      }
+    });
+  }
+
+  // Filter the displayed posts by category
   filterCategory(category: string) {
     this.selectedCategory = category;
-
     if (category === 'all') {
       this.filteredPosts = this.posts;
     } else {
