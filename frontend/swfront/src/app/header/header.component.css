@@ -1,0 +1,65 @@
+/* header.component.css */
+
+/* 1) Outer header container */
+.main-nav {
+  background-color: var(--color-navy); /* A darker navy for the header bar */
+  color: #ffffff;                      /* White text in the header */
+  padding: 0.75rem 1rem;              /* Slightly smaller vertical padding */
+  
+  /* Sticky so it stays on top, if desired */
+  position: sticky;
+  top: 0;
+  z-index: 999;
+
+  /* Light box-shadow for some depth */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* 2) Flex container for logo & nav links */
+.nav-inner {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+/* 3) Logo text */
+.logo {
+  font-size: 1.8rem;
+  font-weight: 700;
+  text-decoration: none;
+  color: #ffffff; /* Keep the logo in white for contrast */
+}
+
+/* 4) Nav links in a row */
+.nav-links {
+  display: flex;
+  gap: 1.5rem;
+}
+
+/* 5) Links: simple hover underline effect */
+.nav-links a {
+  text-decoration: none;
+  color: #ffffff;
+  font-weight: 500;
+  position: relative;
+  padding: 0.25rem 0;
+  transition: color 0.3s ease; 
+}
+
+/* Underline animation */
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  width: 0;
+  background-color: #ffffff;
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}

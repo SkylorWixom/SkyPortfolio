@@ -1,0 +1,150 @@
+/* resume.component.css */
+
+/* 1) Overall container for the entire resume */
+.resume {
+  margin-top: 3rem; 
+  background-color: var(--color-bg);
+  color: var(--color-headline);
+  padding: 2rem;
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* 2) Each main resume-section (white card with accent heading) */
+.resume-section {
+  background-color: #ffffff;
+  margin-bottom: 2rem;
+  padding: 1.5rem 2rem;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+/* Headings in .resume-section */
+.resume-section h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: var(--color-dark-navy);
+  font-size: 1.6rem;
+  border-left: 4px solid var(--color-navy);
+  padding-left: 1rem;
+}
+
+/* 3) Sub-cards: .experience (light-gray background) */
+.experience {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  margin: 1rem 0;
+  padding: 1rem 1.5rem;
+}
+
+/* Sub-card headings (like h4) */
+.experience h4 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  color: var(--color-dark-navy);
+  font-size: 1.2rem;
+}
+
+/* Sub-card paragraphs/dates, etc. */
+.experience p {
+  margin: 0.5rem 0;
+  color: var(--color-headline);
+  line-height: 1.4;
+}
+
+/* Lists within sub-cards, e.g. job tasks or skill items */
+.experience ul {
+  list-style: disc;
+  padding-left: 1.5rem;
+  margin: 0.75rem 0;
+}
+
+/* 4) Paragraph & list defaults in .resume-section */
+.resume-section p, 
+.resume-section li {
+  font-size: 1.125rem;
+  line-height: 1.6;
+  color: var(--color-headline);
+  margin: 0.75rem 0;
+}
+
+/* 5) Coursework in two columns */
+.coursework-heading {
+  font-size: 1.3rem;
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--color-dark-navy);
+  border-left: none; /* optional accent bar if you prefer */
+}
+
+/* 2-col list for coursework */
+.course-list {
+  list-style: disc;
+  margin: 0;
+  padding-left: 1.5rem;
+  column-count: 2;
+  column-gap: 2rem;
+}
+
+.course-list li {
+  break-inside: avoid;
+  margin-bottom: 0.5rem;
+}
+
+/* 6) Download Resume area */
+.download-resume {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.download-resume p {
+  font-size: 1.125rem;
+  margin-bottom: 1rem;
+  color: var(--color-headline);
+}
+
+.download-resume button {
+  background-color: var(--color-button);
+  color: var(--color-button-text);
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.download-resume button:hover {
+  background-color: var(--color-slate);
+  box-shadow: 0 0 8px rgba(0,0,0,0.3);
+}
+
+/* 7) Contact link styling */
+.contact-link {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.contact-link p {
+  margin: 0.5rem 0;
+  font-size: 1.125rem;
+}
+
+.contact-link a {
+  display: inline-block;
+  background-color: var(--color-button);
+  color: var(--color-button-text);
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.contact-link a:hover {
+  background-color: var(--color-slate);
+  box-shadow: 0 0 8px rgba(0,0,0,0.3);
+}

@@ -1,0 +1,8 @@
+.blog-page {
+    display: flex;
+    gap: 1rem;
+    background-color: var(--color-bg);
+    color: var(--color-headline);
+    /* etc. */
+  }
+  

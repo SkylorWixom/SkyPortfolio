@@ -1,1 +1,31 @@
-/* You can add global styles to this file, and also import other style files */
+/* styles.css */
+
+/* 
+   We’ll use #E0E1DD as the primary site background 
+   and #0D1B2A (dark navy) for main text/headlines 
+   from your existing palette.
+*/
+
+:root {
+  /* Original Palette Variables */
+  --color-dark-navy:   #0D1B2A;
+  --color-navy:        #1B263B;
+  --color-slate:       #415A77;
+  --color-light-slate: #778DA9;
+  --color-off-white:   #E0E1DD;
+
+  /* Light Theme Assignments */
+  --color-bg:          var(--color-off-white);  /* site background = off-white */
+  --color-headline:    var(--color-dark-navy);  /* main text color = dark navy */
+  --color-subhead:     var(--color-navy);       /* sub-head or accent text = #1B263B */
+  --color-button:      var(--color-slate);      /* button background = #415A77 */
+  --color-button-text: #ffffff;                 /* button text = pure white for contrast */
+}
+
+/* Global resets & body defaults */
+body {
+  margin: 0;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  background-color: var(--color-bg);       /* Off-white site background */
+  color: var(--color-headline);            /* Dark navy text by default */
+}

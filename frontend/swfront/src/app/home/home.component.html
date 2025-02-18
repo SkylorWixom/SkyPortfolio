@@ -1,112 +1,46 @@
+<!-- home.component.html -->
 <main class="home">
-  <section class="resume">
-    <h2>Professional Overview</h2>
 
-    <!-- Career Journey Summary -->
-    <div class="resume-section">
-      <h3>Career Journey</h3>
-      <p>
-        I started my professional career at Jiffy Lube when I was 16, washing windows and vacuuming cars. 
-        Jiffy Lube provided me with the flexibility to work through school as a non-traditional student. 
-        Along the way, I gained hands-on experience with general vehicle maintenance and customer service, earning 
-        state inspection certifications. I advanced to manage my own store, and within five years, I became an 
-        assistant district manager, overseeing operations for five stores.
-      </p>
-      <p>
-        Jiffy Lube later expanded into automotive repair, and I earned ASE certifications to become a master mechanic. 
-        However, I wanted more, so I stepped down from management to focus on my education. I completed my 
-        bachelor's degree in December 2021, and in February 2022, I landed my first full-stack developer job.
-      </p>
-      <p>
-        My journey into software development began with Weber School District. I initially worked on an API 
-        that converted data from an outdated LANSA system to C# for exporting. Later, I tackled a nine-year-long 
-        ADA compliance audit, bringing district and school websites up to WCAG 2.1 standards.
-      </p>
-      <p>
-        Our team implemented a new student information system called PowerSchool, where I learned proprietary languages 
-        for custom reports, data manipulation, and state reporting. I also provided team training sessions, conducted 
-        code reviews, and gained invaluable experience working collaboratively in a team environment.
-      </p>
-      <p>
-        I'm now finishing my master's degree in computer science at Weber State University. My thesis explores 
-        fault reduction in C# using Hierarchical Delta Debugging and the Roslyn API to manipulate syntax trees.
-      </p>
-    </div>
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>Hello, I'm Skylor.</h1>
+    <p class="subtitle">
+      A Full-Stack Developer specializing in Angular, Node.js, and more!
+    </p>
+  </section>
 
-    <!-- Professional Experience -->
-    <div class="resume-section">
-      <h3>Professional Experience</h3>
-      <div class="experience">
-        <h4>Weber School District – Software Development Engineer</h4>
-        <p><strong>February 2022 – Present</strong></p>
-        <ul>
-          <li>Designed and maintained front-end and back-end features for PowerSchool SIS using C#, SQL, HTML, CSS, AngularJS, jQuery, PSHTML.</li>
-          <li>Developed reusable components and standardized design systems for improved development efficiency and scalability.</li>
-          <li>Enhanced user engagement and system usability by designing intuitive web interfaces and APIs through cross-functional collaboration.</li>
-          <li>Performed code reviews to ensure secure and maintainable code.</li>
-          <li>Automated state reporting processes by creating back-end solutions for SFTP server uploads, reducing manual workload.</li>
-          <li>Conducted accessibility audits and implemented WCAG-compliant updates across district websites, resolving a nine-year compliance audit.</li>
-        </ul>
-      </div>
+  <!-- About / Welcome Section -->
+  <!-- We use an h2 for consistency with resume, with an accent bar (see CSS) -->
+  <section class="about-section">
+    <h2>Welcome to My Personal Site</h2>
+    <p>
+      Here, I share insights on my latest projects, blog about tech & personal interests,
+      and document my journey in software development. Feel free to explore and learn with me!
+    </p>
+  </section>
 
-      <div class="experience">
-        <h4>Jiffy Lube – General Manager</h4>
-        <p><strong>May 2007 – February 2022</strong></p>
-        <ul>
-          <li>Managed daily operations, achieving a 95%+ customer satisfaction rate through process improvements and team training.</li>
-          <li>Directed budgeting, coaching, and development initiatives to enhance team performance and operational outcomes.</li>
-          <li>Applied data-driven decision-making and relationship-building to resolve issues and streamline processes.</li>
-        </ul>
-      </div>
-    </div>
+  <!-- Explore / Quick Links Section -->
+  <section class="explore-section">
+    <h2>Explore</h2>
+    <div class="link-cards">
+      <article>
+        <h4>Blog</h4>
+        <p>Check out my latest posts on development, reviews, and more.</p>
+        <a routerLink="/blog">Visit Blog</a>
+      </article>
 
-    <!-- Education -->
-    <div class="resume-section">
-      <h3>Education</h3>
-      <ul>
-        <li>
-          <strong>Weber State University</strong>  
-          Master of Computer Science (Expected April 2025) – GPA: 3.72  
-          Relevant Coursework:
-          <ul>
-            <li>Software Evolution and Maintenance</li>
-            <li>Advanced Database Management Systems</li>
-            <li>Interaction Design</li>
-            <li>Program Debugging and Repair</li>
-            <li>Computer Vision</li>
-            <li>Parallel Programming & Architecture</li>
-            <li>Applications of Decision Models</li>
-            <li>Information Technology in the Enterprise</li>
-            <li>Thesis: Fault Reduction in C# using Roslyn API and Hierarchical Delta Debugging</li>
-          </ul>
-        </li>
-        <li>
-          <strong>Weber State University</strong>  
-          Bachelor of Applied Science in Computer Science (December 2021)
-        </li>
-        <li>
-          <strong>Weber State University</strong>  
-          Associate of Applied Science in Computer Science (August 2020)
-        </li>
-      </ul>
-    </div>
+      <article>
+        <h4>Projects</h4>
+        <p>Have a look at some of my personal and professional projects.</p>
+        <a routerLink="/projects">View Projects</a>
+      </article>
 
-    <!-- Certifications -->
-    <div class="resume-section">
-      <h3>Certifications</h3>
-      <ul>
-        <li>
-          Proficiency in Game Development – Weber State University (04/2021)
-        </li>
-        <li>
-          Social and Behavioral Research – CITI Program (09/2024)
-        </li>
-      </ul>
-    </div>
-
-    <!-- Link to Learn with Me -->
-    <div class="link-to-learning">
-      <a routerLink="/learn-with-me">Go to Learn with Me</a>
+      <article>
+        <h4>Contact</h4>
+        <p>Have a question or want to collaborate? Reach out here.</p>
+        <a routerLink="/contact">Get in Touch</a>
+      </article>
     </div>
   </section>
+
 </main>

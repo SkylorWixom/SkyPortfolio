@@ -1,0 +1,110 @@
+/* home.component.css */
+
+/* 1) Overall home container */
+.home {
+  margin-top: 3rem; 
+  background-color: var(--color-bg);
+  color: var(--color-headline);
+  padding: 2rem;
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* 2) Intro (Hero) Section */
+.intro {
+  text-align: center;                
+  margin: 2rem 0;                    
+}
+
+.intro h1 {
+  font-size: 2.5rem;                 
+  margin-bottom: 0.5rem;            
+  color: var(--color-headline);      
+}
+
+.intro p {
+  font-size: 1.2rem;                
+  color: var(--color-subhead);       
+  margin: 0;                        
+}
+
+/* 3) About summary */
+.about-summary {
+  margin: 2rem 0;
+  text-align: center;
+}
+
+.about-summary h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  color: var(--color-headline);
+}
+
+.about-summary p {
+  font-size: 1.125rem;
+  line-height: 1.6;
+  max-width: 700px;
+  margin: 0 auto;
+  color: var(--color-headline);
+}
+
+/* 4) Quick Links (Explore) */
+.quick-links {
+  margin: 2rem 0;
+  text-align: center;
+}
+
+.quick-links h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  color: var(--color-headline);
+}
+
+/* Cards container for Blog/Projects/Contact */
+.link-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+}
+
+/* Each card */
+.link-cards article {
+  background-color: var(--color-slate);
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  width: 250px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.link-cards h3 {
+  margin-top: 0;
+  color: #ffffff; /* White heading text on slate */
+  font-size: 1.4rem;
+  margin-bottom: 0.5rem;
+}
+
+/* CHANGED: Make card text white or near-white so it's more legible on the slate background */
+.link-cards p {
+  color: #fafafa; /* Was #dcdcdc, which can be hard to see on #415A77 if screens are dim */
+  font-size: 1rem;
+  line-height: 1.4;
+  margin-bottom: 1rem;
+}
+
+/* Button-like links on the cards */
+.link-cards a {
+  display: inline-block;
+  background-color: var(--color-headline); 
+  color: #ffffff;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: background 0.3s ease;
+}
+
+/* CHANGED: Slightly darker hover so it's more noticeable */
+.link-cards a:hover {
+  background-color: #00000040;
+}
