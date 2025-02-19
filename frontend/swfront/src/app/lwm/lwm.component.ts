@@ -1,85 +1,53 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MenuItemComponent, MenuItem } from '../shared/menu-item/menu-item.component';
+
+// 1) Import our service & the data interfaces from it
+import { LwmService, LwmDoc, MenuItem } from '../services/lwm/lwm.service';
+
+// 2) Import your child <app-menu-item> if you're using standalone approach
+import { MenuItemComponent } from '../shared/menu-item/menu-item.component';
 
 @Component({
   selector: 'app-lwm',
-  templateUrl: './lwm.component.html',
-  styleUrls: ['./lwm.component.css'],
   standalone: true,
-  imports: [CommonModule, MenuItemComponent]
+  imports: [CommonModule, MenuItemComponent],
+  templateUrl: './lwm.component.html',
+  styleUrls: ['./lwm.component.css']
 })
-export class LwmComponent {
-  /**
-   * Root-level menu items, each can have children for nesting.
-   * placeholderContent is used for leaf nodes that display final content.
-   */
-  menu: MenuItem[] = [
-    {
-      title: 'Computer Science',
-      children: [
-        {
-          title: 'Introduction',
-          children: [
-            {
-              title: 'Subtopic 1',
-              placeholderContent: 'Intro subtopic 1 content...'
-            },
-            {
-              title: 'Subtopic 2',
-              placeholderContent: 'Intro subtopic 2 content...'
-            }
-          ]
-        },
-        {
-          title: 'Data Structures',
-          placeholderContent: 'Stacks, queues, trees, graphs...'
-        },
-        {
-          title: 'Algorithms',
-          placeholderContent: 'Sorting, searching, complexity...'
-        }
-      ]
-    },
-    {
-      title: 'Drawing',
-      children: [
-        {
-          title: 'Sketching Basics',
-          placeholderContent: 'Shapes, lines, gesture...'
-        },
-        {
-          title: 'Shading & Perspective',
-          placeholderContent: 'Light sources, perspective drawing...'
-        }
-      ]
-    },
-    {
-      title: 'Writing',
-      children: [
-        {
-          title: 'Fiction Fundamentals',
-          placeholderContent: 'Story arcs, characters, dialogue...'
-        },
-        {
-          title: 'Non-Fiction & Essays',
-          placeholderContent: 'Research, structuring arguments...'
-        },
-        {
-          title: 'Poetry',
-          placeholderContent: 'Meter, rhyme, free verse...'
-        }
-      ]
-    }
-  ];
+export class LwmComponent implements OnInit {
+  
+  // We store the array of docs from the DB:
+  docs: LwmDoc[] = [];
 
-  // The currently selected leaf item
+  // We'll flatten out the "items" from the first doc as the "rootItems" to pass to <app-menu-item>
+  rootItems: MenuItem[] = [];
+
+  // The selected leaf node:
   selectedItem: MenuItem | null = null;
 
-  /**
-   * Called when a leaf node is chosen in MenuItemComponent,
-   * so we show the 'placeholderContent' in the main area.
-   */
+  constructor(private lwmService: LwmService) {}
+
+  ngOnInit(): void {
+    this.loadData();
+  }
+
+  loadData() {
+    this.lwmService.getAllLwm().subscribe({
+      next: (data) => {
+        this.docs = data; 
+        console.log('Retrieved LWM docs:', this.docs);
+
+        // If there's at least one doc, we take the first doc's "items" field
+        if (this.docs.length > 0) {
+          this.rootItems = this.docs[0].items;
+        }
+      },
+      error: (err) => {
+        console.error('Error fetching LWM data:', err);
+      }
+    });
+  }
+
   onItemSelected(item: MenuItem) {
     this.selectedItem = item;
   }
