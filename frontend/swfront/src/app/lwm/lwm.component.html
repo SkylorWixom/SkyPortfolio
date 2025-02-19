@@ -1,35 +1,32 @@
 <main class="learn-with-me">
 
-  <!-- Top Header -->
+  <!-- Top header area -->
   <header class="lwm-header">
     <h1>Welcome to "Learn with Me"</h1>
-    <p>
-      As a lifelong learner, I'm always exploring new technologies...
-    </p>
-    <p>
-      On this page, I'll share resources...
-    </p>
+    <p>Data is now coming from the database, with infinite nesting!</p>
   </header>
 
-  <!-- Two-column layout: left for menu, right for content -->
+  <!-- 2-column layout -->
   <div class="lwm-layout">
 
-    <!-- Left sidebar: each top-level MenuItem is passed to <app-menu-item> -->
+    <!-- Left sidebar: each top-level item from the first doc's "items" -->
     <nav class="lwm-sidebar">
       <app-menu-item
-        *ngFor="let topItem of menu"
-        [item]="topItem"
+        *ngFor="let top of rootItems"
+        [item]="top"
         (itemSelected)="onItemSelected($event)"
       ></app-menu-item>
     </nav>
 
-    <!-- Right main content area -->
+    <!-- Right main content -->
     <section class="lwm-content">
+      <!-- If no item selected, show prompt -->
       <div *ngIf="!selectedItem">
-        <h2>Select a topic</h2>
-        <p>Pick any item in the sidebar to expand or select a final subtopic.</p>
+        <h2>Select a sub-item</h2>
+        <p>Expand the nested menu and pick a final leaf.</p>
       </div>
 
+      <!-- If an item is selected, show its placeholder content -->
       <div *ngIf="selectedItem">
         <h2>{{ selectedItem.title }}</h2>
         <p>{{ selectedItem.placeholderContent }}</p>

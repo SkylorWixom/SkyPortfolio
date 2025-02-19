@@ -3,24 +3,25 @@ import Lwm from '../models/Lwm.js';
 
 const router = express.Router();
 
-router.get('/', async (req, res) =>{
-    try {
-        const lwm = await Lwm.find();
-        res.json(lwm);
-      } catch (err) {
-        res.status(500).json({ message: err.message });
-      }
+// GET all doc(s) in lwms
+router.get('/', async (req, res) => {
+  try {
+    const all = await Lwm.find();  // could be multiple docs, or just 1
+    res.json(all);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 });
 
-
-router.post('/', async (req, res) =>{
-    const lwm = new Lwm(req.body);
+// POST a new doc
+router.post('/', async (req, res) => {
   try {
-    const newLwm = await lwm.save();
-    res.status(201).json(newLwm);
+    const doc = new Lwm(req.body); 
+    const saved = await doc.save();
+    res.status(201).json(saved);
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
 });
 
-export default router
+export default router;
