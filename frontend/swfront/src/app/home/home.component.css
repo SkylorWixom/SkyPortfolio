@@ -1,102 +1,100 @@
 /* home.component.css */
 
-/* 1) Overall home container */
+/* 1) Main container */
 .home {
-  margin-top: 3rem; 
+  margin-top: 1.5rem;
   background-color: var(--color-bg);
   color: var(--color-headline);
-  padding: 2rem;
+  padding: 1.5rem;
   max-width: 1000px;
   margin-left: auto;
   margin-right: auto;
 }
 
-/* 2) Intro (Hero) Section */
-.intro {
-  text-align: center;                
-  margin: 2rem 0;                    
-}
-
-.intro h1 {
-  font-size: 2.5rem;                 
-  margin-bottom: 0.5rem;            
-  color: var(--color-headline);      
-}
-
-.intro p {
-  font-size: 1.2rem;                
-  color: var(--color-subhead);       
-  margin: 0;                        
-}
-
-/* 3) About summary */
-.about-summary {
-  margin: 2rem 0;
+/* 2) Hero Section */
+.hero {
   text-align: center;
+  margin-bottom: 1.5rem;
 }
 
-.about-summary h2 {
-  font-size: 1.8rem;
+.hero h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  color: var(--color-dark-navy);
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  color: var(--color-subhead);
+  margin: 0;
+}
+
+/* 3) Card style for About & Explore sections */
+.home-card {
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  padding: 1.5rem 2rem;
+  margin: 1.5rem 0; /* spacing between each card */
+}
+
+/* Card headings */
+.home-card h2 {
+  margin-top: 0;
   margin-bottom: 1rem;
-  color: var(--color-headline);
+  color: var(--color-dark-navy);
+  font-size: 1.8rem;
 }
 
-.about-summary p {
+/* Paragraph text within the cards */
+.home-card p {
   font-size: 1.125rem;
   line-height: 1.6;
-  max-width: 700px;
-  margin: 0 auto;
+  margin: 0.5rem 0;
   color: var(--color-headline);
+  text-align: left;          /* Left-align to avoid weird spacing on the left */
+  max-width: 700px;          /* If you want to limit text width, or remove if you prefer full width */
 }
 
-/* 4) Quick Links (Explore) */
-.quick-links {
-  margin: 2rem 0;
-  text-align: center;
-}
-
-.quick-links h2 {
-  font-size: 1.8rem;
-  margin-bottom: 1rem;
-  color: var(--color-headline);
-}
-
-/* Cards container for Blog/Projects/Contact */
+/* 4) The Explore link-cards, now a grid for better arrangement */
 .link-cards {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  /* auto-fit means as many 250px columns as fit in the container, otherwise wrap below. */
   gap: 1.5rem;
-  justify-content: center;
+  margin-top: 1.5rem;
 }
 
-/* Each card */
+/* Each link card */
 .link-cards article {
   background-color: var(--color-slate);
   padding: 1rem 1.5rem;
   border-radius: 8px;
-  width: 250px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  text-align: left; /* left-align, or center if you like */
 }
 
-.link-cards h3 {
+/* Link card headings */
+.link-cards article h4 {
   margin-top: 0;
-  color: #ffffff; /* White heading text on slate */
-  font-size: 1.4rem;
+  color: #ffffff;
+  font-size: 1.2rem;
   margin-bottom: 0.5rem;
 }
 
-/* CHANGED: Make card text white or near-white so it's more legible on the slate background */
-.link-cards p {
-  color: #fafafa; /* Was #dcdcdc, which can be hard to see on #415A77 if screens are dim */
+/* Link card paragraphs */
+.link-cards article p {
+  color: #fafafa;
   font-size: 1rem;
   line-height: 1.4;
   margin-bottom: 1rem;
 }
 
-/* Button-like links on the cards */
-.link-cards a {
+/* The buttons in each link card */
+.link-cards article a {
   display: inline-block;
-  background-color: var(--color-headline); 
+  background-color: var(--color-dark-navy);
   color: #ffffff;
   padding: 0.5rem 1rem;
   border-radius: 4px;
@@ -104,7 +102,6 @@
   transition: background 0.3s ease;
 }
 
-/* CHANGED: Slightly darker hover so it's more noticeable */
-.link-cards a:hover {
+.link-cards article a:hover {
   background-color: #00000040;
 }
