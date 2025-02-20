@@ -1,48 +1,40 @@
-/* Just a minimal layout, consistent with your style */
-
-.learn-with-me {
-  background-color: var(--color-bg);
-  color: var(--color-headline);
-  padding: 1.5rem;
-  max-width: 90%;
-  margin: 2rem auto;
-}
-
+/* The header & layout inside the container */
 .lwm-header {
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: var(--spacing-m);
 }
 
 .lwm-header h1 {
-  margin: 0 0 1rem 0;
+  margin: 0 0 var(--spacing-xs) 0;
   font-size: 2.5rem;
   color: var(--color-dark-navy);
 }
 
 .lwm-layout {
   display: flex;
-  gap: 1rem;
+  gap: var(--spacing-s);
 }
 
 .lwm-sidebar {
   width: 250px;
   background-color: #fff;
   border: 1px solid #ddd;
-  border-radius: 4px;
-  padding: 1rem;
+  border-radius: var(--radius-card);
+  padding: var(--spacing-s);
 }
 
 .lwm-content {
   flex: 1;
   background-color: #fff;
   border: 1px solid #ddd;
-  border-radius: 4px;
-  padding: 1rem;
-  min-height: 200px; /* optional */
+  border-radius: var(--radius-card);
+  padding: var(--spacing-s);
+  min-height: 200px;
 }
 
 .lwm-content h2 {
   margin-top: 0;
   color: var(--color-dark-navy);
   font-size: 1.8rem;
+  margin-bottom: var(--spacing-s);
 }

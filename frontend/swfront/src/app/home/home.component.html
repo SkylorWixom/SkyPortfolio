@@ -1,43 +1,44 @@
-<!-- home.component.html -->
-<main class="home">
+<main class="page-wrapper">
+  <div class="page-container home">
+    
+    <!-- Hero Section -->
+    <section class="hero">
+      <h1>Hello, I'm Skylor.</h1>
+      <p class="subtitle">A Full-Stack Developer specializing in Angular, Node.js, and more!</p>
+    </section>
 
-  <!-- Hero Section -->
-  <section class="hero">
-    <h1>Hello, I'm Skylor.</h1>
-    <p class="subtitle">A Full-Stack Developer specializing in Angular, Node.js, and more!</p>
-  </section>
+    <!-- "Welcome to My Personal Site" card -->
+    <section class="page-section">
+      <h2>Welcome to My Personal Site</h2>
+      <p>
+        Here, I share insights on my latest projects, blog about tech &amp; personal interests,
+        and document my journey in software development. Feel free to explore and learn with me!
+      </p>
+    </section>
 
-  <!-- About Card -->
-  <div class="home-card">
-    <h2>Welcome to My Personal Site</h2>
-    <p>
-      Here, I share insights on my latest projects, blog about tech & personal interests,
-      and document my journey in software development. Feel free to explore and learn with me!
-    </p>
+    <!-- "Explore" card with link-cards -->
+    <section class="page-section">
+      <h2>Explore</h2>
+      <div class="link-cards">
+        <article>
+          <h4>Blog</h4>
+          <p>Check out my latest posts on development, reviews, and more.</p>
+          <a routerLink="/blog">Visit Blog</a>
+        </article>
+
+        <article>
+          <h4>Projects</h4>
+          <p>Have a look at some of my personal projects.</p>
+          <a routerLink="/projects">View Projects</a>
+        </article>
+
+        <article>
+          <h4>Contact</h4>
+          <p>Have a question or want to collaborate? Reach out here.</p>
+          <a routerLink="/contact">Get in Touch</a>
+        </article>
+      </div>
+    </section>
+
   </div>
-
-  <!-- Explore Card -->
-  <div class="home-card">
-    <h2>Explore</h2>
-    <div class="link-cards">
-      <article>
-        <h4>Blog</h4>
-        <p>Check out my latest posts on development, reviews, and more.</p>
-        <a routerLink="/blog">Visit Blog</a>
-      </article>
-
-      <article>
-        <h4>Projects</h4>
-        <p>Have a look at some of my personal projects.</p>
-        <a routerLink="/projects">View Projects</a>
-      </article>
-
-      <article>
-        <h4>Contact</h4>
-        <p>Have a question or want to collaborate? Reach out here.</p>
-        <a routerLink="/contact">Get in Touch</a>
-      </article>
-    </div>
-  </div>
-
 </main>

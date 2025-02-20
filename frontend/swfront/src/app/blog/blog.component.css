@@ -1,8 +1,13 @@
+/* blog.component.css */
+
 .blog-page {
-    display: flex;
-    gap: 1rem;
-    background-color: var(--color-bg);
-    color: var(--color-headline);
-    /* etc. */
-  }
-  
+  /* remove big background logic, rely on .page-wrapper & .page-container */
+}
+
+/* If you have sub-sections or cards, e.g.: */
+.blog-layout {
+  display: flex;
+  gap: var(--spacing-s);
+}
+
+/* etc. or keep minimal if you only have a simple layout */

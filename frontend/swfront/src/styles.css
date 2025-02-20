@@ -1,31 +1,52 @@
-/* styles.css */
-
-/* 
-   We’ll use #E0E1DD as the primary site background 
-   and #0D1B2A (dark navy) for main text/headlines 
-   from your existing palette.
-*/
-
 :root {
-  /* Original Palette Variables */
-  --color-dark-navy:   #0D1B2A;
-  --color-navy:        #1B263B;
-  --color-slate:       #415A77;
+  /* Colors from your palette */
+  --color-dark-navy: #0D1B2A;
+  --color-navy: #1B263B;
+  --color-slate: #415A77;
   --color-light-slate: #778DA9;
-  --color-off-white:   #E0E1DD;
+  --color-off-white: #E0E1DD;
+  --color-bg: var(--color-off-white);
+  --color-button: var(--color-slate);
+  --color-button-text: #fff;
 
-  /* Light Theme Assignments */
-  --color-bg:          var(--color-off-white);  /* site background = off-white */
-  --color-headline:    var(--color-dark-navy);  /* main text color = dark navy */
-  --color-subhead:     var(--color-navy);       /* sub-head or accent text = #1B263B */
-  --color-button:      var(--color-slate);      /* button background = #415A77 */
-  --color-button-text: #ffffff;                 /* button text = pure white for contrast */
+  --spacing-xs: 0.5rem;
+  --spacing-s: 1rem;
+  --spacing-m: 1.5rem;
+  --spacing-l: 2rem;
+  --spacing-xl: 3rem;
+  --radius-card: 8px;
+  --shadow-card: 0 4px 8px rgba(0,0,0,0.1);
 }
 
-/* Global resets & body defaults */
+.page-wrapper {
+  background-color: var(--color-bg);
+  padding-top: var(--spacing-l);
+  padding-bottom: var(--spacing-l);
+  min-height: 100vh; 
+}
+
+.page-container {
+  background-color: #fff;
+  max-width: 90%;
+  margin: 0 auto;
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: var(--spacing-m);
+}
+
+.page-section {
+  background-color: var(--color-bg); 
+  border: 1px solid #ddd;
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: var(--spacing-m);
+  margin-bottom: var(--spacing-m);
+}
+/* styles.css (GLOBAL) */
+
 body {
   margin: 0;
+  /* Bring back your preferred font */
   font-family: 'Helvetica Neue', Arial, sans-serif;
-  background-color: var(--color-bg);       /* Off-white site background */
-  color: var(--color-headline);            /* Dark navy text by default */
+  /* or any other: e.g. font-family: 'Open Sans', sans-serif; */
 }
