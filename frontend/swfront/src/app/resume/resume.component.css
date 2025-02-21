@@ -8,12 +8,21 @@
 /* Each main .resume-section (white sub-card). 
    Or you can keep a slight background difference if you want. */
 .resume-section {
-  background-color: #fff;
+  background-color: var(--color-bg);
   margin-bottom: var(--spacing-m);
   padding: var(--spacing-s) var(--spacing-m);
   border-radius: var(--radius-card);
   border: 1px solid #ddd;
   box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+.education {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: var(--radius-card);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  margin: var(--spacing-s) 0;
+  padding: var(--spacing-s) var(--spacing-m);
 }
 
 /* Headings in .resume-section */

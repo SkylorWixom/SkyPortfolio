@@ -1,53 +1,48 @@
 <main class="page-wrapper">
   <div class="page-container learn-with-me">
-    
-    <!-- Top Header / Intro -->
-    <header class="lwm-header">
+
+    <!-- 1) Top Intro Section with background var(--color-bg) 
+         (like your resume's .resume-section) -->
+    <section class="lwm-section">
       <h1>Welcome to "Learn with Me"</h1>
       <p>
-        As a lifelong learner, I'm always exploring new technologies, frameworks, and techniques.
-        I use platforms like Udemy (and other resources) to continuously improve my skills
-        and stay updated with industry trends.
-      </p>
-      <p>
+        As a lifelong learner, I'm always exploring new technologies, frameworks, 
+        and techniques. I use platforms like Udemy (and other resources) to continuously 
+        improve my skills and stay updated with industry trends.
         On this page, I'll share resources, tutorials, and learning content to help others grow with me.
         Whether you're new to coding, want to explore drawing or writing, or simply expand your knowledge,
         you're in the right place!
       </p>
-    </header>
+    </section>
 
-    <!-- 2-Column Layout: Collapsible menu on the left, main content on the right -->
-    <div class="lwm-layout">
-      
-      <!-- Left sidebar with <app-menu-item> for each item in "rootItems" -->
-      <nav class="lwm-sidebar page-section">
-        <!-- 
-          *ngFor="let top of rootItems"
-          We pass each top-level item to <app-menu-item>.
-          (itemSelected)="onItemSelected($event)" is how we get the final leaf node back.
-        -->
-        <app-menu-item
-          *ngFor="let topItem of rootItems"
-          [item]="topItem"
-          (itemSelected)="onItemSelected($event)"
-        ></app-menu-item>
-      </nav>
+    <!-- 2) Layout container for the collapsible sidebar + main content.
+         Also with background var(--color-bg) if you like. -->
+    <section class="lwm-section">
+      <div class="lwm-layout">
+        
+        <!-- Collapsible side menu (app-menu-item) on the left -->
+        <nav class="lwm-sidebar">
+          <app-menu-item
+            *ngFor="let topItem of rootItems"
+            [item]="topItem"
+            (itemSelected)="onItemSelected($event)"
+          ></app-menu-item>
+        </nav>
 
-      <!-- Right main content area: 
-           if no item is chosen, show a prompt; 
-           otherwise show the selected item text. -->
-      <section class="lwm-content page-section">
-        <div *ngIf="!selectedItem">
-          <h2>Select a topic</h2>
-          <p>Pick any category in the sidebar to expand or select a final subtopic.</p>
-        </div>
+        <!-- Main content for the selected item on the right -->
+        <section class="lwm-content">
+          <div *ngIf="!selectedItem">
+            <h2>Select a topic</h2>
+            <p>Pick any item in the sidebar to expand or select a final subtopic.</p>
+          </div>
 
-        <div *ngIf="selectedItem">
-          <h2>{{ selectedItem.title }}</h2>
-          <p>{{ selectedItem.placeholderContent }}</p>
-        </div>
-      </section>
-    </div>
+          <div *ngIf="selectedItem">
+            <h2>{{ selectedItem.title }}</h2>
+            <p>{{ selectedItem.placeholderContent }}</p>
+          </div>
+        </section>
+      </div>
+    </section>
 
   </div>
 </main>

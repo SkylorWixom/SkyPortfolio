@@ -1,28 +1,44 @@
-/* The header & layout inside the container */
-.lwm-header {
-  text-align: center;
+/* lwm.component.css */
+
+/* 1) Each main .lwm-section: 
+   similar to how .resume-section was done, 
+   with background color var(--color-bg) inside the white container
+*/
+.lwm-section {
+  background-color: var(--color-bg);
   margin-bottom: var(--spacing-m);
+  padding: var(--spacing-s) var(--spacing-m);
+  border: 1px solid #ddd;
+  border-radius: var(--radius-card);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
 }
 
-.lwm-header h1 {
-  margin: 0 0 var(--spacing-xs) 0;
-  font-size: 2.5rem;
+/* Headings in lwm-section */
+.lwm-section h1, 
+.lwm-section h2 {
+  margin-top: 0;
+  margin-bottom: var(--spacing-s);
   color: var(--color-dark-navy);
 }
 
+/* 2) The .lwm-layout for side-by-side columns */
 .lwm-layout {
   display: flex;
   gap: var(--spacing-s);
 }
 
+/* 3) The left sidebar: 
+   slightly lighter background or white if you prefer. 
+   But we already have .lwm-section. If you want even lighter sub-card, define it here. */
 .lwm-sidebar {
-  width: 250px;
-  background-color: #fff;
+  flex: 0 0 250px;
+  background-color: #fff; 
   border: 1px solid #ddd;
   border-radius: var(--radius-card);
   padding: var(--spacing-s);
 }
 
+/* 4) The main content area on the right */
 .lwm-content {
   flex: 1;
   background-color: #fff;

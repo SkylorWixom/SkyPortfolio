@@ -1,69 +1,56 @@
-/* projects.component.css */
+.projects-section {
+  background-color: var(--color-bg);
+  margin-bottom: var(--spacing-m);
+  padding: var(--spacing-s) var(--spacing-m);
+  border: 1px solid #ddd;
+  border-radius: var(--radius-card);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
 
-/* Main container styling */
-.projects {
-    padding: var(--spacing-s);
-  }
-  
-  /* Grid container for all cards */
-  .project-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: var(--spacing-s);
-  }
-  
-  /* Each card container */
-  .project-card {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: var(--radius-card);
-    padding: var(--spacing-s);
-    box-shadow: var(--shadow-card);
-  
-    display: flex;
-    flex-direction: column;
-    row-gap: var(--spacing-xs);
-  }
-  
-  /* The thumbnail image */
-  .project-thumbnail {
-    width: 100%;
-    height: auto;
-    border-radius: var(--radius-card);
-    margin-bottom: var(--spacing-xs);
-  }
-  
-  /* The stack badges container */
-  .project-stack {
-    margin: var(--spacing-xs) 0;
-  }
-  
-  /* Individual stack item (badge) */
-  .stack-item {
-    display: inline-block;
-    background-color: #f0f0f0;
-    color: #333;
-    padding: 0.3rem 0.6rem;
-    border-radius: 16px;
-    margin-right: var(--spacing-xs);
-    margin-bottom: var(--spacing-xs);
-    font-size: 0.9rem;
-  }
-  
-  /* The "View Demo" link styled as a button */
-  .project-demo-button {
-    align-self: flex-start;
-    background-color: var(--color-slate);
-    color: #fff;
-    padding: var(--spacing-xs) var(--spacing-s);
-    border-radius: 4px;
-    text-decoration: none;
-    transition: background 0.3s ease;
-    font-weight: 500;
-    font-size: 0.95rem;
-  }
-  
-  .project-demo-button:hover {
-    background-color: #2f3f55;
-  }
-  
+.project-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--spacing-s);
+}
+
+.project-card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: var(--radius-card);
+  padding: var(--spacing-s);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--spacing-xs);
+}
+
+.project-stack {
+  margin: var(--spacing-xs) 0;
+}
+
+.stack-item {
+  display: inline-block;
+  background-color: #f0f0f0;
+  color: #333;
+  padding: 0.3rem 0.6rem;
+  border-radius: 16px;
+  margin-right: var(--spacing-xs);
+  margin-bottom: var(--spacing-xs);
+  font-size: 0.9rem;
+}
+
+.project-demo-button {
+  align-self: flex-start;
+  background-color: var(--color-slate);
+  color: #fff;
+  padding: var(--spacing-xs) var(--spacing-s);
+  border-radius: 4px;
+  text-decoration: none;
+  transition: background 0.3s ease;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.project-demo-button:hover {
+  background-color: #2f3f55;
+}

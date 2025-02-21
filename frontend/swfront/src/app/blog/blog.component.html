@@ -1,39 +1,46 @@
 <main class="page-wrapper">
   <div class="page-container blog-page">
-  <!-- Blog Header -->
-  <section class="blog-intro">
-    <h1>Welcome to My Blog</h1>
-    <p>
-      This blog is a personal reflection of my journey through development, hobbies, and life. 
-      Explore posts on learning, tools, reviews, travel, cooking, and more.
-    </p>
-  </section>
 
-  <!-- Category Filter -->
-  <section class="blog-categories">
-    <h2>Categories</h2>
-    <ul>
-      <li><button (click)="filterCategory('all')">All Posts</button></li>
-      <li><button (click)="filterCategory('learning')">Learning Experiences</button></li>
-      <li><button (click)="filterCategory('reviews')">Product & Tool Reviews</button></li>
-      <li><button (click)="filterCategory('responses')">Article Responses</button></li>
-      <li><button (click)="filterCategory('personal')">Personal (Cooking/Travel)</button></li>
-    </ul>
-  </section>
+    <!-- Intro Section -->
+    <section class="blog-section">
+      <h1>Welcome to My Blog</h1>
+      <p>
+        This blog is a personal reflection of my journey through development, hobbies, and life. 
+        Explore posts on learning, tools, reviews, travel, cooking, and more.
+      </p>
+    </section>
 
-  <!-- Blog Post List -->
-  <section class="blog-posts">
-    <h2>{{ selectedCategory | titlecase }} Posts</h2>
-    <div *ngIf="filteredPosts.length === 0">
-      <p>No posts available in this category yet.</p>
-    </div>
-    <ul>
-      <li *ngFor="let post of filteredPosts">
-        <h3>{{ post.title }}</h3>
-        <p>{{ post.content }}</p>
-        <small>Category: {{ post.category }}</small>
-      </li>      
-    </ul>
-  </section>
-</div>
+    <!-- Single-row heading + buttons -->
+    <section class="blog-section blog-filter-row">
+      <!-- The category heading on the left -->
+      <h2 class="blog-category-title">
+        {{ selectedCategory === 'all' ? 'All Posts' : (selectedCategory | titlecase) + ' Posts' }}
+      </h2>
+
+      <!-- The category buttons on the right -->
+      <div class="blog-category-buttons">
+        <button (click)="filterCategory('all')">All</button>
+        <button (click)="filterCategory('learning')">Learning Experiences</button>
+        <button (click)="filterCategory('reviews')">Product &amp; Tool Reviews</button>
+        <button (click)="filterCategory('responses')">Article Responses</button>
+        <button (click)="filterCategory('personal')">Personal (Cooking/Travel)</button>
+      </div>
+    </section>
+
+    <!-- Blog Post Grid -->
+    <section class="blog-section">
+      <div *ngIf="filteredPosts.length === 0">
+        <p>No posts available in this category yet.</p>
+      </div>
+      
+      <div class="blog-post-grid">
+        <div class="blog-post-card" *ngFor="let post of filteredPosts">
+          <h3>{{ post.title }}</h3>
+          <p>{{ post.content }}</p>
+          <small>Category: {{ post.category }}</small>
+        </div>
+      </div>
+    </section>
+
+  </div>
 </main>

@@ -3,7 +3,7 @@ import Project from '../models/Project.js';
 
 const router = express.Router();
 
-// Get all projects
+// GET all projects
 router.get('/', async (req, res) => {
   try {
     const projects = await Project.find();
@@ -13,12 +13,19 @@ router.get('/', async (req, res) => {
   }
 });
 
-// Add a new project
+// POST single OR multiple projects
 router.post('/', async (req, res) => {
-  const project = new Project(req.body);
   try {
-    const newProject = await project.save();
-    res.status(201).json(newProject);
+    if (Array.isArray(req.body)) {
+      // If req.body is an ARRAY => insertMany
+      const insertedProjects = await Project.insertMany(req.body);
+      return res.status(201).json(insertedProjects);
+    } else {
+      // Otherwise, assume a SINGLE project object
+      const project = new Project(req.body);
+      const newProject = await project.save();
+      return res.status(201).json(newProject);
+    }
   } catch (err) {
     res.status(400).json({ message: err.message });
   }

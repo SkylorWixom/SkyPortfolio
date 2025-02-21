@@ -1,13 +1,82 @@
 /* blog.component.css */
 
-.blog-page {
-  /* remove big background logic, rely on .page-wrapper & .page-container */
+/* 
+   .blog-section is the sub-block container, 
+   giving background-color: var(--color-bg), border, shadow, etc.
+*/
+.blog-section {
+  background-color: var(--color-bg);
+  margin-bottom: var(--spacing-m);
+  padding: var(--spacing-s) var(--spacing-m);
+  border: 1px solid #ddd;
+  border-radius: var(--radius-card);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
 }
 
-/* If you have sub-sections or cards, e.g.: */
-.blog-layout {
+.blog-section h1,
+.blog-section h2,
+.blog-section h3 {
+  margin-top: 0;
+  margin-bottom: var(--spacing-xs);
+  color: var(--color-dark-navy);
+}
+
+/* The single row that holds the heading on the left and buttons on the right */
+.blog-filter-row {
   display: flex;
-  gap: var(--spacing-s);
+  align-items: center;          /* vertically center them */
+  justify-content: space-between; /* push heading left, buttons right */
 }
 
-/* etc. or keep minimal if you only have a simple layout */
+/* The heading in that row */
+.blog-category-title {
+  margin: 0; 
+}
+
+/* The right side containing the category buttons */
+.blog-category-buttons {
+  display: flex;
+  gap: var(--spacing-xs); /* space between buttons */
+}
+
+/* The style of the category filter buttons */
+.blog-category-buttons button {
+  background-color: var(--color-slate);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: var(--spacing-xs) var(--spacing-s);
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.blog-category-buttons button:hover {
+  background-color: #3b4f65;
+}
+
+/* The grid for blog posts */
+.blog-post-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--spacing-s);
+  margin-top: var(--spacing-s);
+}
+
+/* Each post as a white card */
+.blog-post-card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: var(--radius-card);
+  padding: var(--spacing-s);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.blog-post-card h3 {
+  margin-top: 0;
+  margin-bottom: var(--spacing-xs);
+  color: var(--color-dark-navy);
+}
+.blog-post-card p {
+  margin-bottom: var(--spacing-xs);
+  color: var(--color-headline);
+}
