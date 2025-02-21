@@ -1,56 +1,40 @@
-/* lwm.component.css */
+/* The header & layout inside the container */
+.lwm-header {
+  text-align: center;
+  margin-bottom: var(--spacing-m);
+}
 
-/* Outer container */
-.learn-with-me {
-    background-color: var(--color-bg);
-    color: var(--color-headline);
-    padding: 1.5rem;
-  
-    /* If you want near full width, do 90% or remove. */
-    max-width: 90%;
-    margin: 2rem auto;
-  }
-  
-  /* Top header styling */
-  .lwm-header {
-    text-align: center;
-    margin-bottom: 2rem;
-  }
-  
-  .lwm-header h1 {
-    margin: 0 0 1rem 0;
-    font-size: 2.5rem;
-    color: var(--color-dark-navy);
-  }
-  
-  /* Two-column layout for the menu + content */
-  .lwm-layout {
-    display: flex;
-    gap: 1rem;
-  }
-  
-  /* Sidebar */
-  .lwm-sidebar {
-    width: 250px;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    padding: 1rem;
-  }
-  
-  /* Main content card */
-  .lwm-content {
-    flex: 1;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    padding: 1rem;
-  }
-  
-  .lwm-content h2 {
-    margin-top: 0;
-    color: var(--color-dark-navy);
-    font-size: 1.8rem;
-    margin-bottom: 1rem;
-  }
-  
+.lwm-header h1 {
+  margin: 0 0 var(--spacing-xs) 0;
+  font-size: 2.5rem;
+  color: var(--color-dark-navy);
+}
+
+.lwm-layout {
+  display: flex;
+  gap: var(--spacing-s);
+}
+
+.lwm-sidebar {
+  width: 250px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: var(--radius-card);
+  padding: var(--spacing-s);
+}
+
+.lwm-content {
+  flex: 1;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: var(--radius-card);
+  padding: var(--spacing-s);
+  min-height: 200px;
+}
+
+.lwm-content h2 {
+  margin-top: 0;
+  color: var(--color-dark-navy);
+  font-size: 1.8rem;
+  margin-bottom: var(--spacing-s);
+}

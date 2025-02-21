@@ -3,17 +3,17 @@ import Lwm from '../models/Lwm.js';
 
 const router = express.Router();
 
-// GET all doc(s) in lwms
+// GET: Return all "Lwm" docs (which we expect to be an array, or maybe just one doc)
 router.get('/', async (req, res) => {
   try {
-    const all = await Lwm.find();  // could be multiple docs, or just 1
-    res.json(all);
+    const data = await Lwm.find(); 
+    res.json(data);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 });
 
-// POST a new doc
+// POST: Insert a new doc
 router.post('/', async (req, res) => {
   try {
     const doc = new Lwm(req.body); 

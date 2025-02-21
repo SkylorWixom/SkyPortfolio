@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 // 1) Import our service & the data interfaces from it
 import { LwmService, LwmDoc, MenuItem } from '../services/lwm/lwm.service';
 
-// 2) Import your child <app-menu-item> if you're using standalone approach
+// 2) Import your child <app-menu-item> for the nested collapsible menu
 import { MenuItemComponent } from '../shared/menu-item/menu-item.component';
 
 @Component({
@@ -16,13 +16,13 @@ import { MenuItemComponent } from '../shared/menu-item/menu-item.component';
 })
 export class LwmComponent implements OnInit {
   
-  // We store the array of docs from the DB:
+  // The array of docs from the DB (e.g. each doc may have items, etc.)
   docs: LwmDoc[] = [];
 
-  // We'll flatten out the "items" from the first doc as the "rootItems" to pass to <app-menu-item>
+  // We'll flatten out the "items" from the first doc to pass to <app-menu-item>
   rootItems: MenuItem[] = [];
 
-  // The selected leaf node:
+  // The selected leaf node for the main content area
   selectedItem: MenuItem | null = null;
 
   constructor(private lwmService: LwmService) {}
@@ -37,7 +37,7 @@ export class LwmComponent implements OnInit {
         this.docs = data; 
         console.log('Retrieved LWM docs:', this.docs);
 
-        // If there's at least one doc, we take the first doc's "items" field
+        // If there's at least one doc, we take the first doc's "items" array
         if (this.docs.length > 0) {
           this.rootItems = this.docs[0].items;
         }
@@ -48,6 +48,7 @@ export class LwmComponent implements OnInit {
     });
   }
 
+  // Called by <app-menu-item> when a leaf node is chosen
   onItemSelected(item: MenuItem) {
     this.selectedItem = item;
   }

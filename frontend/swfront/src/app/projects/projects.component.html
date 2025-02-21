@@ -1,25 +1,37 @@
-<main class="projects">
+<main class="page-wrapper">
+  <div class="page-container projects">
+    
     <h1>My Projects</h1>
-    <p>Here are some of the projects I've worked on as a developer.</p>
-  
+    <p>Here are some of the projects I've worked on, displayed as cards.</p>
+
+    <!-- The grid of project cards -->
     <section class="project-list">
-      <div class="project-item">
-        <h2>VitalPet App</h2>
-        <p>An app for pet owners to track pet information, participate in forums, find vets, and scan pet products for health scores.</p>
-        <a href="#">View Details</a>
+      <!-- 
+         Example *ngFor: 
+         <div class="project-card" *ngFor="let proj of projects">
+           ...
+         </div>
+      -->
+
+      <!-- Hard-coded example if no dynamic data: -->
+      <div class="project-card">
+        <img 
+          src="https://example.com/image.png"
+          alt="Project thumbnail"
+          class="project-thumbnail"
+        />
+        <h2>My Portfolio Website</h2>
+        <p>A full-stack portfolio built with Angular and Node.js</p>
+        <div class="project-stack">
+          <span class="stack-item">Angular</span>
+          <span class="stack-item">Node.js</span>
+          <span class="stack-item">MongoDB</span>
+        </div>
+        <a href="https://example.com" target="_blank" class="project-demo-button">View Demo</a>
       </div>
-  
-      <div class="project-item">
-        <h2>Master’s Thesis Project</h2>
-        <p>Hierarchical Delta Debugging in C# to reduce program faults and improve software quality.</p>
-        <a href="#">View Details</a>
-      </div>
-  
-      <div class="project-item">
-        <h2>Unity Game Projects</h2>
-        <p>Games created using Unity and Blender, exploring game mechanics and design.</p>
-        <a href="#">View Details</a>
-      </div>
+      
+      <!-- More project-card divs or your *ngFor here. -->
     </section>
-  </main>
-  
+
+  </div>
+</main>
