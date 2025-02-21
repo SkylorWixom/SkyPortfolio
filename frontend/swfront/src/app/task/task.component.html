@@ -1,0 +1,57 @@
+<div class="task-board">
+  <h3 class="task-board-title">Development Progress</h3>
+  <p class="task-board-subtitle">
+    A quick overview of recent completions, active work, and backlog.
+    <strong>Last Updated: 
+      <!-- (A) If we have a date, format it. Otherwise display nothing or "N/A". -->
+      {{ lastUpdate ? (lastUpdate | date:'short') : 'N/A' }}
+    </strong>
+  </p>
+
+  <!-- RECENTLY COMPLETED -->
+  <div class="task-category">
+    <h4>Recently Completed</h4>
+    <div class="task-list">
+      <!-- (1) We do *ngFor on <ng-container> -->
+      <ng-container *ngFor="let t of allTasks">
+        <!-- (2) Then use *ngIf on the actual .task-card -->
+        <div class="task-card completed" *ngIf="t.status === 'completed'">
+          <div class="task-card-body">
+            <strong class="task-card-title">{{ t.title }}</strong>
+            <p class="task-card-details" *ngIf="t.details">{{ t.details }}</p>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+
+  <!-- ACTIVE DEVELOPMENT -->
+  <div class="task-category">
+    <h4>Active Development</h4>
+    <div class="task-list">
+      <ng-container *ngFor="let t of allTasks">
+        <div class="task-card active" *ngIf="t.status === 'active'">
+          <div class="task-card-body">
+            <strong class="task-card-title">{{ t.title }}</strong>
+            <p class="task-card-details" *ngIf="t.details">{{ t.details }}</p>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+
+  <!-- BACKLOG -->
+  <div class="task-category">
+    <h4>Backlog</h4>
+    <div class="task-list">
+      <ng-container *ngFor="let t of allTasks">
+        <div class="task-card backlog" *ngIf="t.status === 'backlog'">
+          <div class="task-card-body">
+            <strong class="task-card-title">{{ t.title }}</strong>
+            <p class="task-card-details" *ngIf="t.details">{{ t.details }}</p>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>

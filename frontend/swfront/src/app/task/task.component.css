@@ -1,0 +1,85 @@
+.task-board {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  font-size: 0.95rem; /* slightly smaller for a sidebar look */
+}
+
+.task-board-title {
+  margin: 0;
+  font-size: 1.2rem;
+  color: var(--color-dark-navy);
+}
+
+.task-board-subtitle {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--color-subhead);
+  margin-bottom: 0.5rem;
+}
+
+.task-category {
+  background-color: var(--color-bg);
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 0.5rem 0.75rem;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.task-category h4 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+  color: var(--color-dark-navy);
+  border-left: 4px solid var(--color-slate);
+  padding-left: 0.5rem;
+}
+
+.task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+}
+
+/* The individual task cards */
+.task-card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  padding: 0.5rem 0.75rem;
+}
+
+/* Color accents for each status */
+.task-card.completed {
+  border-left: 4px solid #2ecc71; /* green-ish for completed */
+}
+
+.task-card.active {
+  border-left: 4px solid #f1c40f; /* yellow for active */
+}
+
+.task-card.backlog {
+  border-left: 4px solid #e67e22; /* orange for backlog */
+}
+
+.task-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.task-card-title {
+  font-weight: 600;
+  color: var(--color-headline);
+  font-size: 1rem;
+  margin: 0;
+}
+
+.task-card-details {
+  margin: 0;
+  color: #555;
+  line-height: 1.4;
+  font-size: 0.9rem;
+}

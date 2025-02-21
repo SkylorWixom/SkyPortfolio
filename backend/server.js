@@ -7,6 +7,7 @@ import ProjectRoutes from './api/projectRoutes.js';
 import BlogRoutes from './api/blogRoutes.js';
 import ContactRoutes from './api/contactRoutes.js';
 import LwmRoutes from './api/lwmRoutes.js';
+import TaskRoutes from './api/taskRoutes.js';
 import cors from 'cors';
 
 // Read environment variables from .env file
@@ -23,6 +24,7 @@ app.use('/api/projects', ProjectRoutes);
 app.use('/api/blogs', BlogRoutes);
 app.use('/api/contacts', ContactRoutes);
 app.use('/api/lwm', LwmRoutes);
+app.use('/api/tasks', TaskRoutes);
 
 // Connect to MongoDB using environment variable MONGO_URI
 mongoose
