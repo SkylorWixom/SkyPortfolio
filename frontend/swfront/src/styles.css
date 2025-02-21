@@ -41,6 +41,7 @@
   box-shadow: var(--shadow-card);
   padding: var(--spacing-m);
   margin-bottom: var(--spacing-m);
+  color: var(--color-navy);
 }
 /* styles.css (GLOBAL) */
 

@@ -24,14 +24,6 @@
   width: 100%;
 }
 
-/* 3) Logo text */
-.logo {
-  font-size: 1.8rem;
-  font-weight: 700;
-  text-decoration: none;
-  color: #ffffff; /* Keep the logo in white for contrast */
-}
-
 /* 4) Nav links in a row */
 .nav-links {
   display: flex;
@@ -62,4 +54,34 @@
 
 .nav-links a:hover::after {
   width: 100%;
+}
+
+/* header.component.css */
+.logo {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.logo-circle {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background-color: var(--color-slate);
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: 700;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  text-transform: uppercase;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.logo-text {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #fff; /* or var(--color-off-white) if your header is dark */
 }
