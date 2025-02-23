@@ -8,6 +8,7 @@ import BlogRoutes from './api/blogRoutes.js';
 import ContactRoutes from './api/contactRoutes.js';
 import LwmRoutes from './api/lwmRoutes.js';
 import TaskRoutes from './api/taskRoutes.js';
+import CourseRoutes from './api/courseRoutes.js';
 import cors from 'cors';
 
 // Read environment variables from .env file
@@ -20,6 +21,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 // Register routes under specific paths
+app.use('/api/courses', CourseRoutes);
 app.use('/api/projects', ProjectRoutes);
 app.use('/api/blogs', BlogRoutes);
 app.use('/api/contacts', ContactRoutes);
