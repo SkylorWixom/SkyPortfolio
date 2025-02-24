@@ -1,77 +1,65 @@
-
+// api/courseRoutes.js
 import express from 'express';
 import Course from '../models/Course.js';
 
-const router = express.Router()
-// (A) GET all courses
+const router = express.Router();
+
+// GET all courses
 router.get('/', async (req, res) => {
-try {
-    const courses = await Course.find(); 
+  try {
+    const courses = await Course.find();
     res.json(courses);
-} catch (err) {
-    console.error('Error fetching courses:', err);
-    res.status(500).json({ error: 'Server error while fetching courses.' });
-}
-})
-// (B) GET a single course by ID
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+// GET one course by ID
 router.get('/:id', async (req, res) => {
-try {
+  try {
     const course = await Course.findById(req.params.id);
-    if (!course) {
-    return res.status(404).json({ error: 'Course not found.' });
-    }
+    if (!course) return res.status(404).json({ message: 'Course not found' });
     res.json(course);
-} catch (err) {
-    console.error('Error fetching course:', err);
-    res.status(500).json({ error: 'Server error while fetching course.' });
-}
-})
-// (C) POST: Create a new course
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+// POST create
 router.post('/', async (req, res) => {
-try {
-    const { title, subject, description, lessons } = req.body;
-    const newCourse = new Course({
-    title,
-    subject,
-    description,
-    lessons
-    });
-    const savedCourse = await newCourse.save();
-    res.status(201).json(savedCourse);
-} catch (err) {
-    console.error('Error creating course:', err);
-    res.status(400).json({ error: 'Failed to create course.' });
-}
-})
-// (D) PUT: Update an existing course
+  try {
+    const newCourse = new Course(req.body);
+    const saved = await newCourse.save();
+    res.status(201).json(saved);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
+// PUT update
 router.put('/:id', async (req, res) => {
-try {
-    const { title, subject, description, lessons } = req.body;
-    const updatedCourse = await Course.findByIdAndUpdate(
-    req.params.id,
-    { title, subject, description, lessons },
-    { new: true }
+  try {
+    const updated = await Course.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true, runValidators: true }
     );
-    if (!updatedCourse) {
-    return res.status(404).json({ error: 'Course not found.' });
-    }
-    res.json(updatedCourse);
-} catch (err) {
-    console.error('Error updating course:', err);
-    res.status(400).json({ error: 'Failed to update course.' });
-}
-})
-// (E) DELETE an existing course
+    if (!updated) return res.status(404).json({ message: 'Course not found' });
+    res.json(updated);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
+// DELETE
 router.delete('/:id', async (req, res) => {
-try {
-    const deletedCourse = await Course.findByIdAndDelete(req.params.id);
-    if (!deletedCourse) {
-    return res.status(404).json({ error: 'Course not found.' });
-    }
-    res.json({ message: 'Course deleted successfully.' });
-} catch (err) {
-    console.error('Error deleting course:', err);
-    res.status(500).json({ error: 'Server error while deleting course.' });
-}
-})
-export default router
+  try {
+    const removed = await Course.findByIdAndDelete(req.params.id);
+    if (!removed) return res.status(404).json({ message: 'Course not found' });
+    res.json({ message: 'Course deleted' });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+export default router;

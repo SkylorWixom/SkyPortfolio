@@ -1,44 +1,49 @@
 <main class="page-wrapper">
   <div class="page-container learn-with-me">
-
-    <!-- 1) Top Intro Section with background var(--color-bg) 
-         (like your resume's .resume-section) -->
+    
+    <!-- Title / Intro Section -->
     <section class="lwm-section">
       <h1>Welcome to "Learn with Me"</h1>
       <p>
-        As a lifelong learner, I'm always exploring new technologies, frameworks, 
-        and techniques. I use platforms like Udemy (and other resources) to continuously 
-        improve my skills and stay updated with industry trends.
-        On this page, I'll share resources, tutorials, and learning content to help others grow with me.
-        Whether you're new to coding, want to explore drawing or writing, or simply expand your knowledge,
-        you're in the right place!
+        As a lifelong learner, I'm always exploring new technologies, frameworks,
+        and techniques...
       </p>
     </section>
 
-    <!-- 2) Layout container for the collapsible sidebar + main content.
-         Also with background var(--color-bg) if you like. -->
+    <!-- Two-column layout: Left = course menu, Right = detail area -->
     <section class="lwm-section">
       <div class="lwm-layout">
-        
-        <!-- Collapsible side menu (app-menu-item) on the left -->
+
+        <!-- LEFT COLUMN: Our new hierarchical menu -->
         <nav class="lwm-sidebar">
-          <app-menu-item
-            *ngFor="let topItem of rootItems"
-            [item]="topItem"
-            (itemSelected)="onItemSelected($event)"
-          ></app-menu-item>
+          <app-course-menu (itemSelected)="onMenuItemSelected($event)"></app-course-menu>
         </nav>
 
-        <!-- Main content for the selected item on the right -->
+        <!-- RIGHT COLUMN: Display details for whichever item was clicked -->
         <section class="lwm-content">
-          <div *ngIf="!selectedItem">
-            <h2>Select a topic</h2>
-            <p>Pick any item in the sidebar to expand or select a final subtopic.</p>
+          <div *ngIf="selectedType === 'subject'">
+            <h2>Subject: {{ selectedSubject }}</h2>
+            <p>Select a course to see more info.</p>
           </div>
 
-          <div *ngIf="selectedItem">
-            <h2>{{ selectedItem.title }}</h2>
-            <p>{{ selectedItem.placeholderContent }}</p>
+          <div *ngIf="selectedType === 'course'">
+            <h2>Course: {{ selectedCourse.title }}</h2>
+            <p>{{ selectedCourse.description }}</p>
+            <p>Subject: {{ selectedCourse.subject }}</p>
+            <p *ngIf="!(selectedCourse.lessons?.length)">No lessons yet for this course.</p>
+          </div>
+
+          <div *ngIf="selectedType === 'lesson' && selectedLesson">
+            <h2>Lesson: {{ selectedLesson.title }}</h2>
+            <p>{{ selectedLesson.content }}</p>
+            <p>Course: {{ selectedCourse.title }}</p>
+            <p>Subject: {{ selectedCourse.subject }}</p>
+          </div>
+
+          <!-- If nothing is selected yet -->
+          <div *ngIf="!selectedType">
+            <h2>Select a Subject</h2>
+            <p>Expand a subject on the left to view its courses, then expand a course to view its lessons.</p>
           </div>
         </section>
       </div>

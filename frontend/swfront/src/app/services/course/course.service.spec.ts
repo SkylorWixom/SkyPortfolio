@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { LwmService } from './lwm.service';
+import { CourseService } from './course.service';
 
-describe('LwmService', () => {
-  let service: LwmService;
+describe('CourseService', () => {
+  let service: CourseService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(LwmService);
+    service = TestBed.inject(CourseService);
   });
 
   it('should be created', () => {

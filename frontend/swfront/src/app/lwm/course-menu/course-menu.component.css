@@ -1,0 +1,213 @@
+.course-menu {
+  padding: 1rem;
+}
+
+/* If there's an error from the backend */
+.error-message {
+  color: red;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+/* The expansions all in one column. 
+   We have .single-col-wrapper for the collapsible items,
+   then .selected-module-area for the final item content. 
+*/
+.single-col-wrapper {
+  margin-bottom: 1.5rem;
+}
+
+.selected-module-area {
+  background-color: #fff;
+  border-radius: 4px;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+/* Subject-level header (navy) */
+.subject-header {
+  position: relative;
+  display: block;
+  margin: 8px 0;
+  padding: 0.75rem 1rem;
+  background-color: #1B263B;
+  color: #fff;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  transition: background-color 0.2s;
+}
+.subject-header:hover {
+  background-color: #0D1B2A;
+}
+.subject-header::after {
+  content: "▶";
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.2rem;
+}
+.subject-header.expanded::after {
+  content: "▼";
+}
+
+/* Subcat header (dark navy/gray) */
+.subcat-list {
+  margin-left: 1rem;
+}
+.subcat-header {
+  position: relative;
+  display: block;
+  margin: 6px 0;
+  padding: 0.6rem 1rem;
+  background-color: #2f3b50;
+  color: #fff;
+  font-weight: 500;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+.subcat-header:hover {
+  background-color: #263041;
+}
+.subcat-header::after {
+  content: "▶";
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.1rem;
+}
+.subcat-header.expanded::after {
+  content: "▼";
+}
+
+/* The "Course" items, e.g. "learn (Computer Science)" */
+.course-list {
+  margin-left: 1rem;
+  margin-top: 0.5rem;
+}
+.course-item {
+  position: relative;
+  display: block;
+  margin: 6px 0;
+  padding: 0.6rem 1.5rem;
+  background-color: #415A77;
+  color: #fff;
+  font-weight: 600;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  transition: background-color 0.2s;
+  text-align: left;
+}
+.course-item:hover {
+  background-color: #2f4155;
+}
+.course-item::after {
+  content: "▶";
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.1rem;
+}
+.course-item.expanded::after {
+  content: "▼";
+}
+
+/* The top-level "lesson" items => navy blocks again */
+.lesson-list {
+  list-style: none;
+  margin: 0.5rem 0 0.5rem 1rem;
+  padding: 0;
+}
+.lesson-item {
+  position: relative;
+  background-color: #2f3b50;
+  color: #fff;
+  margin: 4px 0;
+  padding: 0.5rem 2rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+.lesson-item:hover {
+  background-color: #263041;
+}
+.lesson-item::after {
+  content: "▶";
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1rem;
+}
+.lesson-item.expanded::after {
+  content: "▼";
+}
+
+/* Sublesson => bright gold blocks */
+.sublesson-list {
+  list-style: none;
+  margin: 0.5rem 0 0.5rem 1.5rem;
+  padding: 0;
+}
+.sublesson-item {
+  position: relative;
+  background-color: #ffc107;
+  color: #333;
+  margin: 4px 0;
+  padding: 0.5rem 2rem;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  cursor: pointer;
+  font-weight: 600;
+}
+.sublesson-item:hover {
+  background-color: #e0a806;
+}
+.sublesson-item::after {
+  content: "▶";
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1rem;
+}
+.sublesson-item.expanded::after {
+  content: "▼";
+}
+
+/* Final modules => bright gold "buttons" */
+.modules-list {
+  list-style: none;
+  margin: 0.5rem 0 0.5rem 1.5rem;
+  padding: 0;
+}
+.module-btn {
+  background-color: #ffe359; 
+  margin: 4px 0;
+  padding: 0.4rem 1.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  font-weight: 600;
+  color: #333;
+  position: relative;
+}
+.module-btn:hover {
+  background-color: #efd046;
+}
+.module-btn::after {
+  content: "▶";
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.9rem;
+}

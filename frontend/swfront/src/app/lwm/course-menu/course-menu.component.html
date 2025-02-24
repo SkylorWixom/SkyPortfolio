@@ -1,0 +1,98 @@
+<!-- SINGLE COLUMN: 
+     Expand subject -> subCategory -> course -> lesson -> subLesson,
+     then final modules are bright gold. 
+     If none selected yet, we show "Select a final item" message. 
+-->
+
+<div class="course-menu">
+  <!-- If there's an error, display it -->
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+
+  <!-- The expansions all appear in the same column, from Subject down to modules. -->
+  <div class="single-col-wrapper">
+    
+    <!-- Loop over subject groups -->
+    <ng-container *ngFor="let subjGroup of subjectGroups">
+      <div
+        class="subject-header"
+        [class.expanded]="subjGroup.expanded"
+        (click)="toggleSubjectGroup(subjGroup)"
+      >
+        {{ subjGroup.subject }}
+      </div>
+
+      <!-- if subject is expanded, show subCat -->
+      <div class="subcat-list" *ngIf="subjGroup.expanded">
+        <ng-container *ngFor="let sc of subjGroup.subCats">
+          <div
+            class="subcat-header"
+            [class.expanded]="sc.expanded"
+            (click)="toggleSubCategory(sc, $event)"
+          >
+            {{ sc.subCategory }}
+          </div>
+
+          <!-- courses in that subCat -->
+          <div class="course-list" *ngIf="sc.expanded">
+            <div
+              class="course-item"
+              *ngFor="let c of sc.courses"
+              [class.expanded]="c._expanded"
+              (click)="toggleCourse(c, $event)"
+            >
+              {{ c.title }} ({{ c.subject }})
+
+              <!-- If course expanded, show lessons -->
+              <ul class="lesson-list" *ngIf="c._expanded">
+                <li
+                  class="lesson-item"
+                  *ngFor="let les of c.lessonsEx"
+                  [class.expanded]="les._expanded"
+                  (click)="toggleLesson(les, $event)"
+                >
+                  {{ les.title }}
+
+                  <!-- If lesson expanded, show subLessons -->
+                  <ul class="sublesson-list" *ngIf="les._expanded">
+                    <li
+                      class="sublesson-item"
+                      *ngFor="let s of les.subLessonsEx"
+                      [class.expanded]="s._expanded"
+                      (click)="toggleSubLesson(s, $event)"
+                    >
+                      - {{ s.title }}
+
+                      <!-- if subLesson expanded, show final modules as bright gold "buttons" -->
+                      <ul class="modules-list" *ngIf="s._expanded">
+                        <li
+                          class="module-btn"
+                          *ngFor="let mod of s.modulesEx"
+                          (click)="onModuleClick(mod, $event)"
+                        >
+                          {{ mod.title }}
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div><!-- .course-list -->
+        </ng-container>
+      </div><!-- .subcat-list -->
+    </ng-container>
+  </div><!-- .single-col-wrapper -->
+
+  <!-- If no module is clicked yet, show "Select a final item," else show that module's info -->
+  <div class="selected-module-area" *ngIf="selectedModule; else noModule">
+    <h2>{{ selectedModule?.title }}</h2>
+    <p>Here is some detailed content for this module. 
+       If your DB has more fields, you can show them here.</p>
+  </div>
+  <ng-template #noModule>
+    <h3>Select a final item</h3>
+    <p>Expand all the way down to a bright gold module in the same column.</p>
+  </ng-template>
+</div>

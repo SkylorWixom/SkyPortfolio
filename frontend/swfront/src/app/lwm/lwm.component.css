@@ -1,8 +1,7 @@
-/* lwm.component.css */
-
-/* 1) Each main .lwm-section: 
-   similar to how .resume-section was done, 
-   with background color var(--color-bg) inside the white container
+/* 
+   1) Main LWM Layout & Sections
+   This is just the parent styling 
+   (two-column .lwm-layout, .lwm-section, etc.) 
 */
 .lwm-section {
   background-color: var(--color-bg);
@@ -14,7 +13,6 @@
   color: var(--color-dark-navy);
 }
 
-/* Headings in lwm-section */
 .lwm-section h1, 
 .lwm-section h2 {
   margin-top: 0;
@@ -22,15 +20,11 @@
   color: var(--color-dark-navy);
 }
 
-/* 2) The .lwm-layout for side-by-side columns */
 .lwm-layout {
   display: flex;
   gap: var(--spacing-s);
 }
 
-/* 3) The left sidebar: 
-   slightly lighter background or white if you prefer. 
-   But we already have .lwm-section. If you want even lighter sub-card, define it here. */
 .lwm-sidebar {
   flex: 0 0 250px;
   background-color: #fff; 
@@ -39,7 +33,6 @@
   padding: var(--spacing-s);
 }
 
-/* 4) The main content area on the right */
 .lwm-content {
   flex: 1;
   background-color: #fff;
