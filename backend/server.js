@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 
 // Import your routes
-import CourseRoutes from './api/courseRoutes.js'; 
+import SubjectRoutes from './api/subjectRoutes.js'; 
 import ProjectRoutes from './api/projectRoutes.js';
 import BlogRoutes from './api/blogRoutes.js';
 import ContactRoutes from './api/contactRoutes.js';
@@ -18,7 +18,7 @@ app.use(express.json());
 app.use(cors());
 
 // Register your routes
-app.use('/api/courses', CourseRoutes);
+app.use('/api/subjects', SubjectRoutes);
 app.use('/api/projects', ProjectRoutes);
 app.use('/api/blogs', BlogRoutes);
 app.use('/api/contacts', ContactRoutes);

@@ -1,53 +1,123 @@
 <main class="page-wrapper">
   <div class="page-container learn-with-me">
-    
-    <!-- Title / Intro Section -->
+
+    <!-- Intro / Title -->
     <section class="lwm-section">
-      <h1>Welcome to "Learn with Me"</h1>
+      <h1>Learn with Me: Multiple Subjects</h1>
       <p>
-        As a lifelong learner, I'm always exploring new technologies, frameworks,
-        and techniques...
+        As a lifelong learner, I'm always exploring new technologies...
       </p>
     </section>
 
-    <!-- Two-column layout: Left = course menu, Right = detail area -->
-    <section class="lwm-section">
-      <div class="lwm-layout">
+    <!-- Two-column layout -->
+    <section class="lwm-section lwm-layout">
 
-        <!-- LEFT COLUMN: Our new hierarchical menu -->
-        <nav class="lwm-sidebar">
-          <app-course-menu (itemSelected)="onMenuItemSelected($event)"></app-course-menu>
-        </nav>
+      <!-- LEFT NAV: multiple subjects, each with courses -->
+      <nav class="lwm-sidebar">
+        <div class="subjects-list">
+          <div class="subject-item" *ngFor="let subj of subjects">
+            <!-- Subject collapsible header -->
+            <div
+              class="subject-header"
+              [class.expanded]="subj.expanded"
+              (click)="toggleSubject(subj)"
+            >
+              {{ subj.subjectTitle }}
+              <span class="arrow">{{ subj.expanded ? '▼' : '▶' }}</span>
+            </div>
 
-        <!-- RIGHT COLUMN: Display details for whichever item was clicked -->
-        <section class="lwm-content">
-          <div *ngIf="selectedType === 'subject'">
-            <h2>Subject: {{ selectedSubject }}</h2>
-            <p>Select a course to see more info.</p>
+            <!-- If subject is expanded, show its courses -->
+            <ul class="courses-list" *ngIf="subj.expanded">
+              <li
+                *ngFor="let c of subj.courses"
+                (click)="selectCourse(c); $event.stopPropagation()"
+                [class.selected]="c === selectedCourse"
+              >
+                {{ c.courseTitle }}
+              </li>
+            </ul>
           </div>
+        </div>
+      </nav>
 
-          <div *ngIf="selectedType === 'course'">
-            <h2>Course: {{ selectedCourse.title }}</h2>
-            <p>{{ selectedCourse.description }}</p>
-            <p>Subject: {{ selectedCourse.subject }}</p>
-            <p *ngIf="!(selectedCourse.lessons?.length)">No lessons yet for this course.</p>
-          </div>
+      <!-- RIGHT CONTENT: show the chosen course’s sections -->
+      <article class="lwm-content">
+        <ng-container *ngIf="selectedCourse; else noCourse">
+          <h2>{{ selectedCourse.courseTitle }}</h2>
 
-          <div *ngIf="selectedType === 'lesson' && selectedLesson">
-            <h2>Lesson: {{ selectedLesson.title }}</h2>
-            <p>{{ selectedLesson.content }}</p>
-            <p>Course: {{ selectedCourse.title }}</p>
-            <p>Subject: {{ selectedCourse.subject }}</p>
-          </div>
+          <!-- For each section, build an accordion + tabs -->
+          <div class="section-accordion" *ngFor="let sec of sectionsEx">
+            <!-- Section accordion header -->
+            <div class="section-header" (click)="toggleSection(sec)">
+              <h4>{{ sec.sectionTitle }}</h4>
+              <span class="accordion-arrow">{{ sec.expanded ? '▼' : '▶' }}</span>
+            </div>
 
-          <!-- If nothing is selected yet -->
-          <div *ngIf="!selectedType">
-            <h2>Select a Subject</h2>
-            <p>Expand a subject on the left to view its courses, then expand a course to view its lessons.</p>
-          </div>
-        </section>
-      </div>
+            <!-- If expanded, show modules & final items -->
+            <div class="section-body" *ngIf="sec.expanded">
+              <nav class="tabs">
+                <button
+                  *ngFor="let mod of sec.modules"
+                  [class.active]="sec.activeTab === mod.moduleTitle"
+                  (click)="setActiveTab(sec, mod.moduleTitle); $event.stopPropagation()"
+                >
+                  {{ mod.moduleTitle }}
+                </button>
+              </nav>
+
+              <!-- The final items for whichever module is active -->
+              <div class="tab-content">
+                <ng-container *ngFor="let mod of sec.modules">
+                  <div *ngIf="sec.activeTab === mod.moduleTitle">
+                    <ul class="final-items">
+                      <li
+                        *ngFor="let fi of mod.finalItems"
+                        (click)="onFinalItemClick(fi); $event.stopPropagation()"
+                      >
+                        <!-- Could also show fi.description or fi.videoUrl if you like -->
+                        <strong>{{ fi.title }}</strong>
+                        <small>{{ fi.content }}</small>
+                      </li>
+                    </ul>
+                  </div>
+                </ng-container>
+              </div>
+            </div>
+          </div><!-- end sections loop -->
+
+        </ng-container>
+        <ng-template #noCourse>
+          <p>Select a course on the left.</p>
+        </ng-template>
+      </article>
     </section>
-
   </div>
 </main>
+
+<!-- (A) The modal overlay. We only show it if isModalOpen = true. -->
+<div class="modal-overlay" *ngIf="isModalOpen">
+  <div class="modal-container">
+    <button class="close-btn" (click)="closeModal()">✕</button>
+
+    <!-- If we have a selectedFinalItem, show it here -->
+    <div *ngIf="selectedFinalItem">
+      <h2>{{ selectedFinalItem.title }}</h2>
+
+      <!-- If description is present, show it. -->
+      <p *ngIf="selectedFinalItem.description">{{ selectedFinalItem.description }}</p>
+
+      <!-- If content is present, you can also show that, or merge them. -->
+      <p *ngIf="selectedFinalItem.content">{{ selectedFinalItem.content }}</p>
+
+      <iframe 
+      width="560" 
+      height="315"
+      *ngIf="selectedFinalItem.videoUrl"
+      [src]="selectedFinalItem.videoUrl | safeUrl"
+      frameborder="0"
+      allowfullscreen
+    ></iframe>
+    
+    </div>
+  </div>
+</div>

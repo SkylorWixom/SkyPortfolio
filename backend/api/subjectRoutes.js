@@ -1,62 +1,67 @@
-// api/courseRoutes.js
 import express from 'express';
-import Course from '../models/Course.js';
+import Subject from '../models/Subject.js';
 
 const router = express.Router();
 
-// GET all courses
+// GET all subjects
 router.get('/', async (req, res) => {
   try {
-    const courses = await Course.find();
-    res.json(courses);
+    const subjects = await Subject.find();
+    res.json(subjects);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 });
 
-// GET one course by ID
+// GET a single subject by ID
 router.get('/:id', async (req, res) => {
   try {
-    const course = await Course.findById(req.params.id);
-    if (!course) return res.status(404).json({ message: 'Course not found' });
-    res.json(course);
+    const subject = await Subject.findById(req.params.id);
+    if (!subject) {
+      return res.status(404).json({ message: 'Subject not found' });
+    }
+    res.json(subject);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 });
 
-// POST create
+// POST a new subject doc
 router.post('/', async (req, res) => {
   try {
-    const newCourse = new Course(req.body);
-    const saved = await newCourse.save();
+    const newSubj = new Subject(req.body);
+    const saved = await newSubj.save();
     res.status(201).json(saved);
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
 });
 
-// PUT update
+// PUT update a subject doc
 router.put('/:id', async (req, res) => {
   try {
-    const updated = await Course.findByIdAndUpdate(
+    const updated = await Subject.findByIdAndUpdate(
       req.params.id,
       req.body,
       { new: true, runValidators: true }
     );
-    if (!updated) return res.status(404).json({ message: 'Course not found' });
+    if (!updated) {
+      return res.status(404).json({ message: 'Subject not found' });
+    }
     res.json(updated);
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
 });
 
-// DELETE
+// DELETE a subject doc
 router.delete('/:id', async (req, res) => {
   try {
-    const removed = await Course.findByIdAndDelete(req.params.id);
-    if (!removed) return res.status(404).json({ message: 'Course not found' });
-    res.json({ message: 'Course deleted' });
+    const removed = await Subject.findByIdAndDelete(req.params.id);
+    if (!removed) {
+      return res.status(404).json({ message: 'Subject not found' });
+    }
+    res.json({ message: 'Subject deleted' });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

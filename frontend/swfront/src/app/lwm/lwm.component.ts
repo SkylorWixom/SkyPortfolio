@@ -1,48 +1,116 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { SubjectService, SubjectData, CourseLevel, SectionLevel, FinalItem } from '../services/subject/subject.service';
+import { SafeUrlPipe } from '../safe-url.pipe';
 
-// Import your new CourseMenuComponent
-import { CourseMenuComponent } from './course-menu/course-menu.component';
+/**
+ * We add "expanded?: boolean; activeTab?: string;" to each section so we can fold/unfold them. 
+ * For the subject, we do "expanded?: boolean;" for collapsing the left nav items.
+ */
+interface ExtendedSection extends SectionLevel {
+  expanded?: boolean;
+  activeTab?: string;
+}
+interface SubjectEx extends SubjectData {
+  expanded?: boolean;
+}
 
 @Component({
-  selector: 'app-lwm',
+  selector: 'app-lwm-alt',
   standalone: true,
+  imports: [CommonModule, SafeUrlPipe],
   templateUrl: './lwm.component.html',
-  styleUrls: ['./lwm.component.css'],
-  imports: [
-    CommonModule,
-    CourseMenuComponent
-  ]
+  styleUrls: ['./lwm.component.css']
 })
-export class LwmComponent implements OnInit {
+export class LwmAltComponent implements OnInit {
 
-  selectedType: string | null = null;
-  selectedSubject: string | null = null;
-  selectedCourse: any = null;
-  selectedLesson: any = null;
+  // 1) The top-level array of subjects from your backend
+  subjects: SubjectEx[] = [];
 
-  constructor() {}
+  // 2) The currently selected course on the right
+  selectedCourse: CourseLevel | null = null;
 
-  ngOnInit(): void {
-    // no special logic on init, unless you want some
+  // 3) For that course, we store an array of extended sections, each with "expanded" and "activeTab"
+  sectionsEx: ExtendedSection[] = [];
+
+  // 4) The final item (like "Fields altered by computers") that the user last clicked
+  selectedFinalItem: FinalItem | null = null;
+
+  // 5) A boolean to toggle the modal
+  isModalOpen = false;
+
+  constructor(private subjectService: SubjectService) {}
+
+  ngOnInit() {
+    this.loadSubjects();
   }
 
-  // Called by <app-course-menu> whenever user clicks subject, course, or lesson
-  onMenuItemSelected(eventData: any) {
-    this.selectedType = eventData.type || null;
+  /**
+   * Load all subjects from your backend. 
+   * We'll mark each subject with "expanded = false."
+   */
+  loadSubjects() {
+    this.subjectService.getAll().subscribe({
+      next: (res) => {
+        this.subjects = res.map(s => ({
+          ...s,
+          expanded: false
+        }));
+      },
+      error: (err) => console.error('Error loading subjects:', err)
+    });
+  }
 
-    if (eventData.type === 'subject') {
-      this.selectedSubject = eventData.subject;
-      this.selectedCourse = null;
-      this.selectedLesson = null;
-    } else if (eventData.type === 'course') {
-      this.selectedCourse = eventData.course;
-      this.selectedSubject = eventData.course.subject;
-      this.selectedLesson = null;
-    } else if (eventData.type === 'lesson') {
-      this.selectedCourse = eventData.parentCourse;
-      this.selectedLesson = eventData.lesson;
-      this.selectedSubject = eventData.parentCourse.subject;
-    }
+  /**
+   * Toggle a subject’s expanded state in the left nav
+   */
+  toggleSubject(subj: SubjectEx) {
+    subj.expanded = !subj.expanded;
+  }
+
+  /**
+   * When a course is selected, we reset the final item + close modal,
+   * and build our sectionsEx array for the right side
+   */
+  selectCourse(course: CourseLevel) {
+    this.selectedCourse = course;
+    this.selectedFinalItem = null;
+    this.isModalOpen = false;
+
+    this.sectionsEx = course.sections.map(sec => ({
+      ...sec,
+      expanded: false,
+      activeTab: 'Learn'
+    }));
+  }
+
+  /**
+   * Toggle a single section's expanded/collapsed accordion
+   */
+  toggleSection(sec: ExtendedSection) {
+    sec.expanded = !sec.expanded;
+  }
+
+  /**
+   * Switch the active tab (e.g. "Learn", "Do", or "Resources")
+   */
+  setActiveTab(sec: ExtendedSection, tab: string) {
+    sec.activeTab = tab;
+  }
+
+  /**
+   * Called when user clicks a final item. Instead of pushing it to the bottom, 
+   * we open a modal with the final item’s details (title, description, videoUrl).
+   */
+  onFinalItemClick(item: FinalItem) {
+    this.selectedFinalItem = item;
+    this.isModalOpen = true;
+  }
+
+  /**
+   * Hide the modal
+   */
+  closeModal() {
+    this.isModalOpen = false;
   }
 }
