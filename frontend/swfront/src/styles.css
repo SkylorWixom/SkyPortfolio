@@ -1,5 +1,8 @@
+/* 1) Import Poppins from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+/* 2) Root CSS Variables */
 :root {
-  /* Colors from your palette */
   --color-dark-navy: #0D1B2A;
   --color-navy: #1B263B;
   --color-slate: #415A77;
@@ -9,33 +12,72 @@
   --color-button: var(--color-slate);
   --color-button-text: #fff;
 
+  /* Key change: Use a partially transparent overlay for the hero. */
+  --hero-overlay-home: rgba(0, 0, 0, 0.4);
+
   --spacing-xs: 0.5rem;
   --spacing-s: 1rem;
   --spacing-m: 1.5rem;
   --spacing-l: 2rem;
   --spacing-xl: 3rem;
+
   --radius-card: 8px;
   --shadow-card: 0 4px 8px rgba(0,0,0,0.1);
 }
 
-.page-wrapper {
+/* 3) Global Reset & Body Styles */
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
   background-color: var(--color-bg);
+  color: var(--color-navy);
+}
+
+/* 4) Global Heading Styles */
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 0;
+  margin-bottom: var(--spacing-s);
+  color: var(--color-dark-navy);
+}
+
+/* Example heading sizes (feel free to tweak) */
+h1 {
+  font-size: 2rem;    /* Larger main title size */
+}
+h2 {
+  font-size: 1.6rem;  
+}
+h3 {
+  font-size: 1.3rem;
+}
+h4 {
+  font-size: 1.1rem;
+}
+h5, h6 {
+  font-size: 1rem;
+  margin-bottom: var(--spacing-xs);
+}
+
+/* 5) Layout Wrappers */
+.page-wrapper {
+  /* Maintains background-color from body, but you could override if desired */
   padding-top: var(--spacing-l);
   padding-bottom: var(--spacing-l);
-  min-height: 100vh; 
+  min-height: 100vh;
 }
 
 .page-container {
   background-color: #fff;
-  max-width: 90%;
+  max-width: 95%;
   margin: 0 auto;
   border-radius: var(--radius-card);
   box-shadow: var(--shadow-card);
   padding: var(--spacing-m);
 }
 
+/* 6) Reusable Page Section */
 .page-section {
-  background-color: var(--color-bg); 
+  background-color: var(--color-bg);
   border: 1px solid #ddd;
   border-radius: var(--radius-card);
   box-shadow: var(--shadow-card);
@@ -43,11 +85,54 @@
   margin-bottom: var(--spacing-m);
   color: var(--color-navy);
 }
-/* styles.css (GLOBAL) */
 
-body {
-  margin: 0;
-  /* Bring back your preferred font */
-  font-family: 'Helvetica Neue', Arial, sans-serif;
-  /* or any other: e.g. font-family: 'Open Sans', sans-serif; */
+/* 7) Global Page Hero (Banner) 
+   We provide a fallback color & partial overlay. 
+   If you want no fallback color, remove background-color below. 
+*/
+.page-hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #fff; /* Contrasts with background image/color */
+  padding: var(--spacing-l) var(--spacing-m);
+  margin-bottom: var(--spacing-m);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+
+  /* Fallback background color if no image is set. 
+     If you ALWAYS have a background-image, you can remove this. */
+  background-color: var(--color-slate);
+
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+
+.page-hero::before {
+  /* Semi-transparent overlay for better text legibility */
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0,0,0,0.4);
+  z-index: 0;
+}
+
+.page-hero .hero-content {
+  position: relative;
+  z-index: 1; /* On top of overlay */
+  max-width: 800px;
+}
+
+.page-hero h1 {
+  font-size: 2.2rem; /* Slightly bigger than default h1 */
+  margin-bottom: var(--spacing-s);
+}
+
+.page-hero p {
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin: 0 auto; /* Center paragraph text */
 }

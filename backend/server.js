@@ -1,40 +1,50 @@
+// File: backend/server.js
+
 import express from 'express';
 import mongoose from 'mongoose';
-import dotenv from 'dotenv';
 import cors from 'cors';
+import dotenv from 'dotenv';
 
-// Import your routes
-import SubjectRoutes from './api/subjectRoutes.js'; 
-import ProjectRoutes from './api/projectRoutes.js';
-import BlogRoutes from './api/blogRoutes.js';
-import ContactRoutes from './api/contactRoutes.js';
-import TaskRoutes from './api/taskRoutes.js';
-
+// 1) Load .env variables (like MONGO_URI)
 dotenv.config();
+
+// 2) Import your route modules (adjust paths if they differ)
+import blogRoutes from './api/blogRoutes.js';
+import contactRoutes from './api/contactRoutes.js';
+import projectRoutes from './api/projectRoutes.js';
+import subjectRoutes from './api/subjectRoutes.js';
+import taskRoutes from './api/taskRoutes.js';
+
+// 3) Create the Express app
 const app = express();
 
-// Middleware
-app.use(express.json());
-app.use(cors());
-app.use(express.static('public'));
-// Register your routes
+// 4) Middleware
+app.use(express.json());      // parse JSON bodies
+app.use(cors());              // allow cross-origin requests
+app.use(express.static('public')); // if you have images or static files in /public
 
-app.use('/api/subjects', SubjectRoutes);
-app.use('/api/projects', ProjectRoutes);
-app.use('/api/blogs', BlogRoutes);
-app.use('/api/contacts', ContactRoutes);
-app.use('/api/tasks', TaskRoutes);
-
-// Connect to Mongo
+// 5) Connect to MongoDB via MONGO_URI in .env
 mongoose
-  .connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  })
   .then(() => console.log('MongoDB Connected'))
   .catch(err => console.error('MongoDB Connection Error:', err));
 
-// Health-check route
+// 6) Register your routes under /api/...
+//    Make sure your blogRoutes etc. actually export an Express router
+app.use('/api/blogs', blogRoutes);
+app.use('/api/contacts', contactRoutes);
+app.use('/api/projects', projectRoutes);
+app.use('/api/subjects', subjectRoutes);
+app.use('/api/tasks', taskRoutes);
+
+// 7) Simple health-check route at root
 app.get('/', (req, res) => {
   res.send('Backend is running...');
 });
 
+// 8) Start listening on the port from .env or 5000
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

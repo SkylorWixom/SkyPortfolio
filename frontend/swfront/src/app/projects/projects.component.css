@@ -1,56 +1,169 @@
-.projects-section {
-  background-color: var(--color-bg);
-  margin-bottom: var(--spacing-m);
-  padding: var(--spacing-s) var(--spacing-m);
-  border: 1px solid #ddd;
-  border-radius: var(--radius-card);
-  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+/* 1. Provide a subtle background or container style for the "hero" section */
+.projects-hero {
+  /* A gentle padding to separate heading from edges */
+  padding: 2rem 1rem;         
+  text-align: center;         /* Center the text horizontally */
+  background-color: #f8f9fa;  /* Light neutral color */
+  margin-bottom: 2rem;        /* Spacing before the cards start */
+  border-radius: 8px;         /* Slight rounding for modern look */
 }
 
+/* 2. Override the default h1 in the hero section for bigger, bolder style */
+.projects-hero h1 {
+  font-size: 2rem;            /* Larger heading size */
+  margin-bottom: 0.5rem;
+}
+
+/* 3. The paragraph under the H1 can have smaller text or a lighter color */
+.projects-hero p {
+  font-size: 1rem;
+  color: #666;                /* Subtle, neutral color */
+  max-width: 600px;           /* Keep text from spanning too wide on large screens */
+  margin: 0 auto;             /* Center it horizontally */
+}
+
+/* 4. Projects Section tweaks */
+.projects-section {
+  background-color: #ffffff;  /* White background for contrast against site background */
+  padding: 2rem 1rem;        
+  margin-bottom: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* 5. Grid layout for project cards */
 .project-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: var(--spacing-s);
+  gap: 1.5rem;                /* Spacing between cards */
 }
 
+/* 6. Card styling */
 .project-card {
   background-color: #fff;
   border: 1px solid #ddd;
-  border-radius: var(--radius-card);
-  padding: var(--spacing-s);
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   display: flex;
   flex-direction: column;
-  row-gap: var(--spacing-xs);
+  row-gap: 0.75rem;
 }
 
+/* 7. Card hover effect */
+.project-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* 8. Headings in the cards */
+.project-card h2 {
+  font-size: 1.25rem;
+  margin: 0;
+}
+
+/* 9. The paragraph text */
+.project-card p {
+  font-size: 0.95rem;
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* 10. Styling the stack items (badges) */
 .project-stack {
-  margin: var(--spacing-xs) 0;
+  margin: 0.5rem 0;
 }
-
 .stack-item {
   display: inline-block;
   background-color: #f0f0f0;
   color: #333;
   padding: 0.3rem 0.6rem;
   border-radius: 16px;
-  margin-right: var(--spacing-xs);
-  margin-bottom: var(--spacing-xs);
-  font-size: 0.9rem;
+  margin-right: 0.4rem;
+  margin-bottom: 0.4rem;
+  font-size: 0.85rem;
 }
 
+/* 11. Demo button styling */
 .project-demo-button {
-  align-self: flex-start;
-  background-color: var(--color-slate);
+  display: inline-block;
+  background-color: #495057;  /* Dark gray (Bootstrap "secondary" style) */
   color: #fff;
-  padding: var(--spacing-xs) var(--spacing-s);
+  padding: 0.5rem 1rem;
   border-radius: 4px;
   text-decoration: none;
   transition: background 0.3s ease;
   font-weight: 500;
   font-size: 0.95rem;
+  margin-top: auto;           /* Push this button down if the card grows taller */
+}
+.project-demo-button:hover {
+  background-color: #343a40;  /* Slightly darker on hover */
 }
 
-.project-demo-button:hover {
-  background-color: #2f3f55;
+/* 12. Optional thumbnail (if you uncomment the <img> tag) */
+.project-thumbnail {
+  width: 100%;
+  height: auto;
+  margin-bottom: 0.75rem;
+  border-radius: 4px;
+  object-fit: cover;          /* Crop the image nicely if aspect ratio is different */
+}
+/* Banner section */
+.projects-banner {
+  /* Provide a background image */
+  background-image: url('/assets/images/projects-banner.jpg');
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  /* Spacing and layout */
+  position: relative; /* for optional overlay if you want it */
+  padding: var(--spacing-l) var(--spacing-m); 
+  display: flex;               /* so we can center the content */
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #fff;                 /* text color contrasting with the background image */
+}
+
+/* Optional overlay if the banner image is too busy */
+.projects-banner::before {
+  content: "";
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* darken/overlay */
+  z-index: 0; /* behind text but above background image */
+}
+
+.projects-banner-content {
+  position: relative; /* ensures it sits above the overlay */
+  z-index: 1;
+  max-width: 800px; /* limit width of text for readability */
+}
+
+/* Style for the banner headings/paragraphs */
+.projects-banner-content h1 {
+  margin-bottom: var(--spacing-s);
+  font-size: 2rem; /* or match your existing heading sizes */
+}
+.projects-banner-content p {
+  font-size: 1.1rem;
+  margin: 0 auto;
+  max-width: 600px;
+}
+
+/* (Optional) Intro block just after the banner */
+.projects-intro {
+  margin-bottom: var(--spacing-m);
+  /* you could add more styles or keep it minimal */
+}
+.projects-intro h2 {
+  font-size: 1.75rem;
+  margin-bottom: var(--spacing-xs);
+}
+.projects-intro p {
+  max-width: 700px;
+  margin: 0; /* or add spacing as desired */
 }

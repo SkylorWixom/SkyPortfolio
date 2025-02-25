@@ -1,15 +1,28 @@
 <main class="page-wrapper">
   <div class="page-container home">
-    <!-- 1) Mobile “Dev Updates” button 
-         Only visible on small screens (we'll hide it in desktop CSS).
-    -->
+
+    <!-- Hero Banner -->
+    <!-- Make sure home_hero.webp is in public/images/ 
+         so Angular copies it to /assets/images/home_hero.webp -->
+    <section
+      class="page-hero"
+      style="background-image: url('/assets/images/home_hero.webp');"
+    >
+      <div class="hero-content">
+        <!-- Main heading for improved contrast -->
+        <h1>Hello, I'm Skylor.</h1>
+        <p>A Full-Stack Developer specializing in Angular, Node.js, and more!</p>
+      </div>
+    </section>
+
+    <!-- (1) Mobile “Dev Updates” button. Hidden on desktop in CSS. -->
     <button class="toggle-tasks-btn" (click)="toggleTasksSidebar()">
       Dev Updates
     </button>
 
-    <!-- 2) Two-column layout: left-col (Tasks) + right-col (Hero, etc.) -->
+    <!-- (2) Two-column layout: left-col (Tasks) + right-col (Welcome & Explore) -->
     <section class="two-column-layout" [class.tasks-open]="isTasksOpen">
-      
+
       <!-- Left column: Dev Updates (Tasks) -->
       <div class="left-col" [class.open]="isTasksOpen">
         <!-- Close button for mobile -->
@@ -25,18 +38,10 @@
         <app-task></app-task>
       </div>
 
-      <!-- Right column: your hero + “welcome” + “explore” -->
+      <!-- Right column: “Welcome” + “Explore” -->
       <div class="right-col">
-        
-        <!-- Hero Section -->
-        <section class="hero">
-          <h1>Hello, I'm Skylor.</h1>
-          <p class="subtitle">
-            A Full-Stack Developer specializing in Angular, Node.js, and more!
-          </p>
-        </section>
 
-        <!-- “Welcome to My Personal Site” card -->
+        <!-- Welcome text -->
         <section class="page-section">
           <h2>Welcome to My Personal Site</h2>
           <p>
@@ -45,7 +50,7 @@
             blog posts about tech & personal interests, and a record of my journey in
             software engineering. Feel free to explore and learn with me!
             <br><br>
-            
+
             <strong>Recently Completed:</strong> I've just finished building out the site’s overall layout
             and integrating the backend for the Projects, Blog, and Contact pages.
             <br>
@@ -60,32 +65,61 @@
           </p>
         </section>
 
-        <!-- “Explore” card with link-cards -->
         <section class="page-section">
           <h2>Explore</h2>
           <div class="link-cards">
+        
+            <!-- Blog Card -->
             <article>
-              <h4>Blog</h4>
-              <p>Check out my latest posts on development, reviews, and more.</p>
-              <a routerLink="/blog">Visit Blog</a>
+              <!-- If you have a big icon (PNG/WebP) or a banner image. 
+                   If your “icon” is small, you might want a placeholder image instead. -->
+              <img
+                src="/assets/images/project_card_banner.webp"
+                alt="Blog icon"
+                class="card-icon"
+              />
+              <div class="card-content">
+                <h3>Blog</h3>
+                <p>Check out my latest posts on development, reviews, and more.</p>
+                <a routerLink="/blog">Visit Blog</a>
+              </div>
             </article>
-
+        
+            <!-- Projects Card -->
             <article>
-              <h4>Projects</h4>
-              <p>Have a look at some of my personal projects.</p>
-              <a routerLink="/projects">View Projects</a>
+              <img
+                src="/assets/images/project_card_banner.webp"
+                alt="Projects icon"
+                class="card-icon"
+              />
+              <div class="card-content">
+                <h3>Projects</h3>
+                <p>Have a look at some of my personal projects.</p>
+                <a routerLink="/projects">View Projects</a>
+              </div>
             </article>
-
+        
+            <!-- Contact Card -->
             <article>
-              <h4>Contact</h4>
-              <p>Have a question or want to collaborate? Reach out here.</p>
-              <a routerLink="/contact">Get in Touch</a>
+              <img
+                src="/assets/images/project_card_banner.webp"
+                alt="Contact icon"
+                class="card-icon"
+              />
+              <div class="card-content">
+                <h3>Contact</h3>
+                <p>Have a question or want to collaborate? Reach out here.</p>
+                <a routerLink="/contact">Get in Touch</a>
+              </div>
             </article>
+        
           </div>
         </section>
-      </div> 
-      <!-- end right-col -->
-    </section> 
-    <!-- end two-column-layout -->
+        
+        
+
+      </div> <!-- end right-col -->
+    </section> <!-- end two-column-layout -->
+
   </div>
 </main>

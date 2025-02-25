@@ -1,51 +1,38 @@
 <main class="page-wrapper">
-  <div class="page-container projects">
-
-    <!-- Intro text in a “projects-section” style container if you like -->
-    <section class="projects-section">
+  <section class="projects-banner">
+    <div class="projects-banner-content">
       <h1>My Projects</h1>
-      <p>Here are some of the projects I've worked on, displayed as cards.</p>
-    </section>
+      <p>Check out some of my work below.</p>
+    </div>
+  </section>
 
-    <!-- Actual grid of project cards in another “projects-section” if you want consistent style -->
+  <div class="page-container projects">
     <section class="projects-section">
+      <!-- Intro block (optional) -->
+      <div class="projects-intro">
+        <h2>Projects Overview</h2>
+        <p>Here are some of the projects I’ve worked on, displayed as cards.</p>
+      </div>
+
+      <!-- Actual list of project cards -->
       <div class="project-list">
-        <!-- 
-          Use your *ngFor to loop over the “projects” array
-          that you fetch from the ProjectService.
-        -->
         <div class="project-card" *ngFor="let proj of projects">
-          
-          <!-- If you have a thumbnail: 
-               <img [src]="proj.thumbnail" class="project-thumbnail" alt="Thumbnail for {{proj.title}}"> 
-          -->
-
-          <h2>{{ proj.title }}</h2>
+          <!-- If you have a thumbnail field, you can <img [src]="proj.thumbnail" alt="{{proj.title}}" ...> -->
+          <h3>{{ proj.title }}</h3>
           <p>{{ proj.description }}</p>
-          
-          <!-- Stack badges: if proj.stack is an array of strings -->
           <div class="project-stack">
-            <span 
-              class="stack-item"
-              *ngFor="let tech of proj.stack"
-            >
-              {{ tech }}
-            </span>
+            <span class="stack-item" *ngFor="let tech of proj.stack">{{ tech }}</span>
           </div>
-
-          <!-- If there's a “demoLink” field, show a button -->
-          <a 
+          <a
             *ngIf="proj.demoLink"
-            [href]="proj.demoLink" 
-            target="_blank" 
+            [href]="proj.demoLink"
+            target="_blank"
             class="project-demo-button"
           >
             View Demo
           </a>
-
         </div>
       </div>
     </section>
-
   </div>
 </main>

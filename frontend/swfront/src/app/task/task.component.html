@@ -1,20 +1,18 @@
 <div class="task-board">
-  <h3 class="task-board-title">Development Progress</h3>
   <p class="task-board-subtitle">
     A quick overview of recent completions, active work, and backlog.
-    <strong>Last Updated: 
-      <!-- (A) If we have a date, format it. Otherwise display nothing or "N/A". -->
+    <br />
+    <strong>
+      Last Updated:
       {{ lastUpdate ? (lastUpdate | date:'short') : 'N/A' }}
     </strong>
   </p>
 
   <!-- RECENTLY COMPLETED -->
   <div class="task-category">
-    <h4>Recently Completed</h4>
+    <h3>Recently Completed</h3>
     <div class="task-list">
-      <!-- (1) We do *ngFor on <ng-container> -->
       <ng-container *ngFor="let t of allTasks">
-        <!-- (2) Then use *ngIf on the actual .task-card -->
         <div class="task-card completed" *ngIf="t.status === 'completed'">
           <div class="task-card-body">
             <strong class="task-card-title">{{ t.title }}</strong>

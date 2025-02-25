@@ -1,40 +1,48 @@
+/* TASK COMPONENT STYLES
+   ======================
+   This aims for higher contrast to help with accessibility checks.
+*/
+
+/* Main board container */
 .task-board {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  font-size: 0.95rem; /* slightly smaller for a sidebar look */
+  /* Slightly larger base font for clarity */
+  font-size: 1rem;
+  color: #333; /* Dark default text color for better contrast */
 }
 
-.task-board-title {
-  margin: 0;
-  font-size: 1.2rem;
-  color: var(--color-dark-navy);
-}
-
+/* Subtitle text (e.g., “A quick overview...”) */
 .task-board-subtitle {
   margin: 0;
-  font-size: 0.85rem;
-  color: var(--color-subhead);
+  font-size: 0.9rem;
+  color: #555; 
   margin-bottom: 0.5rem;
 }
 
+/* Category container: each block for “Recently Completed,” “Active Development,” “Backlog” */
 .task-category {
-  background-color: var(--color-bg);
-  border: 1px solid #ddd;
+  background-color: #fafafa; /* Lighter background for better text contrast */
+  border: 1px solid #ccc;    /* Darker than #ddd for improved visibility */
   border-radius: 6px;
-  padding: 0.5rem 0.75rem;
+  padding: 1rem;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  margin-bottom: 0.5rem;
 }
 
+/* Category headings (e.g. h3, h4) => darker color, bigger font */
+.task-category h3,
 .task-category h4 {
   margin-top: 0;
   margin-bottom: 0.5rem;
-  font-size: 1rem;
-  color: var(--color-dark-navy);
-  border-left: 4px solid var(--color-slate);
+  font-size: 1.1rem;
+  color: #222; /* Darker text for strong contrast */
+  border-left: 5px solid var(--color-slate);
   padding-left: 0.5rem;
 }
 
+/* The list of tasks inside each category */
 .task-list {
   display: flex;
   flex-direction: column;
@@ -42,44 +50,40 @@
   margin-top: 0.25rem;
 }
 
-/* The individual task cards */
+/* Each individual task card */
 .task-card {
-  background-color: #fff;
-  border: 1px solid #ddd;
+  background-color: #fff; 
+  border: 1px solid #ccc;    /* Slightly darker than #ddd */
   border-radius: 4px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-  padding: 0.5rem 0.75rem;
-}
-
-/* Color accents for each status */
-.task-card.completed {
-  border-left: 4px solid #2ecc71; /* green-ish for completed */
-}
-
-.task-card.active {
-  border-left: 4px solid #f1c40f; /* yellow for active */
-}
-
-.task-card.backlog {
-  border-left: 4px solid #e67e22; /* orange for backlog */
-}
-
-.task-card-body {
+  padding: 0.75rem 1rem;
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
 }
 
+/* Larger, darker left border stripes for each status */
+.task-card.completed {
+  border-left: 6px solid #1e8c57;  /* darker green for stronger contrast */
+}
+.task-card.active {
+  border-left: 6px solid #c49e0f;  /* deeper yellow/gold */
+}
+.task-card.backlog {
+  border-left: 6px solid #b45912;  /* deeper orange/brown */
+}
+
+/* Inside each card: Title + optional details */
 .task-card-title {
   font-weight: 600;
-  color: var(--color-headline);
+  color: #222; 
   font-size: 1rem;
   margin: 0;
 }
 
 .task-card-details {
   margin: 0;
-  color: #555;
-  line-height: 1.4;
-  font-size: 0.9rem;
+  color: #444; 
+  line-height: 1.5;
+  font-size: 0.95rem;
 }
