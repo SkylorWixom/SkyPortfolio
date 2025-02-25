@@ -1,13 +1,18 @@
+// blog.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-// The Blog interface
+// Extended Blog interface
 export interface Blog {
   _id?: string;
   title: string;
+  author?: string;           // new field
   content: string;
   category: string;
+  bannerImageUrl?: string;   // new field
+  references?: string[];     // new field
+  tags?: string[];           // optional new field
   createdAt?: Date;
 }
 
@@ -15,7 +20,6 @@ export interface Blog {
   providedIn: 'root'
 })
 export class BlogService {
-
   private baseUrl = 'http://localhost:5000/api/blogs';
 
   constructor(private http: HttpClient) {}
@@ -25,11 +29,8 @@ export class BlogService {
     return this.http.get<Blog[]>(this.baseUrl);
   }
 
-  // POST single doc or array => we can type as "any" or "Blog | Blog[]" 
-  // but let's keep it simple by re-typing it as Blog[] if we plan to insert multiple
-  // In practice, you'd likely do a separate method if you want to handle both distinctly.
+  // POST single doc or array
   createBlog(newData: Partial<Blog> | Array<Partial<Blog>>): Observable<Blog | Blog[]> {
-    // If you pass an array, server will do insertMany, if object => single doc
     return this.http.post<Blog | Blog[]>(this.baseUrl, newData);
   }
 

@@ -1,82 +1,245 @@
-/* blog.component.css */
+/************************************************
+  BASE LAYOUT
+*************************************************/
 
-/* 
-   .blog-section is the sub-block container, 
-   giving background-color: var(--color-bg), border, shadow, etc.
-*/
-.blog-section {
-  background-color: var(--color-bg);
-  margin-bottom: var(--spacing-m);
-  padding: var(--spacing-s) var(--spacing-m);
-  border: 1px solid #ddd;
-  border-radius: var(--radius-card);
-  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
-}
-
-.blog-section h1,
-.blog-section h2,
-.blog-section h3 {
-  margin-top: 0;
-  margin-bottom: var(--spacing-xs);
-  color: var(--color-dark-navy);
-}
-
-/* The single row that holds the heading on the left and buttons on the right */
-.blog-filter-row {
+/* The two-column layout container */
+.two-column-layout {
   display: flex;
-  align-items: center;          /* vertically center them */
-  justify-content: space-between; /* push heading left, buttons right */
+  gap: var(--spacing-s); /* e.g. 1rem */
 }
 
-/* The heading in that row */
-.blog-category-title {
-  margin: 0; 
+/* Left side column with fixed width or min-width */
+.left-col {
+  width: 300px; /* or 280px, etc. */
+  /* Could add more styling if needed */
 }
 
-/* The right side containing the category buttons */
+/* Right side column, flexible to fill the remaining space */
+.right-col {
+  flex: 1; 
+  margin-left: var(--spacing-s);
+}
+
+/************************************************
+  FILTER / SORT
+*************************************************/
+
+.filter-row {
+  display: flex;
+  flex-direction: column; 
+  gap: var(--spacing-s);
+}
+
 .blog-category-buttons {
   display: flex;
-  gap: var(--spacing-xs); /* space between buttons */
+  flex-wrap: wrap;
+  gap: var(--spacing-xs);
 }
 
-/* The style of the category filter buttons */
 .blog-category-buttons button {
   background-color: var(--color-slate);
   color: #fff;
   border: none;
   border-radius: 4px;
-  padding: var(--spacing-xs) var(--spacing-s);
+  padding: 0.5rem 0.75rem;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: background-color 0.2s;
 }
 
 .blog-category-buttons button:hover {
   background-color: #3b4f65;
 }
 
-/* The grid for blog posts */
-.blog-post-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: var(--spacing-s);
-  margin-top: var(--spacing-s);
+.sort-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-xs);
 }
 
-/* Each post as a white card */
-.blog-post-card {
+.sort-controls select {
+  min-width: 120px;
+  padding: 0.25rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font: inherit;
+}
+
+/************************************************
+  POST LIST
+*************************************************/
+
+.post-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.post-list-item {
   background-color: #fff;
   border: 1px solid #ddd;
   border-radius: var(--radius-card);
-  padding: var(--spacing-s);
+  padding: var(--spacing-xs) var(--spacing-s);
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  cursor: pointer;
+  transition: background 0.2s ease;
 }
 
-.blog-post-card h3 {
-  margin-top: 0;
-  margin-bottom: var(--spacing-xs);
+.post-list-item:hover {
+  background-color: #f7f7f7;
+}
+
+.post-list-item h4 {
+  margin: 0 0 0.2rem 0;
+  font-size: 1.1rem;
   color: var(--color-dark-navy);
 }
-.blog-post-card p {
+
+.post-list-item small {
+  color: var(--color-light-slate);
+}
+
+
+/************************************************
+  DETAILED VIEW STYLES
+*************************************************/
+
+/* The banner image at the top of the post */
+.blog-banner-image {
+  width: 100%;
+  max-height: 300px; 
+  object-fit: cover; 
+  border-radius: var(--radius-card);
+  margin-bottom: var(--spacing-s);
+}
+
+/************************************************
+  POST DETAIL ENHANCEMENTS
+*************************************************/
+
+/* 
+   1) Overwrite or refine the .page-section styling 
+      specifically for our blog detail. 
+   2) We'll unify the look with the rest of the site 
+      by using the same shadows, radius, etc. 
+*/
+.post-detail {
+  /* By default, .page-section has background-color: var(--color-bg)
+     If you'd like a whiter card to stand out, uncomment:
+     background-color: #fff;
+  */
+
+  /* Slightly bigger font for the blog’s body text */
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: var(--color-navy);
+
+  /* If you want to ensure it always has a bit more vertical padding: */
+  /* padding: var(--spacing-m); <-- but it's already set by .page-section. */
+
+  /* If you want a bigger margin at the bottom: 
+     margin-bottom: var(--spacing-m); 
+     .page-section might already do this. 
+  */
+}
+
+/* The main title: bigger, bolder. 
+   We already have .post-title = font-size: 1.8rem. 
+   If you want it even bigger or add spacing, do: */
+.post-detail .post-title {
+  margin-top: 0; /* remove extra top margin if needed */
   margin-bottom: var(--spacing-xs);
-  color: var(--color-headline);
+  font-size: 1.8rem; /* or 2rem if you want a larger headline */
+  color: var(--color-dark-navy);
+}
+
+/* The meta row (author/date) */
+.post-detail .post-meta {
+  margin: 0.5rem 0 1rem 0; 
+  color: var(--color-light-slate);
+  font-style: italic;
+  font-size: 0.9rem; /* slightly smaller text for metadata */
+}
+
+/* The category area => we add a subtle border at the bottom for separation */
+.post-detail .post-category {
+  margin-bottom: var(--spacing-s);
+  padding-bottom: var(--spacing-xs);
+  border-bottom: 1px solid #ccc;
+  font-weight: bold;
+}
+
+/* The main content */
+.post-detail .post-content {
+  margin-bottom: var(--spacing-s);
+  /* We already set font-size & line-height on .post-detail,
+     but you can override further if you want: 
+     font-size: 1.1rem; 
+     line-height: 1.6;
+  */
+}
+
+/* The references => we can nest them in a lighter box if you like */
+.post-detail .post-references {
+  background-color: #fff; /* stands out from the var(--color-bg) or #f4f4f4 */
+  border: 1px solid #eee;
+  padding: var(--spacing-s);
+  margin-top: var(--spacing-s);
+  border-radius: var(--radius-card);
+}
+
+.post-detail .post-references h3 {
+  margin-top: 0;
+  margin-bottom: var(--spacing-xs);
+}
+
+.post-detail .post-references ul {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+
+.post-detail .post-references li {
+  list-style: disc;
+  margin-bottom: 0.25rem;
+}
+
+/* Tags => small badges. We can add a top border to separate from references if desired */
+.post-detail .post-tags {
+  margin-top: var(--spacing-s);
+  padding-top: var(--spacing-xs);
+  border-top: 1px solid #ccc;
+  font-size: 0.9rem;
+  color: var(--color-navy);
+}
+
+.post-detail .tag-badge {
+  background-color: #ccc;
+  color: #333;
+  border-radius: 10px;
+  padding: 0.25rem 0.5rem;
+  margin-right: 0.5rem;
+  margin-top: 0.25rem;
+  display: inline-block;
+  font-size: 0.8rem;
+}
+
+
+/************************************************
+  RESPONSIVE
+*************************************************/
+
+@media (max-width: 768px) {
+  .two-column-layout {
+    flex-direction: column;
+  }
+  
+  .left-col,
+  .right-col {
+    width: 100%;
+    margin: 0;
+  }
+
+  .left-col {
+    margin-bottom: var(--spacing-s);
+  }
 }
