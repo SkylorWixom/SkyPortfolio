@@ -1,34 +1,60 @@
-/* Outer sections & container */
-.lwm-section {
-  background-color: var(--color-bg, #f9f9f9);
-  margin-bottom: 1rem;
-  padding: 1rem;
-  border-radius: 6px;
-  border: 1px solid #ddd;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+/* 1) Match the Home hero approach exactly,
+   except use .lwm-hero to differentiate if needed.
+*/
+.page-hero.lwm-hero {
+  min-height: 200px; /* same as home.component.css (200px) */
+
+  /* If you want a different overlay alpha, override:
+  &::before {
+    background-color: var(--hero-overlay-home);
+  }
+  */
 }
+
+/* Exactly matching home: h1 => color: var(--color-button-text), p => var(--color-off-white) */
+.page-hero.lwm-hero .hero-content h1 {
+  color: var(--color-button-text); /* #fff from root vars */
+  font-weight: 700;
+  margin: 0 0 var(--spacing-xs);
+}
+.page-hero.lwm-hero .hero-content p {
+  color: var(--color-off-white);
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+/* 2) The rest is the same data-driven layout for LWM */
+.lwm-section {
+  background-color: var(--color-bg);
+  margin-bottom: var(--spacing-m);
+  padding: var(--spacing-m);
+  border-radius: var(--radius-card);
+  border: 1px solid #ddd;
+  box-shadow: var(--shadow-card);
+}
+
 .lwm-layout {
   display: flex;
-  gap: 1rem;
+  gap: var(--spacing-m);
 }
 .lwm-sidebar {
   flex: 0 0 240px;
   background-color: #fff;
   border: 1px solid #ddd;
-  border-radius: 6px;
-  padding: 1rem;
+  border-radius: var(--radius-card);
+  padding: var(--spacing-s);
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 .lwm-content {
   flex: 1;
   background-color: #fff;
   border: 1px solid #ddd;
-  border-radius: 6px;
-  padding: 1rem;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  border-radius: var(--radius-card);
+  padding: var(--spacing-m);
+  box-shadow: var(--shadow-card);
 }
 
-/* Subject header row in the left nav */
+/* Subject header accordion style */
 .subject-header {
   background-color: #f0f0f0;
   padding: 0.6rem 1rem;
@@ -48,6 +74,8 @@
 .arrow {
   font-size: 1.1rem;
 }
+
+/* The courses list for each subject */
 .courses-list {
   list-style: none;
   margin: 0.5rem 0 0 1rem;
@@ -57,19 +85,19 @@
   margin: 0.25rem 0;
   padding: 0.5rem;
   border-radius: 4px;
-  background-color: #f4f4f4;
+  background-color: #f7f7f7;
   cursor: pointer;
   transition: background-color 0.15s;
 }
 .courses-list li:hover {
-  background-color: #e8e8e8;
+  background-color: #ebebeb;
 }
 .courses-list li.selected {
-  background-color: #415A77;
+  background-color: var(--color-slate);
   color: #fff;
 }
 
-/* Accordion panels for sections on the right */
+/* Accordion for sections & modules */
 .section-accordion {
   border: 1px solid #ddd;
   border-radius: 6px;
@@ -97,7 +125,7 @@
   background-color: #fff;
 }
 
-/* Tabs => pill-like buttons */
+/* Tabs => pill-like buttons at top of each section body */
 .tabs {
   display: flex;
   gap: 1rem;
@@ -116,19 +144,19 @@
   background-color: #eaeaea;
 }
 .tabs button.active {
-  background-color: #415A77;
+  background-color: var(--color-slate);
   color: #fff;
-  border-color: #415A77;
+  border-color: var(--color-slate);
 }
 
-/* Final items => Single column list */
+/* Final items => single column list of clickable items */
 .final-items {
   list-style: none;
   margin: 0;
   padding: 0;
 }
 .final-items li {
-  background-color: #f4f4f4;
+  background-color: #f9f9f9;
   border: 1px solid #ddd;
   border-radius: 6px;
   margin-bottom: 0.5rem;
@@ -137,7 +165,7 @@
   transition: background-color 0.15s;
 }
 .final-items li:hover {
-  background-color: #e9e9e9;
+  background-color: #efefef;
 }
 .final-items li strong {
   display: block;
@@ -146,11 +174,12 @@
   color: #333;
 }
 
-/* (A) Minimal modal styling */
+/* Minimal modal styling */
 .modal-overlay {
   position: fixed;       
   top: 0; left: 0;
-  width: 100%; height: 100%;
+  width: 100%;
+  height: 100%;
   background-color: rgba(0,0,0,0.5);
   display: flex;
   align-items: center;
@@ -181,7 +210,7 @@
   color: #000;
 }
 
-/* --- MOBILE RESPONSIVE --- */
+/* 9) Mobile Responsive */
 @media (max-width: 768px) {
   .lwm-layout {
     flex-direction: column;

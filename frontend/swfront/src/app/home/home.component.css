@@ -5,10 +5,9 @@
 
 /* 1) Hero Section Overwrites */
 .page-hero {
-  min-height: 350px; /* Ensure the hero has enough height to show background image */
+  min-height: 200px; /* Ensure the hero has enough height to show background image */
 }
 .page-hero::before {
-  /* Use a semi-transparent overlay from your root variable, or set your own RGBA here */
   background-color: var(--hero-overlay-home);
 }
 .page-hero .hero-content {

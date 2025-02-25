@@ -26,6 +26,8 @@ export interface CourseLevel {
 export interface SubjectData {
   subjectTitle: string;     
   courses: CourseLevel[];
+    iconUrl?: string;
+    bannerUrl?: string;
 }
 
 

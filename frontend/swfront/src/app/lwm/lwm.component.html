@@ -1,22 +1,35 @@
 <main class="page-wrapper">
-  <div class="page-container learn-with-me">
+  <!-- 1) Hero Banner: just like Home, static image + same text color size -->
+  <section
+    class="page-hero lwm-hero"
+    style="background-image: url('/assets/images/circuitbackground.webp');"
+  >
+    <div class="hero-content">
+      <h1>Learn with Me</h1>
+      <p>Explore courses and modules on a variety of tech subjects.</p>
+    </div>
+  </section>
 
-    <!-- Intro / Title -->
+  <div class="page-container learn-with-me">
+    <!-- 2) Intro section remains the same, with your “Multiple Subjects...” text -->
     <section class="lwm-section">
-      <h1>Learn with Me: Multiple Subjects</h1>
+      <h2>Multiple Subjects, Endless Learning</h2>
       <p>
-        As a lifelong learner, I'm always exploring new technologies...
+        As a lifelong learner, I'm always exploring new technologies.
+        On the left, you can pick a subject like “Frontend” or “Backend,”
+        then dive into its courses, modules, and final items on the right.
+        Click on any “Final Item” to see more details, watch embedded videos,
+        or read content in the modal.
       </p>
     </section>
 
-    <!-- Two-column layout -->
+    <!-- 3) Two-column layout, data-driven side nav + main content -->
     <section class="lwm-section lwm-layout">
-
-      <!-- LEFT NAV: multiple subjects, each with courses -->
+      <!-- LEFT SIDEBAR: subjects from the DB -->
       <nav class="lwm-sidebar">
         <div class="subjects-list">
           <div class="subject-item" *ngFor="let subj of subjects">
-            <!-- Subject collapsible header -->
+
             <div
               class="subject-header"
               [class.expanded]="subj.expanded"
@@ -26,7 +39,6 @@
               <span class="arrow">{{ subj.expanded ? '▼' : '▶' }}</span>
             </div>
 
-            <!-- If subject is expanded, show its courses -->
             <ul class="courses-list" *ngIf="subj.expanded">
               <li
                 *ngFor="let c of subj.courses"
@@ -40,20 +52,18 @@
         </div>
       </nav>
 
-      <!-- RIGHT CONTENT: show the chosen course’s sections -->
+      <!-- RIGHT CONTENT: expanded course details, sections, modules, final items -->
       <article class="lwm-content">
         <ng-container *ngIf="selectedCourse; else noCourse">
           <h2>{{ selectedCourse.courseTitle }}</h2>
 
           <!-- For each section, build an accordion + tabs -->
           <div class="section-accordion" *ngFor="let sec of sectionsEx">
-            <!-- Section accordion header -->
             <div class="section-header" (click)="toggleSection(sec)">
               <h4>{{ sec.sectionTitle }}</h4>
               <span class="accordion-arrow">{{ sec.expanded ? '▼' : '▶' }}</span>
             </div>
 
-            <!-- If expanded, show modules & final items -->
             <div class="section-body" *ngIf="sec.expanded">
               <nav class="tabs">
                 <button
@@ -65,7 +75,6 @@
                 </button>
               </nav>
 
-              <!-- The final items for whichever module is active -->
               <div class="tab-content">
                 <ng-container *ngFor="let mod of sec.modules">
                   <div *ngIf="sec.activeTab === mod.moduleTitle">
@@ -74,7 +83,6 @@
                         *ngFor="let fi of mod.finalItems"
                         (click)="onFinalItemClick(fi); $event.stopPropagation()"
                       >
-                        <!-- Could also show fi.description or fi.videoUrl if you like -->
                         <strong>{{ fi.title }}</strong>
                         <small>{{ fi.content }}</small>
                       </li>
@@ -94,30 +102,22 @@
   </div>
 </main>
 
-<!-- (A) The modal overlay. We only show it if isModalOpen = true. -->
+<!-- MODAL OVERLAY for final items -->
 <div class="modal-overlay" *ngIf="isModalOpen">
   <div class="modal-container">
     <button class="close-btn" (click)="closeModal()">✕</button>
-
-    <!-- If we have a selectedFinalItem, show it here -->
     <div *ngIf="selectedFinalItem">
       <h2>{{ selectedFinalItem.title }}</h2>
-
-      <!-- If description is present, show it. -->
       <p *ngIf="selectedFinalItem.description">{{ selectedFinalItem.description }}</p>
-
-      <!-- If content is present, you can also show that, or merge them. -->
       <p *ngIf="selectedFinalItem.content">{{ selectedFinalItem.content }}</p>
-
-      <iframe 
-      width="560" 
-      height="315"
-      *ngIf="selectedFinalItem.videoUrl"
-      [src]="selectedFinalItem.videoUrl | safeUrl"
-      frameborder="0"
-      allowfullscreen
-    ></iframe>
-    
+      <iframe
+        width="560"
+        height="315"
+        *ngIf="selectedFinalItem.videoUrl"
+        [src]="selectedFinalItem.videoUrl | safeUrl"
+        frameborder="0"
+        allowfullscreen
+      ></iframe>
     </div>
   </div>
 </div>

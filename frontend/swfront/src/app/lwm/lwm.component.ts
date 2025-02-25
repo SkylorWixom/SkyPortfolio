@@ -4,15 +4,21 @@ import { SubjectService, SubjectData, CourseLevel, SectionLevel, FinalItem } fro
 import { SafeUrlPipe } from '../safe-url.pipe';
 
 /**
- * We add "expanded?: boolean; activeTab?: string;" to each section so we can fold/unfold them. 
- * For the subject, we do "expanded?: boolean;" for collapsing the left nav items.
+ * Extend your section interface for collapsible behavior + tab selection
  */
 interface ExtendedSection extends SectionLevel {
   expanded?: boolean;
   activeTab?: string;
 }
+
+/**
+ * Extend SubjectData for local usage to include iconUrl, bannerUrl if present,
+ * plus "expanded" to track the open/closed state in the sidebar.
+ */
 interface SubjectEx extends SubjectData {
   expanded?: boolean;
+  iconUrl?: string;   // optional field from your backend or local mapping
+  bannerUrl?: string; // optional field from your backend or local mapping
 }
 
 @Component({
@@ -24,19 +30,19 @@ interface SubjectEx extends SubjectData {
 })
 export class LwmAltComponent implements OnInit {
 
-  // 1) The top-level array of subjects from your backend
+  // 1) The array of subjects (with optional icon/banner fields)
   subjects: SubjectEx[] = [];
 
-  // 2) The currently selected course on the right
+  // 2) The currently selected course to display on the right
   selectedCourse: CourseLevel | null = null;
 
-  // 3) For that course, we store an array of extended sections, each with "expanded" and "activeTab"
+  // 3) The "extended" sections array for controlling expanded state + active tab
   sectionsEx: ExtendedSection[] = [];
 
-  // 4) The final item (like "Fields altered by computers") that the user last clicked
+  // 4) The final item user clicked, shown in a modal
   selectedFinalItem: FinalItem | null = null;
 
-  // 5) A boolean to toggle the modal
+  // 5) Modal open/close tracking
   isModalOpen = false;
 
   constructor(private subjectService: SubjectService) {}
@@ -46,13 +52,15 @@ export class LwmAltComponent implements OnInit {
   }
 
   /**
-   * Load all subjects from your backend. 
-   * We'll mark each subject with "expanded = false."
+   * Load all subjects from your backend via SubjectService.
+   * Mark each subject with "expanded = false" for the sidebar.
    */
   loadSubjects() {
     this.subjectService.getAll().subscribe({
       next: (res) => {
-        this.subjects = res.map(s => ({
+        // If iconUrl or bannerUrl exist in the DB, they'll map over automatically.
+        // If not, they're just undefined, which won't break anything.
+        this.subjects = res.map((s) => ({
           ...s,
           expanded: false
         }));
@@ -62,22 +70,22 @@ export class LwmAltComponent implements OnInit {
   }
 
   /**
-   * Toggle a subject’s expanded state in the left nav
+   * Expand/collapse a subject in the left sidebar
    */
   toggleSubject(subj: SubjectEx) {
     subj.expanded = !subj.expanded;
   }
 
   /**
-   * When a course is selected, we reset the final item + close modal,
-   * and build our sectionsEx array for the right side
+   * When a course is selected, close the modal + build out ExtendedSection[] for the right side
    */
   selectCourse(course: CourseLevel) {
     this.selectedCourse = course;
     this.selectedFinalItem = null;
     this.isModalOpen = false;
 
-    this.sectionsEx = course.sections.map(sec => ({
+    // Mark each section as collapsed + set default activeTab to 'Learn'
+    this.sectionsEx = course.sections.map((sec) => ({
       ...sec,
       expanded: false,
       activeTab: 'Learn'
@@ -85,22 +93,21 @@ export class LwmAltComponent implements OnInit {
   }
 
   /**
-   * Toggle a single section's expanded/collapsed accordion
+   * Expand/collapse a single section
    */
   toggleSection(sec: ExtendedSection) {
     sec.expanded = !sec.expanded;
   }
 
   /**
-   * Switch the active tab (e.g. "Learn", "Do", or "Resources")
+   * Set the active tab for a section's modules
    */
   setActiveTab(sec: ExtendedSection, tab: string) {
     sec.activeTab = tab;
   }
 
   /**
-   * Called when user clicks a final item. Instead of pushing it to the bottom, 
-   * we open a modal with the final item’s details (title, description, videoUrl).
+   * Open the modal when user clicks on a final item
    */
   onFinalItemClick(item: FinalItem) {
     this.selectedFinalItem = item;
@@ -108,7 +115,7 @@ export class LwmAltComponent implements OnInit {
   }
 
   /**
-   * Hide the modal
+   * Close the modal
    */
   closeModal() {
     this.isModalOpen = false;
