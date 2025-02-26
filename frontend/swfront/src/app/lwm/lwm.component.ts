@@ -30,7 +30,7 @@ interface SubjectEx extends SubjectData {
 })
 export class LwmAltComponent implements OnInit {
 
-  // 1) The array of subjects (with optional icon/banner fields)
+  // 1)   The array of subjects (with optional icon/banner fields)
   subjects: SubjectEx[] = [];
 
   // 2) The currently selected course to display on the right
