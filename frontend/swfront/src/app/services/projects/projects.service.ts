@@ -9,8 +9,13 @@ export interface Project {
   description: string;
   stack: string[];
   demoLink?: string;
-  thumbnail?: string;
-  createdAt?: Date;
+  githubLink?: string; // Added missing property
+  imageUrl?: string;   // Added for image support
+  category?: string;   // Added for category filtering
+  date?: string;       // Added for display date
+  featured?: boolean;  // Optional for featured projects
+  thumbnail?: string;  // Keep existing property if used elsewhere
+  createdAt?: Date;    // Keep existing property if used elsewhere
 }
 
 @Injectable({

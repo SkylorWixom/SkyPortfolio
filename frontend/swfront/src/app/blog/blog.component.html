@@ -1,16 +1,28 @@
 <main class="page-wrapper">
-  <div class="page-container blog-page">
+  <div class="page-container content-container">
+    <!-- Hero Banner -->
+    <section
+      class="page-hero blog-hero"
+      style="background-image: url('/assets/images/blog_header.webp');"
+    >
+      <div class="hero-content">
+        <h1>Blog</h1>
+        <p>Thoughts, tutorials, and insights on software development</p>
+      </div>
+    </section>
+    
+    <!-- Two-column layout -->
     <div class="two-column-layout">
-      <!-- LEFT COLUMN: Filter & Sort + Post List (same as before) -->
-      <div class="left-col">
-        <section class="page-section filter-row">
+      <!-- LEFT COLUMN: Filter & Sort + Post List -->
+      <div class="left-col blog-sidebar">
+        <section class="filter-row">
           <h2>Filter &amp; Sort</h2>
           <div class="blog-category-buttons">
-            <button (click)="filterCategory('all')">All</button>
-            <button (click)="filterCategory('learning')">Learning</button>
-            <button (click)="filterCategory('reviews')">Reviews</button>
-            <button (click)="filterCategory('responses')">Responses</button>
-            <button (click)="filterCategory('personal')">Personal</button>
+            <button (click)="filterCategory('all')" [class.active]="selectedCategory === 'all'">All</button>
+            <button (click)="filterCategory('learning')" [class.active]="selectedCategory === 'learning'">Learning</button>
+            <button (click)="filterCategory('reviews')" [class.active]="selectedCategory === 'reviews'">Reviews</button>
+            <button (click)="filterCategory('responses')" [class.active]="selectedCategory === 'responses'">Responses</button>
+            <button (click)="filterCategory('personal')" [class.active]="selectedCategory === 'personal'">Personal</button>
           </div>
 
           <div class="sort-controls">
@@ -23,7 +35,6 @@
               <option value="createdAt">Date</option>
               <option value="title">Title</option>
               <option value="category">Category</option>
-              <!-- optional if you added author sorting -->
               <option value="author">Author</option>
             </select>
 
@@ -39,7 +50,7 @@
           </div>
         </section>
 
-        <section class="page-section">
+        <section>
           <h3>
             {{ selectedCategory === 'all' ? 'All Posts' : (selectedCategory | titlecase) + ' Posts' }}
           </h3>
@@ -51,6 +62,7 @@
               class="post-list-item"
               *ngFor="let post of filteredPosts"
               (click)="selectPost(post)"
+              [class.selected]="selectedPost === post"
             >
               <h4>{{ post.title }}</h4>
               <small>{{ post.createdAt | date:'mediumDate' }}</small>
@@ -60,62 +72,60 @@
       </div><!-- /left-col -->
 
      <!-- RIGHT COLUMN: Detailed View -->
-    <div class="right-col">
-      <!-- If user hasn't selected anything, a short message -->
-      <section class="page-section" *ngIf="!selectedPost">
-        <h2>Select a Post</h2>
-        <p>Choose one from the left to read its details here.</p>
-      </section>
+      <div class="right-col">
+        <!-- If user hasn't selected anything, a short message -->
+        <section class="page-section" *ngIf="!selectedPost">
+          <h2>Select a Post</h2>
+          <p>Choose one from the left to read its details here.</p>
+        </section>
 
-      <!-- Otherwise, display the blog post details -->
-      <section class="page-section post-detail" *ngIf="selectedPost">
-        <!-- Banner image at the top (if provided) -->
-        <div *ngIf="selectedPost.bannerImageUrl">
-          <img [src]="selectedPost.bannerImageUrl" alt="Post Banner" class="blog-banner-image"/>
-        </div>
+        <!-- Otherwise, display the blog post details -->
+        <section class="page-section post-detail" *ngIf="selectedPost">
+          <!-- Banner image at the top (if provided) -->
+          <div *ngIf="selectedPost.bannerImageUrl">
+            <img [src]="selectedPost.bannerImageUrl" alt="Post Banner" class="blog-banner-image"/>
+          </div>
 
-        <!-- Title -->
-        <h2 class="post-title">{{ selectedPost.title }}</h2>
+          <!-- Title -->
+          <h2 class="post-title">{{ selectedPost.title }}</h2>
 
-        <!-- Author & date row -->
-        <div class="post-meta">
-          <span class="post-author">By {{ selectedPost.author || 'Anonymous' }}</span>
-          &nbsp;|&nbsp;
-          <span class="post-date">
-            {{ selectedPost.createdAt | date:'longDate' }}
-          </span>
-        </div>
+          <!-- Author & date row -->
+          <div class="post-meta">
+            <span class="post-author">By {{ selectedPost.author || 'Anonymous' }}</span>
+            &nbsp;|&nbsp;
+            <span class="post-date">
+              {{ selectedPost.createdAt | date:'longDate' }}
+            </span>
+          </div>
 
-        <!-- Category or tags row -->
-        <div class="post-category">
-          <strong>Category:</strong> {{ selectedPost.category }}
-        </div>
-        
-        <!-- Post content -->
-        <div class="post-content" [innerHTML]="getSafeContent(selectedPost)"></div>
-
-
-        <!-- If references exist, show them as a small list -->
-        <div class="post-references" *ngIf="selectedPost.references?.length">
-          <h3>References &amp; Links</h3>
-          <ul>
-            <li *ngFor="let link of selectedPost.references">
-              <a [href]="link" target="_blank">{{ link }}</a>
-            </li>
-          </ul>
-        </div>
-
-        <!-- If you want to display tags as well -->
-        <div class="post-tags" *ngIf="selectedPost.tags?.length">
-          <strong>Tags:</strong>
-          <span *ngFor="let tag of selectedPost.tags" class="tag-badge">
-            {{ tag }}
-          </span>
-        </div>
-      </section>
-    </div><!-- /right-col -->
+          <!-- Category or tags row -->
+          <div class="post-category">
+            <strong>Category:</strong> {{ selectedPost.category | titlecase }}
+          </div>
+          
+          <!-- Post content -->
+          <div class="post-content" [innerHTML]="getSafeContent(selectedPost)"></div>
 
 
+          <!-- If references exist, show them as a small list -->
+          <div class="post-references" *ngIf="selectedPost.references?.length">
+            <h3>References &amp; Links</h3>
+            <ul>
+              <li *ngFor="let link of selectedPost.references">
+                <a [href]="link" target="_blank">{{ link }}</a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- If you want to display tags as well -->
+          <div class="post-tags" *ngIf="selectedPost.tags?.length">
+            <strong>Tags:</strong>
+            <span *ngFor="let tag of selectedPost.tags" class="tag-badge">
+              {{ tag }}
+            </span>
+          </div>
+        </section>
+      </div><!-- /right-col -->
     </div><!-- /two-column-layout -->
   </div><!-- /page-container -->
 </main>

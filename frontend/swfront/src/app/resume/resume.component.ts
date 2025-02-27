@@ -1,10 +1,13 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';  // Import RouterLink
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-resume',
   templateUrl: './resume.component.html',
   styleUrls: ['./resume.component.css'],
-  imports: [RouterLink]  // Add RouterLink to imports
+  standalone: true,
+  imports: [CommonModule]
 })
-export class ResumeComponent {}
+export class ResumeComponent {
+  // Component logic
+}

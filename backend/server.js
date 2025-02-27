@@ -25,10 +25,7 @@ app.use(express.static('public')); // if you have images or static files in /pub
 
 // 5) Connect to MongoDB via MONGO_URI in .env
 mongoose
-  .connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  })
+  .connect(process.env.MONGO_URI)
   .then(() => console.log('MongoDB Connected'))
   .catch(err => console.error('MongoDB Connection Error:', err));
 

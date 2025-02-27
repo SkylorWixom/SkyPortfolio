@@ -5,27 +5,48 @@ const projectSchema = new mongoose.Schema({
         type: String,         
         required: true,       
         trim: true            
-      },
-      description: {
+    },
+    description: {
         type: String,         
         required: true        
-      },
-      stack: {
+    },
+    stack: {
         type: [String],       
         required: true        
-      },
-      demoLink: {
+    },
+    demoLink: {
         type: String,         
         required: false      
-      },
-      thumbnail: {
+    },
+    githubLink: {
+        type: String,
+        required: false
+    },
+    imageUrl: {
+        type: String,
+        required: false
+    },
+    category: {
+        type: String,
+        required: false,
+        default: 'web'
+    },
+    date: {
+        type: String,
+        required: false
+    },
+    featured: {
+        type: Boolean,
+        default: false
+    },
+    thumbnail: {
         type: String,         
         required: false       
-      },
-      createdAt: {
+    },
+    createdAt: {
         type: Date,           
         default: Date.now     
-      }
+    }
 });
 
 const Project = mongoose.model('Project', projectSchema);

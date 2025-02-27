@@ -28,6 +28,7 @@
   display: flex;
   flex-direction: column; 
   gap: var(--spacing-s);
+  margin-bottom: var(--spacing-m);
 }
 
 .blog-category-buttons {
@@ -41,28 +42,59 @@
   color: #fff;
   border: none;
   border-radius: 4px;
-  padding: 0.5rem 0.75rem;
+  padding: var(--spacing-xs) var(--spacing-s);
   cursor: pointer;
   transition: background-color 0.2s;
 }
 
 .blog-category-buttons button:hover {
-  background-color: #3b4f65;
+  background-color: var(--color-navy);
 }
 
+.blog-category-buttons button.active {
+  background-color: var(--color-dark-navy);
+  font-weight: 600;
+}
+
+/* Make filter section header clearer */
+.filter-title {
+  margin-bottom: var(--spacing-xs);
+  font-weight: 600;
+  color: #14202F; /* Changed from var(--color-navy) to darker navy */
+}
+
+/* Update Sort Controls */
 .sort-controls {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--spacing-xs) var(--spacing-s);
   align-items: center;
-  gap: var(--spacing-xs);
+  margin-top: var(--spacing-m);
+  padding-top: var(--spacing-s);
+  border-top: 1px solid #ddd;
+}
+
+.sort-controls label {
+  font-weight: 600;
+  color: #14202F; /* Changed from var(--color-navy) to darker navy */
 }
 
 .sort-controls select {
   min-width: 120px;
-  padding: 0.25rem;
+  padding: var(--spacing-xs);
   border: 1px solid #ccc;
   border-radius: 4px;
   font: inherit;
+  width: 100%;
+  justify-self: end;
+}
+
+/* Add a title for the sort section */
+.sort-title {
+  margin-top: var(--spacing-m);
+  margin-bottom: var(--spacing-xs);
+  font-weight: 600;
+  color: #14202F; /* Changed from var(--color-navy) to darker navy */
 }
 
 /************************************************
@@ -73,6 +105,7 @@
   display: flex;
   flex-direction: column;
   gap: var(--spacing-xs);
+  margin-top: var(--spacing-s);
 }
 
 .post-list-item {
@@ -80,13 +113,19 @@
   border: 1px solid #ddd;
   border-radius: var(--radius-card);
   padding: var(--spacing-xs) var(--spacing-s);
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
   cursor: pointer;
-  transition: background 0.2s ease;
+  transition: background 0.2s ease, transform 0.1s ease;
 }
 
 .post-list-item:hover {
   background-color: #f7f7f7;
+  transform: translateY(-2px);
+}
+
+.post-list-item.selected {
+  border-color: var(--color-slate);
+  background-color: rgba(65, 90, 119, 0.05);
 }
 
 .post-list-item h4 {
@@ -96,9 +135,9 @@
 }
 
 .post-list-item small {
-  color: var(--color-light-slate);
+  color: #5A6B85; /* Changed from light-slate to a darker shade */
+  font-weight: 500;
 }
-
 
 /************************************************
   DETAILED VIEW STYLES
@@ -156,9 +195,11 @@
 /* The meta row (author/date) */
 .post-detail .post-meta {
   margin: 0.5rem 0 1rem 0; 
-  color: var(--color-light-slate);
+  /* Change from #5A6B85 to #4A5B75 for better contrast against white background */
+  color: #4A5B75; 
   font-style: italic;
-  font-size: 0.9rem; /* slightly smaller text for metadata */
+  font-size: 0.9rem;
+  font-weight: 600; /* Increased from 500 to 600 for better contrast */
 }
 
 /* The category area => we add a subtle border at the bottom for separation */
@@ -166,7 +207,8 @@
   margin-bottom: var(--spacing-s);
   padding-bottom: var(--spacing-xs);
   border-bottom: 1px solid #ccc;
-  font-weight: bold;
+  font-weight: 600; /* Increased from bold to 600 for consistency */
+  color: #14202F; /* Darker navy color */
 }
 
 /* The main content */
@@ -201,6 +243,7 @@
 .post-detail .post-references li {
   list-style: disc;
   margin-bottom: 0.25rem;
+  color: #14202F; /* Darker navy for better contrast */
 }
 
 /* Tags => small badges. We can add a top border to separate from references if desired */
@@ -209,20 +252,21 @@
   padding-top: var(--spacing-xs);
   border-top: 1px solid #ccc;
   font-size: 0.9rem;
-  color: var(--color-navy);
+  color: #14202F; /* Darker version of navy for better contrast */
+  font-weight: 500; /* Added weight for better readability */
 }
 
 .post-detail .tag-badge {
-  background-color: #ccc;
-  color: #333;
-  border-radius: 10px;
-  padding: 0.25rem 0.5rem;
-  margin-right: 0.5rem;
-  margin-top: 0.25rem;
+  background-color: #5A6B85; /* Changed background from light-slate to a darker shade */
+  color: white;
+  border-radius: 16px;
+  padding: var(--spacing-xs) var(--spacing-s);
+  margin-right: var(--spacing-xs);
+  margin-top: var(--spacing-xs);
   display: inline-block;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
+  font-weight: 500;
 }
-
 
 /************************************************
   RESPONSIVE
@@ -242,4 +286,35 @@
   .left-col {
     margin-bottom: var(--spacing-s);
   }
+}
+
+/* Blog Component Styles */
+
+/* Hero banner specific */
+.page-hero.blog-hero {
+  min-height: 200px;
+}
+
+.page-hero.blog-hero .hero-content h1 {
+  color: var(--color-button-text);
+  font-weight: 700;
+  margin: 0 0 var(--spacing-xs);
+}
+
+.page-hero.blog-hero .hero-content p {
+  color: var(--color-off-white);
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+/************************************************
+  LEFT SIDEBAR STYLING
+*************************************************/
+
+.blog-sidebar {
+  background-color: var(--color-off-white);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: var(--spacing-s);
+  height: fit-content;
 }

@@ -6,6 +6,10 @@
   background-color: #f8f9fa;  /* Light neutral color */
   margin-bottom: 2rem;        /* Spacing before the cards start */
   border-radius: 8px;         /* Slight rounding for modern look */
+  min-height: 200px;
+  background-image: url('/assets/images/circuitbackground.webp') !important;
+  background-size: cover;
+  background-position: center;
 }
 
 /* 2. Override the default h1 in the hero section for bigger, bolder style */
@@ -49,6 +53,12 @@
   display: flex;
   flex-direction: column;
   row-gap: 0.75rem;
+  cursor: pointer;
+  border: 2px solid transparent;
+}
+
+.project-card.selected {
+  border-color: var(--color-slate);
 }
 
 /* 7. Card hover effect */
@@ -68,11 +78,16 @@
   font-size: 0.95rem;
   line-height: 1.4;
   margin: 0;
+  flex-grow: 1;
 }
 
 /* 10. Styling the stack items (badges) */
 .project-stack {
   margin: 0.5rem 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-xs);
+  margin-top: var(--spacing-xs);
 }
 .stack-item {
   display: inline-block;
@@ -166,4 +181,263 @@
 .projects-intro p {
   max-width: 700px;
   margin: 0; /* or add spacing as desired */
+}
+
+/* Projects Component Styles */
+
+/* Hero banner specific */
+.page-hero.projects-hero {
+  min-height: 200px;
+}
+
+.page-hero.projects-hero .hero-content h1 {
+  color: var(--color-button-text);
+  font-weight: 700;
+  margin: 0 0 var(--spacing-xs);
+}
+
+.page-hero.projects-hero .hero-content p {
+  color: var(--color-off-white);
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+/************************************************
+  LEFT SIDEBAR STYLING
+*************************************************/
+
+.projects-sidebar {
+  background-color: var(--color-off-white);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: var(--spacing-s);
+  height: fit-content;
+}
+
+.filter-section {
+  margin-bottom: var(--spacing-m);
+}
+
+.filter-section h2, 
+.tech-filter h3 {
+  color: #14202F; /* Darker navy for better contrast */
+  margin-bottom: var(--spacing-xs);
+  font-weight: 600;
+}
+
+/* Project categories styling */
+.projects-categories {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  margin-top: var(--spacing-s);
+}
+
+.projects-categories button {
+  background-color: var(--color-slate);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: var(--spacing-xs) var(--spacing-s);
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.projects-categories button:hover {
+  background-color: var(--color-navy);
+}
+
+.projects-categories button.active {
+  background-color: var(--color-dark-navy);
+  font-weight: 600;
+}
+
+/* Technology filter styling */
+.tech-filter {
+  margin-top: var(--spacing-m);
+  padding-top: var(--spacing-s);
+  border-top: 1px solid #ddd;
+  margin-bottom: var(--spacing-m);
+}
+
+.tech-filter-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-xs);
+  margin-top: var(--spacing-xs);
+}
+
+.tech-filter-item {
+  background-color: #ddd;
+  color: #14202F;
+  padding: var(--spacing-xs) var(--spacing-s);
+  border-radius: 16px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: background-color 0.2s;
+}
+
+.tech-filter-item:hover {
+  background-color: #ccc;
+}
+
+.tech-filter-item.active {
+  background-color: var(--color-slate);
+  color: white;
+  font-weight: 600;
+}
+
+/* Selected project details section */
+.project-info {
+  margin-top: var(--spacing-m);
+  padding-top: var(--spacing-s);
+  border-top: 1px solid #ddd;
+}
+
+.project-details h4 {
+  margin: 0 0 var(--spacing-xs) 0;
+  font-size: 1.1rem;
+}
+
+.project-date {
+  font-size: 0.9rem;
+  color: #4A5B75; /* WCAG compliant darker shade */
+  font-weight: 600;
+  margin-bottom: var(--spacing-xs);
+}
+
+.project-links {
+  margin-top: var(--spacing-s);
+  display: flex;
+  gap: var(--spacing-s);
+}
+
+/************************************************
+  PROJECT CARDS STYLING
+*************************************************/
+
+.project-card {
+  background-color: #fff;
+  padding: var(--spacing-m);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  cursor: pointer;
+  border: 2px solid transparent;
+}
+
+.project-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.project-card.selected {
+  border-color: var(--color-slate);
+}
+
+.project-card h3 {
+  font-size: 1.25rem;
+  margin: 0;
+  color: var(--color-dark-navy);
+}
+
+.project-card p {
+  font-size: 0.95rem;
+  line-height: 1.4;
+  margin: 0;
+  flex-grow: 1;
+}
+
+.project-image {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-bottom: var(--spacing-xs);
+}
+
+.project-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-xs);
+  margin-top: var(--spacing-xs);
+}
+
+.stack-item {
+  display: inline-block;
+  background-color: #f0f0f0;
+  color: #14202F;
+  padding: var(--spacing-xs) var(--spacing-xs);
+  border-radius: 16px;
+  font-size: 0.85rem;
+}
+
+/* Demo button styling */
+.project-demo-button,
+.project-github-button {
+  display: inline-block;
+  background-color: var(--color-button);
+  color: var(--color-button-text);
+  padding: var(--spacing-xs) var(--spacing-s);
+  border-radius: 4px;
+  text-decoration: none;
+  transition: background 0.3s ease;
+  font-weight: 500;
+  text-align: center;
+}
+
+.project-github-button {
+  background-color: #333;
+}
+
+.project-demo-button:hover,
+.project-github-button:hover {
+  background-color: var(--color-dark-navy);
+}
+
+/************************************************
+  RESPONSIVE
+*************************************************/
+
+@media (max-width: 768px) {
+  .two-column-layout {
+    flex-direction: column;
+  }
+  
+  .left-col,
+  .right-col {
+    width: 100%;
+    margin: 0;
+  }
+
+  .left-col {
+    margin-bottom: var(--spacing-m);
+  }
+  
+  .project-links {
+    flex-direction: column;
+  }
+}
+
+/* Remove this if it exists at the bottom of your CSS file */
+/* IMPORTANT: Make sure the two-column layout is working properly */
+.two-column-layout {
+  display: flex;
+  gap: var(--spacing-m);
+  margin-bottom: var(--spacing-m);
+}
+
+/* Left sidebar - must have a fixed width */
+.left-col.projects-sidebar {
+  width: 300px;
+  flex-shrink: 0; 
+  background-color: var(--color-off-white);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: var(--spacing-s);
+  height: fit-content;
 }

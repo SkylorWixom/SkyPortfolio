@@ -13,7 +13,7 @@
   padding: var(--spacing-s) var(--spacing-m);
   border-radius: var(--radius-card);
   border: 1px solid #ddd;
-  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
 .education {
@@ -67,6 +67,20 @@
   list-style: none;
   padding-left: 0;
   margin: var(--spacing-xs) 0;
+}
+
+.experience ul li {
+  position: relative;
+  padding-left: 20px;
+  margin-bottom: 8px;
+  line-height: 1.6;
+}
+
+.experience ul li:before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: var(--color-slate);
 }
 
 /* For bullet points in the main resume-sections: */
@@ -134,4 +148,217 @@
 .contact-link a:hover {
   background-color: var(--color-slate);
   box-shadow: 0 0 8px rgba(0,0,0,0.3);
+}
+
+/* ===================================================
+   RESUME COMPONENT STYLING
+   =================================================== */
+
+/* HERO SECTION */
+.resume-hero {
+  min-height: 200px;
+  background-size: cover;
+  background-position: center;
+  color: var(--color-bg);
+  background-image: url('/assets/images/circuitbackground.webp') !important;
+}
+
+.resume-hero h1 {
+  color: var(--color-off-white);
+  margin-bottom: var(--spacing-xs);
+}
+
+.resume-hero p {
+  color: var(--color-off-white);
+}
+
+/* ===================================================
+   RESUME SIDEBAR (LEFT COLUMN)
+   =================================================== */
+
+/* Base container styling */
+.resume-sidebar {
+  background-color: #fff;
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  border: 1px solid #eaeaea;
+  overflow: hidden;
+}
+
+/* Profile header */
+.profile-header {
+  padding: 20px;
+  background-color: var(--color-off-white);
+  text-align: center;
+  border-bottom: 1px solid #eaeaea;
+}
+
+.profile-photo {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 0 auto 16px;
+  border: 4px solid white;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile-header h2 {
+  margin: 0;
+  color: var(--color-dark-navy);
+  font-weight: 700;
+}
+
+.profile-header .job-title {
+  margin: 8px 0 0;
+  color: var(--color-slate);
+  font-weight: 600;
+}
+
+/* Common section styling */
+.contact-section,
+.social-section,
+.download-section {
+  padding: 20px;
+  border-bottom: 1px solid #eaeaea;
+}
+
+/* Section headers */
+.contact-section h3,
+.social-section h3,
+.download-section h3 {
+  margin: 0 0 16px;
+  padding: 0 0 8px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #14202F;
+  border-bottom: 1px solid #eaeaea;
+}
+
+/* Contact list */
+.contact-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.contact-list li {
+  margin-bottom: 12px;
+  color: #4A5B75;
+  font-weight: 500;
+}
+
+.contact-list li:last-child {
+  margin-bottom: 0;
+}
+
+.email-link {
+  color: #4A5B75;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.email-link:hover {
+  color: var(--color-slate);
+  text-decoration: underline;
+}
+
+/* Social icons */
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
+.social-icons a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background-color: var(--color-slate);
+  color: white;
+  border-radius: 50%;
+  transition: all 0.2s;
+}
+
+.social-icons a:hover {
+  background-color: var(--color-dark-navy);
+  transform: translateY(-2px);
+}
+
+/* Download section */
+.download-section {
+  border-bottom: none;
+}
+
+.download-section p {
+  margin: 0 0 12px;
+  color: #4A5B75;
+}
+
+.download-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-button);
+  color: var(--color-button-text);
+  text-decoration: none;
+  padding: 10px 16px;
+  border-radius: 4px;
+  font-weight: 600;
+  transition: background-color 0.3s;
+}
+
+.download-button:hover {
+  background-color: var(--color-dark-navy);
+}
+
+.download-button i {
+  margin-right: 8px;
+}
+
+/* Education styling */
+.education ul {
+  list-style: none;
+  padding-left: 20px;
+  margin: 8px 0;
+}
+
+.education ul li {
+  position: relative;
+  padding-left: 20px;
+  margin-bottom: 4px;
+  line-height: 1.6;
+}
+
+.education ul li:before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: var(--color-slate);
+}
+
+/* ===================================================
+   RESPONSIVE STYLING
+   =================================================== */
+@media (max-width: 768px) {
+  .two-column-layout {
+    flex-direction: column;
+  }
+  
+  .left-col,
+  .right-col {
+    width: 100%;
+  }
+  
+  .left-col {
+    margin-bottom: 24px;
+  }
 }

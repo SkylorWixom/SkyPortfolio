@@ -27,6 +27,13 @@
   font-size: 1.1rem;
 }
 
+/* Use the circuit background banner image */
+.home-hero {
+  background-image: url('/assets/images/circuitbackground.webp') !important;
+  background-size: cover;
+  background-position: center;
+}
+
 /* 2) Mobile “Dev Updates” button (hidden on desktop) */
 .toggle-tasks-btn {
   display: none;

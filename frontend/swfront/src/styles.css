@@ -98,7 +98,7 @@ h5, h6 {
   justify-content: center;
   text-align: center;
   color: #fff; /* Contrasts with background image/color */
-  padding: var(--spacing-l) var(--spacing-m);
+  padding: var(--spacing-m);
   margin-bottom: var(--spacing-m);
   border-radius: var(--radius-card);
   overflow: hidden;
@@ -106,6 +106,10 @@ h5, h6 {
   /* Fallback background color if no image is set. 
      If you ALWAYS have a background-image, you can remove this. */
   background-color: var(--color-slate);
+  background-image: url('/assets/images/circuitbackground.webp') !important;
+  background-size: cover;
+  background-position: center;
+  min-height: 200px;
 
   background-repeat: no-repeat;
   background-position: center center;
@@ -136,4 +140,19 @@ h5, h6 {
   font-size: 1.1rem;
   max-width: 600px;
   margin: 0 auto; /* Center paragraph text */
+}
+
+/* Standardized grid layouts */
+.two-column-layout {
+  display: flex;
+  gap: var(--spacing-m);
+}
+
+/* Two-column layout with standardized sizing */
+.two-column-layout .left-col {
+  width: 300px;
+}
+
+.two-column-layout .right-col {
+  flex: 1;
 }

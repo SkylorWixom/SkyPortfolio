@@ -1,38 +1,101 @@
 <main class="page-wrapper">
-  <section class="projects-banner">
-    <div class="projects-banner-content">
-      <h1>My Projects</h1>
-      <p>Check out some of my work below.</p>
-    </div>
-  </section>
-
-  <div class="page-container projects">
-    <section class="projects-section">
-      <!-- Intro block (optional) -->
-      <div class="projects-intro">
-        <h2>Projects Overview</h2>
-        <p>Here are some of the projects I’ve worked on, displayed as cards.</p>
-      </div>
-
-      <!-- Actual list of project cards -->
-      <div class="project-list">
-        <div class="project-card" *ngFor="let proj of projects">
-          <!-- If you have a thumbnail field, you can <img [src]="proj.thumbnail" alt="{{proj.title}}" ...> -->
-          <h3>{{ proj.title }}</h3>
-          <p>{{ proj.description }}</p>
-          <div class="project-stack">
-            <span class="stack-item" *ngFor="let tech of proj.stack">{{ tech }}</span>
-          </div>
-          <a
-            *ngIf="proj.demoLink"
-            [href]="proj.demoLink"
-            target="_blank"
-            class="project-demo-button"
-          >
-            View Demo
-          </a>
-        </div>
+  <div class="page-container content-container">
+    <!-- Hero Banner -->
+    <section
+      class="page-hero projects-hero"
+      style="background-image: url('/assets/images/projects_header.webp');"
+    >
+      <div class="hero-content">
+        <h1>My Projects</h1>
+        <p>Explore my recent development work and personal projects</p>
       </div>
     </section>
+
+    <!-- Two-column layout -->
+    <div class="two-column-layout">
+      <!-- LEFT COLUMN: Categories and Filters -->
+      <div class="left-col projects-sidebar">
+        <section class="filter-section">
+          <h2>Project Categories</h2>
+          
+          <div class="projects-categories">
+            <button (click)="filterProjects('all')" [class.active]="selectedCategory === 'all'">
+              All Projects
+            </button>
+            <button (click)="filterProjects('web')" [class.active]="selectedCategory === 'web'">
+              Web Apps
+            </button>
+            <button (click)="filterProjects('mobile')" [class.active]="selectedCategory === 'mobile'">
+              Mobile Apps
+            </button>
+            <button (click)="filterProjects('backend')" [class.active]="selectedCategory === 'backend'">
+              Backend APIs
+            </button>
+          </div>
+        </section>
+
+        <section class="tech-filter">
+          <h3>Filter by Technology</h3>
+          <div class="tech-filter-list">
+            <div 
+              *ngFor="let tech of availableTech" 
+              class="tech-filter-item"
+              [class.active]="selectedTech === tech"
+              (click)="filterByTech(tech)"
+            >
+              {{ tech }}
+            </div>
+          </div>
+        </section>
+
+        <section class="project-info" *ngIf="selectedProject">
+          <h3>Project Details</h3>
+          <div class="project-details">
+            <h4>{{ selectedProject.title }}</h4>
+            <p class="project-date" *ngIf="selectedProject.date">{{ selectedProject.date }}</p>
+            <p>{{ selectedProject.description }}</p>
+            <div class="project-links" *ngIf="selectedProject.demoLink || selectedProject.githubLink">
+              <a *ngIf="selectedProject.demoLink" [href]="selectedProject.demoLink" target="_blank" class="project-demo-button">
+                View Demo
+              </a>
+              <a *ngIf="selectedProject.githubLink" [href]="selectedProject.githubLink" target="_blank" class="project-github-button">
+                View Code
+              </a>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- RIGHT COLUMN: Project Cards -->
+      <div class="right-col">
+        <section class="projects-section content-block">
+          <div class="projects-intro">
+            <h2>{{ selectedCategory === 'all' ? 'Featured Work' : (selectedCategory | titlecase) + ' Projects' }}</h2>
+            <p>
+              {{ selectedTech 
+                 ? 'Projects using ' + selectedTech 
+                 : 'These projects represent my skills in front-end and back-end development.' }}
+            </p>
+          </div>
+          
+          <!-- Project cards in a grid layout -->
+          <div class="project-list card-grid">
+            <div 
+              class="project-card" 
+              *ngFor="let proj of filteredProjects"
+              [class.selected]="selectedProject === proj"
+              (click)="selectProject(proj)"
+            >
+              <img *ngIf="proj.imageUrl" [src]="proj.imageUrl" [alt]="proj.title" class="project-image">
+              <h3>{{ proj.title }}</h3>
+              <p>{{ proj.description }}</p>
+              <div class="project-stack">
+                <span class="stack-item" *ngFor="let tech of proj.stack">{{ tech }}</span>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
   </div>
 </main>

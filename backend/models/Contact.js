@@ -11,6 +11,16 @@ const contactSchema = new mongoose.Schema({
     required: true,
     match: /.+\@.+\..+/  
   },
+  phone: {
+    type: String,
+    required: false,
+    trim: true
+  },
+  subject: {
+    type: String,
+    required: false,
+    trim: true
+  },
   message: {
     type: String,
     required: true,

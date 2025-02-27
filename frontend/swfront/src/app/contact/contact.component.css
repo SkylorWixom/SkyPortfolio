@@ -1,87 +1,274 @@
-/* contact.component.css */
+/* ===================================================
+   CLEAN CONTACT COMPONENT CSS - COMPLETE REPLACEMENT
+   =================================================== */
 
-/* 
-   Each chunk is a .contact-section with a background color, border, etc.
-   matching your “resume-section” or “blog-section” approach.
-*/
-.contact-section {
-    background-color: var(--color-bg);
-    margin-bottom: var(--spacing-m);
-    padding: var(--spacing-s) var(--spacing-m);
-    border: 1px solid #ddd;
-    border-radius: var(--radius-card);
-    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
-  }
-  
-  .contact-section h1,
-  .contact-section h2 {
-    margin-top: 0;
-    margin-bottom: var(--spacing-s);
-    color: var(--color-dark-navy);
-  }
-  
-  /* The form container */
-  .contact-form {
-    display: flex;
+/* Base container styling */
+.contact-sidebar {
+  background-color: #fff;
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  border: 1px solid #eaeaea;
+  overflow: hidden;
+}
+
+/* Use the circuit background banner image */
+.contact-hero {
+  background-image: url('/assets/images/circuitbackground.webp') !important;
+  background-size: cover;
+  background-position: center;
+}
+
+/* ===================================================
+   PROFILE HEADER
+   =================================================== */
+.profile-header {
+  padding: 20px;
+  background-color: var(--color-off-white);
+  text-align: center;
+  border-bottom: 1px solid #eaeaea;
+}
+
+.profile-photo {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 0 auto 16px;
+  border: 4px solid white;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile-header h2 {
+  margin: 0;
+  color: var(--color-dark-navy);
+  font-weight: 700;
+}
+
+.profile-header .job-title {
+  margin: 8px 0 0;
+  color: var(--color-slate);
+  font-weight: 600;
+}
+
+/* ===================================================
+   COMMON SECTION STYLING
+   =================================================== */
+.contact-section,
+.social-section,
+.availability-section {
+  padding: 20px;
+  border-bottom: 1px solid #eaeaea;
+}
+
+.availability-section {
+  border-bottom: none;
+}
+
+/* All section headers */
+.contact-section h3,
+.social-section h3,
+.availability-section h3 {
+  margin: 0 0 16px;
+  padding: 0 0 8px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #14202F;
+  border-bottom: 1px solid #eaeaea;
+}
+
+/* ===================================================
+   CONTACT INFORMATION LIST - WITH ICONS
+   =================================================== */
+.contact-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.contact-list li {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 12px;
+  color: #4A5B75;
+  font-weight: 500;
+}
+
+.contact-list li:last-child {
+  margin-bottom: 0;
+}
+
+/* Icon styling */
+.contact-list li i {
+  width: 20px; /* Fixed width for all icons */
+  margin-right: 10px; /* Space between icon and text */
+  color: var(--color-slate);
+  font-size: 16px;
+  text-align: center; /* Center the icon within its fixed width */
+  margin-top: 4px; /* Slight adjustment to align with text */
+}
+
+/* The fa-fw class helps with fixed-width icons, but we'll add extra styling */
+.fa-fw {
+  width: 1.25em;
+  text-align: center;
+}
+
+.email-link {
+  color: #4A5B75;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.email-link:hover {
+  color: var(--color-slate);
+  text-decoration: underline;
+}
+
+/* ===================================================
+   SOCIAL ICONS
+   =================================================== */
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
+.social-icons a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background-color: var(--color-slate);
+  color: white;
+  border-radius: 50%;
+  transition: all 0.2s;
+}
+
+.social-icons a:hover {
+  background-color: var(--color-dark-navy);
+  transform: translateY(-2px);
+}
+
+/* ===================================================
+   AVAILABILITY SECTION
+   =================================================== */
+.availability-section p {
+  margin: 8px 0;
+  color: #4A5B75;
+}
+
+/* ===================================================
+   CONTACT FORM
+   =================================================== */
+.contact-form-wrapper {
+  background-color: #fff;
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: 24px;
+  border: 1px solid #eaeaea;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  font-weight: 600;
+  color: #14202F;
+}
+
+.form-group input,
+.form-group textarea {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-family: inherit;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--color-slate);
+  box-shadow: 0 0 0 2px rgba(65, 90, 119, 0.1);
+}
+
+.error-message {
+  color: #d32f2f;
+  font-size: 14px;
+}
+
+.form-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.submit-btn {
+  background-color: var(--color-button);
+  color: var(--color-button-text);
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.submit-btn:hover:not(:disabled) {
+  background-color: var(--color-dark-navy);
+}
+
+.submit-btn:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.form-status {
+  font-weight: 600;
+  padding: 8px 12px;
+  border-radius: 4px;
+}
+
+.form-status.success {
+  background-color: rgba(76, 175, 80, 0.1);
+  color: #388e3c;
+}
+
+.form-status.error {
+  background-color: rgba(244, 67, 54, 0.1);
+  color: #d32f2f;
+}
+
+/* ===================================================
+   RESPONSIVE STYLING
+   =================================================== */
+@media (max-width: 768px) {
+  .two-column-layout {
     flex-direction: column;
-    gap: var(--spacing-s);
   }
   
-  /* Each form-group for label + input/textarea */
-  .form-group {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-xs);
+  .left-col,
+  .right-col {
+    width: 100%;
   }
   
-  /* Label styling */
-  .form-group label {
-    font-weight: 600;
-    color: var(--color-dark-navy);
+  .left-col {
+    margin-bottom: 24px;
   }
-  
-  /* Input / Textarea base style */
-  .form-group input,
-  .form-group textarea {
-    padding: var(--spacing-xs);
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 1rem;
-    outline: none; 
-    transition: border-color 0.2s ease;
-  }
-  
-  .form-group input:focus,
-  .form-group textarea:focus {
-    border-color: var(--color-slate);
-  }
-  
-  /* Error message styling */
-  .error-message {
-    color: red;
-    font-size: 0.875rem;
-  }
-  
-  /* Submit button styling */
-  .submit-btn {
-    align-self: flex-start; 
-    background-color: var(--color-slate);
-    color: #fff;
-    padding: var(--spacing-xs) var(--spacing-s);
-    border-radius: 4px;
-    border: none;
-    cursor: pointer;
-    transition: background 0.3s ease;
-    font-size: 1rem;
-    font-weight: 600;
-  }
-  
-  .submit-btn:disabled {
-    background-color: #999;
-    cursor: not-allowed;
-  }
-  
-  .submit-btn:hover:not(:disabled) {
-    background-color: #3b4f65; /* darker shade of var(--color-slate) */
-  }
-  
+}

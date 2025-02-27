@@ -1,77 +1,162 @@
 <main class="page-wrapper">
-  <div class="page-container contact-page">
+  <div class="page-container content-container">
+    <!-- Hero Banner with contact background -->
+    <section
+      class="page-hero contact-hero"
+      style="background-image: url('/assets/images/contact_header.webp');"
+    >
+      <div class="hero-content">
+        <h1>Get In Touch</h1>
+        <p>I'd love to hear from you! Let's connect and discuss your projects.</p>
+      </div>
+    </section>
     
-    <!-- 1) Intro section with a sub-block background (like your resume/blog) -->
-    <section class="contact-section">
-      <h1>Contact Me</h1>
-      <p>
-        Have a question or want to discuss a project?
-        Fill out the form below and I'll get back to you as soon as possible!
-      </p>
-    </section>
-
-    <!-- 2) The form in another sub-block (you can combine them if you prefer) -->
-    <section class="contact-section">
-      <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="contact-form">
+    <!-- Two-column layout with info and form -->
+    <div class="two-column-layout">
+      <!-- LEFT COLUMN: Digital Business Card -->
+      <div class="left-col contact-sidebar">
+        <!-- Profile header section -->
+        <div class="profile-header">
+          <div class="profile-photo">
+            <img src="/assets/images/profile-photo.jpg" alt="Skylor Wixom">
+          </div>
+          
+          <h2>Skylor Wixom</h2>
+          <p class="job-title">Full-Stack Developer</p>
+        </div>
         
-        <!-- Name Field -->
-        <div class="form-group">
-          <label for="name">Name</label>
-          <input 
-            type="text" 
-            id="name" 
-            formControlName="name" 
-            placeholder="Your Name" 
-            required
-          />
-          <div class="error-message" 
-               *ngIf="contactForm.get('name')?.invalid && contactForm.get('name')?.touched">
-            Name is required.
+        <!-- Contact information section -->
+        <div class="contact-section">
+          <h3>Contact Information</h3>
+          
+          <ul class="contact-list">
+            <li>
+              <i class="fas fa-envelope fa-fw"></i>
+              <a href="mailto:skylorwixom&#64;gmail.com" class="email-link">skylorwixom&#64;gmail.com</a>
+            </li>
+            <li>
+              <i class="fas fa-phone fa-fw"></i>
+              <span>Phone number on request</span>
+            </li>
+            <li>
+              <i class="fas fa-map-marker-alt fa-fw"></i>
+              <span>United States: remote</span>
+            </li>
+          </ul>
+        </div>
+        
+        <!-- Social links section -->
+        <div class="social-section">
+          <h3>Connect With Me</h3>
+          <div class="social-icons">
+            <a href="https://linkedin.com/in/skylorwixom" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+              <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="https://github.com/skylorwixom" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+              <i class="fab fa-github"></i>
+            </a>
+            <a href="https://twitter.com/skylorwixom" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+              <i class="fab fa-twitter"></i>
+            </a>
           </div>
         </div>
-
-        <!-- Email Field -->
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input 
-            type="email" 
-            id="email" 
-            formControlName="email" 
-            placeholder="you@example.com" 
-            required
-          />
-          <div class="error-message"
-               *ngIf="contactForm.get('email')?.invalid && contactForm.get('email')?.touched">
-            Enter a valid email address.
-          </div>
+        
+        <!-- Availability section -->
+        <div class="availability-section">
+          <h3>My Availability</h3>
+          <p>Currently available for freelance work and consulting projects.</p>
+          <p>Response time: Within 24-48 hours</p>
         </div>
+      </div>
+      
+      <!-- RIGHT COLUMN: Contact Form -->
+      <div class="right-col">
+        <div class="contact-form-wrapper content-block">
+          <h2>Send Me a Message</h2>
+          <p>Have a question or want to discuss a project? Fill out the form below.</p>
+          
+          <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="contact-form">
+            <div class="form-group">
+              <label for="name">Name*</label>
+              <input 
+                type="text" 
+                id="name" 
+                formControlName="name" 
+                placeholder="Your Name" 
+                required
+              />
+              <div class="error-message" 
+                *ngIf="contactForm.get('name')?.invalid && contactForm.get('name')?.touched">
+                Name is required.
+              </div>
+            </div>
 
-        <!-- Message Field -->
-        <div class="form-group">
-          <label for="message">Message</label>
-          <textarea
-            id="message"
-            formControlName="message"
-            placeholder="Your Message"
-            rows="5"
-            required
-          ></textarea>
-          <div class="error-message"
-               *ngIf="contactForm.get('message')?.invalid && contactForm.get('message')?.touched">
-            Message must be at least 10 characters long.
-          </div>
+            <div class="form-group">
+              <label for="email">Email*</label>
+              <input 
+                type="email" 
+                id="email" 
+                formControlName="email" 
+                placeholder="you&#64;example.com" 
+                required
+              />
+              <div class="error-message"
+                *ngIf="contactForm.get('email')?.invalid && contactForm.get('email')?.touched">
+                Enter a valid email address.
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="phone">Phone (Optional)</label>
+              <input 
+                type="tel" 
+                id="phone" 
+                formControlName="phone" 
+                placeholder="(555) 123-4567"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="subject">Subject (Optional)</label>
+              <input 
+                type="text" 
+                id="subject" 
+                formControlName="subject" 
+                placeholder="What's this about?"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="message">Message*</label>
+              <textarea
+                id="message"
+                formControlName="message"
+                placeholder="Your Message"
+                rows="5"
+                required
+              ></textarea>
+              <div class="error-message"
+                *ngIf="contactForm.get('message')?.invalid && contactForm.get('message')?.touched">
+                Message must be at least 10 characters long.
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button 
+                type="submit" 
+                class="submit-btn"
+                [disabled]="contactForm.invalid || isSubmitting"
+              >
+                {{ isSubmitting ? 'Sending...' : 'Send Message' }}
+              </button>
+              
+              <div class="form-status" *ngIf="formStatus">
+                {{ formStatus }}
+              </div>
+            </div>
+          </form>
         </div>
-
-        <!-- Submit Button -->
-        <button 
-          type="submit" 
-          class="submit-btn"
-          [disabled]="contactForm.invalid"
-        >
-          Send
-        </button>
-      </form>
-    </section>
-
+      </div>
+    </div>
   </div>
 </main>
