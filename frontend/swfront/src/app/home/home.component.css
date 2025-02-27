@@ -76,6 +76,11 @@
   gap: 1rem;
 }
 
+/* Content block padding adjustment */
+.page-section.content-block {
+  padding-top: 1rem;
+}
+
 /* 4) “Explore” Cards — Modern, More Visual
    ---------------------------------------
    a) We do a grid with consistent card widths.
