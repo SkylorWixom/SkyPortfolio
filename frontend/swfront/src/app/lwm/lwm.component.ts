@@ -1,48 +1,46 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SubjectService, SubjectData, CourseLevel, SectionLevel, FinalItem } from '../services/subject/subject.service';
+import { SubjectService, SubjectData, CourseLevel, SectionLevel, ModuleLevel, FinalItem } from '../services/subject/subject.service';
 import { SafeUrlPipe } from '../safe-url.pipe';
 
 /**
- * Extend your section interface for collapsible behavior + tab selection
+ * Extended interfaces for the navigation menu
  */
 interface ExtendedSection extends SectionLevel {
   expanded?: boolean;
-  activeTab?: string;
+  modules: ExtendedModule[]; // Update this to use ExtendedModule array
 }
 
-/**
- * Extend SubjectData for local usage to include iconUrl, bannerUrl if present,
- * plus "expanded" to track the open/closed state in the sidebar.
- */
+interface ExtendedCourse extends CourseLevel {
+  expanded?: boolean;
+  sections: ExtendedSection[];
+}
+
+interface ExtendedModule extends ModuleLevel {
+  expanded?: boolean;
+}
+
 interface SubjectEx extends SubjectData {
   expanded?: boolean;
-  iconUrl?: string;   // optional field from your backend or local mapping
-  bannerUrl?: string; // optional field from your backend or local mapping
+  courses: ExtendedCourse[];
 }
 
 @Component({
-  selector: 'app-lwm-alt',
+  selector: 'app-lwm',
   standalone: true,
   imports: [CommonModule, SafeUrlPipe],
   templateUrl: './lwm.component.html',
   styleUrls: ['./lwm.component.css']
 })
-export class LwmAltComponent implements OnInit {
-
-  // 1)   The array of subjects (with optional icon/banner fields)
+export class LwmComponent implements OnInit {
+  // The hierarchical navigation data
   subjects: SubjectEx[] = [];
-
-  // 2) The currently selected course to display on the right
-  selectedCourse: CourseLevel | null = null;
-
-  // 3) The "extended" sections array for controlling expanded state + active tab
-  sectionsEx: ExtendedSection[] = [];
-
-  // 4) The final item user clicked, shown in a modal
+  
+  // Selection tracking
+  selectedCourse: ExtendedCourse | null = null;
   selectedFinalItem: FinalItem | null = null;
-
-  // 5) Modal open/close tracking
+  
+  // For modal (if you still want to keep this functionality)
   isModalOpen = false;
 
   constructor(private subjectService: SubjectService) {}
@@ -52,17 +50,27 @@ export class LwmAltComponent implements OnInit {
   }
 
   /**
-   * Load all subjects from your backend via SubjectService.
-   * Mark each subject with "expanded = false" for the sidebar.
+   * Load subjects and prepare them for the hierarchical navigation
    */
   loadSubjects() {
     this.subjectService.getAll().subscribe({
       next: (res) => {
-        // If iconUrl or bannerUrl exist in the DB, they'll map over automatically.
-        // If not, they're just undefined, which won't break anything.
-        this.subjects = res.map((s) => ({
-          ...s,
-          expanded: false
+        // Process the subjects to add expanded flags at each level
+        this.subjects = res.map(subj => ({
+          ...subj,
+          expanded: false,
+          courses: subj.courses.map(course => ({
+            ...course,
+            expanded: false,
+            sections: course.sections.map(section => ({
+              ...section,
+              expanded: false,
+              modules: section.modules.map(module => ({
+                ...module,
+                expanded: false
+              }))
+            }))
+          }))
         }));
       },
       error: (err) => console.error('Error loading subjects:', err)
@@ -70,52 +78,43 @@ export class LwmAltComponent implements OnInit {
   }
 
   /**
-   * Expand/collapse a subject in the left sidebar
+   * Toggle subject expansion in the navigation
    */
-  toggleSubject(subj: SubjectEx) {
-    subj.expanded = !subj.expanded;
+  toggleSubject(subject: SubjectEx) {
+    subject.expanded = !subject.expanded;
   }
 
   /**
-   * When a course is selected, close the modal + build out ExtendedSection[] for the right side
+   * Toggle course expansion in the navigation
    */
-  selectCourse(course: CourseLevel) {
+  toggleCourse(course: ExtendedCourse) {
+    course.expanded = !course.expanded;
     this.selectedCourse = course;
-    this.selectedFinalItem = null;
-    this.isModalOpen = false;
-
-    // Mark each section as collapsed + set default activeTab to 'Learn'
-    this.sectionsEx = course.sections.map((sec) => ({
-      ...sec,
-      expanded: false,
-      activeTab: 'Learn'
-    }));
   }
 
   /**
-   * Expand/collapse a single section
+   * Toggle section expansion in the navigation
    */
-  toggleSection(sec: ExtendedSection) {
-    sec.expanded = !sec.expanded;
+  toggleSectionNav(section: ExtendedSection) {
+    section.expanded = !section.expanded;
   }
 
   /**
-   * Set the active tab for a section's modules
+   * Toggle module expansion in the navigation
    */
-  setActiveTab(sec: ExtendedSection, tab: string) {
-    sec.activeTab = tab;
+  toggleModuleNav(module: ExtendedModule) {
+    module.expanded = !module.expanded;
   }
 
   /**
-   * Open the modal when user clicks on a final item
+   * Select a final item to display its content in the right column
    */
-  onFinalItemClick(item: FinalItem) {
+  selectFinalItem(item: FinalItem) {
     this.selectedFinalItem = item;
-    this.isModalOpen = true;
   }
-
+  
   /**
-   * Close the modal
+   * Close the modal if you're still using it
    */
   closeModal() {
     this.isModalOpen = false;

@@ -1,6 +1,8 @@
-/* 1) Match the Home hero approach exactly */
+/* 1) Hero section */
 .page-hero.lwm-hero {
   min-height: 200px;
+  margin: var(--spacing-xs);
+  margin-bottom: var(--spacing-l);
 }
 
 .page-hero.lwm-hero .hero-content h1 {
@@ -8,6 +10,7 @@
   font-weight: 700;
   margin: 0 0 var(--spacing-xs);
 }
+
 .page-hero.lwm-hero .hero-content p {
   color: var(--color-off-white);
   margin: 0;
@@ -16,6 +19,7 @@
 
 /* 2) Content section styling */
 .lwm-section {
+  margin: var(--spacing-xs);
   background-color: var(--color-bg);
   margin-bottom: var(--spacing-m);
   padding: var(--spacing-m);
@@ -24,217 +28,267 @@
   box-shadow: var(--shadow-card);
 }
 
-/* IMPORTANT: Make sure the two-column layout is working properly */
+/* Main layout with single scroll - match site-wide two-column layout */
 .two-column-layout {
   display: flex;
   gap: var(--spacing-m);
-  margin-bottom: var(--spacing-m);
+  margin: var(--spacing-xs);
+  margin-bottom: var(--spacing-l);
 }
 
-/* Left sidebar - must have a fixed width */
+/* Left sidebar with navigation - match site-wide sidebars */
 .left-col.lwm-sidebar {
   width: 300px;
-  flex-shrink: 0;  /* Prevents the sidebar from shrinking */
+  flex-shrink: 0;
   background-color: var(--color-off-white);
   border-radius: var(--radius-card);
-  box-shadow: var(--shadow-card);
   padding: var(--spacing-s);
+  border: 1px solid #ddd;
+  box-shadow: var(--shadow-card);
   height: fit-content;
 }
 
-/* Right content - must expand to fill remaining space */
+/* Right content area styling - layered design to match site-wide style */
 .right-col {
   flex: 1;
-  min-width: 0; /* This is important to prevent overflow */
+  min-width: 0;
 }
 
+/* Overall content container with greyish background */
 .lwm-content {
-  background-color: #fff;
-  border: 1px solid #ddd;
+  background-color: var(--color-bg);
   border-radius: var(--radius-card);
   padding: var(--spacing-m);
+  border: 1px solid #ddd;
   box-shadow: var(--shadow-card);
 }
 
+/* Navigation levels - consistent spacing and margins */
+
+/* Subject level */
 .subject-item {
-  margin-bottom: var(--spacing-xs);
+  margin-bottom: var(--spacing-s);
 }
 
-/* Rest of your CSS remains the same */
 .subject-header {
   display: flex;
   justify-content: space-between;
-  padding: var(--spacing-xs);
-  /* Change from light slate to a darker color for better contrast with white text */
-  background-color: #3a495c; /* Darker shade with better contrast against white */
+  align-items: center;
+  padding: var(--spacing-xs) var(--spacing-s);
+  background-color: var(--color-navy);
   color: #fff;
   cursor: pointer;
+  font-weight: 500;
+  font-size: 1rem;
   border-radius: 4px;
-  position: relative;
-  margin: 0;
-  border: 1px solid #ddd;
-  transition: background-color 0.15s;
-  margin-bottom: 0.5rem;
+  transition: background-color 0.2s;
 }
 
 .subject-header.expanded {
-  background-color: #2d3b4d; /* Even darker when expanded */
+  background-color: #1e3a5f;
 }
 
 .subject-header:hover {
-  background-color: #4a5b70; /* Slightly lighter than base but still good contrast */
+  background-color: #2e5080;
 }
 
-/* If your subject headers have any text that needs better contrast */
-.subject-header h3,
-.subject-header span {
-  color: #ffffff; /* Ensure text is bright white for maximum contrast */
-  font-weight: 500; /* Slightly bolder for better readability */
-}
-
-.arrow {
-  font-size: 1.1rem;
-}
-
-/* The courses list for each subject */
-.courses-list {
-  list-style-type: none;
-  padding-left: var(--spacing-s);
+/* Navigation submenu - spacing consistent with other site components */
+.nav-submenu {
+  padding: 0 0 0 var(--spacing-s);
   margin: var(--spacing-xs) 0;
 }
-.courses-list li {
-  padding: var(--spacing-xs);
-  cursor: pointer;
-  border-radius: 4px;
-}
-.courses-list li:hover {
-  background-color: #e6e6e6;
-}
-.courses-list li.selected {
-  background-color: var(--color-navy);
-  color: #fff;
-}
 
-/* Accordion for sections & modules */
-.section-accordion {
-  margin-bottom: var(--spacing-s);
-  border: 1px solid #ddd;
-  border-radius: var(--radius-card);
-  background-color: #fff;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-  overflow: hidden;
-}
-.section-header {
+/* Course level - consistent design */
+.course-header {
   display: flex;
   justify-content: space-between;
-  padding: var(--spacing-s);
-  background-color: #f5f5f5;
+  align-items: center;
+  padding: var(--spacing-xs) var(--spacing-s);
+  background-color: var(--color-slate);
+  color: #fff;
   cursor: pointer;
-  margin: 0;
-  border-bottom: 1px solid #ddd;
-  transition: background-color 0.15s;
-}
-.section-header h4 {
-  margin: 0;
-}
-.section-header:hover {
-  background-color: #e9e9e9;
-}
-.section-body {
-  padding: var(--spacing-s);
-  background-color: #fff;
+  border-radius: 4px;
+  margin-bottom: var(--spacing-xs);
+  font-size: 0.95rem;
+  transition: background-color 0.2s;
 }
 
-/* Tabs => pill-like buttons at top of each section body */
-.tabs {
-  display: flex;
-  border-bottom: 1px solid #ddd;
-  margin-bottom: var(--spacing-s);
-  flex-wrap: wrap;
+.course-header.expanded {
+  background-color: #3a4e61;
 }
-.tabs button {
-  background: none;
-  border: none;
+
+.course-header.selected {
+  background-color: var(--color-navy);
+  border-left: 3px solid #fff;
+}
+
+.course-header:hover {
+  background-color: #4e6378;
+}
+
+/* Section level - consistent spacing/padding with other components */
+.section-nav-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-xs) var(--spacing-s);
+  background-color: #455a6f;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  border-radius: 4px;
+  margin-bottom: var(--spacing-xs);
+  font-size: 0.93rem;
+}
+
+.section-nav-header.expanded {
+  background-color: #3d4f60;
+}
+
+.section-nav-header:hover {
+  background-color: #526a80;
+}
+
+/* Module level - consistent with section level */
+.module-nav-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-xs) var(--spacing-s);
+  background-color: #546d80;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  border-radius: 4px;
+  margin-bottom: var(--spacing-xs);
+  font-size: 0.9rem;
+}
+
+.module-nav-header.expanded {
+  background-color: #465a6a;
+}
+
+.module-nav-header:hover {
+  background-color: #617e93;
+}
+
+/* Final items - spacing consistent with other list items */
+.final-items-nav {
+  list-style: none;
+  padding: 0;
+  margin: var(--spacing-xs) 0;
+}
+
+.final-items-nav li {
   padding: var(--spacing-xs) var(--spacing-s);
   cursor: pointer;
-  border-bottom: 2px solid transparent;
-  transition: background-color 0.15s;
-}
-.tabs button:hover {
-  background-color: #eaeaea;
-}
-.tabs button.active {
-  border-bottom-color: var(--color-slate);
-  color: var(--color-slate);
-  font-weight: 600;
-}
-
-/* Final items => single column list of clickable items */
-.final-items {
-  list-style-type: none;
-  padding: 0;
-}
-.final-items li {
-  padding: var(--spacing-s);
-  background-color: #f9f9f9;
-  margin-bottom: var(--spacing-xs);
-  cursor: pointer;
-  border-radius: var(--radius-card);
-  display: flex;
-  flex-direction: column;
-  transition: background-color 0.15s;
-}
-.final-items li:hover {
-  background-color: #f0f0f0;
-}
-.final-items li strong {
-  display: block;
-  font-weight: 600;
-  margin-bottom: 0.25rem;
+  margin: var(--spacing-xs) 0;
+  background-color: #f5f5f5;
   color: #333;
-}
-.final-items small {
-  color: #666;
-  display: block;
-  margin-top: var(--spacing-xs);
+  transition: background-color 0.2s;
+  border-radius: 4px;
+  font-size: 0.88rem;
 }
 
-/* Minimal modal styling */
-.modal-overlay {
-  position: fixed;
-  inset: 0;
-  background-color: rgba(0, 0, 0, 0.7);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
+.final-items-nav li:hover {
+  background-color: #e5e5e5;
 }
-.modal-container {
-  background-color: #fff;
-  padding: var(--spacing-m);
-  border-radius: var(--radius-card);
-  max-width: 800px;
-  width: 90%;
-  max-height: 90vh;
-  overflow-y: auto;
-  position: relative;
+
+.final-items-nav li.selected {
+  background-color: #e0e7f0;
+  color: var(--color-navy);
+  border-left: 3px solid var(--color-navy);
 }
-.close-btn {
-  position: absolute;
-  top: var(--spacing-s);
-  right: var(--spacing-s);
-  background: none;
-  border: none;
+
+/* Simple arrow indicators */
+.arrow {
+  font-size: 0.85rem;
+  transition: transform 0.2s;
+}
+
+.expanded .arrow {
+  transform: rotate(90deg);
+}
+
+/* Content area styling - consistent with site-wide content */
+.lwm-content h2 {
   font-size: 1.5rem;
-  cursor: pointer;
-  color: #888;
-  transition: color 0.2s;
-}
-.close-btn:hover {
-  color: #000;
+  color: var(--color-navy);
+  margin-top: 0;
+  margin-bottom: var(--spacing-m);
+  font-weight: 500;
 }
 
-/* 9) Mobile Responsive */
+/* Final item description card */
+.final-item-description {
+  background-color: #fff;
+  border-radius: var(--radius-card);
+  padding: var(--spacing-m);
+  margin-bottom: var(--spacing-m);
+  border: 1px solid #ddd;
+  box-shadow: var(--shadow-card);
+}
+
+.final-item-description p {
+  line-height: 1.6;
+  color: #333;
+  font-size: 1rem;
+  margin: 0;
+}
+
+/* Final item content card */
+.final-item-content {
+  background-color: #fff;
+  border-radius: var(--radius-card);
+  padding: var(--spacing-m);
+  margin-bottom: var(--spacing-m);
+  border: 1px solid #ddd;
+  box-shadow: var(--shadow-card);
+}
+
+.final-item-content p {
+  line-height: 1.6;
+  color: #333;
+  font-size: 1rem;
+  margin: 0;
+}
+
+/* Video card */
+.final-item-video {
+  background-color: #fff;
+  border-radius: var(--radius-card);
+  padding: var(--spacing-m);
+  border: 1px solid #ddd;
+  box-shadow: var(--shadow-card);
+  margin-top: var(--spacing-m);
+}
+
+/* Video container inside the card */
+.video-container {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  height: 0;
+  overflow: hidden;
+}
+
+.video-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: calc(var(--radius-card) - 4px);
+  border: none;
+}
+
+/* Empty state - consistent with other empty states */
+.lwm-content p:only-child {
+  color: #666;
+  text-align: center;
+  padding: var(--spacing-l) 0;
+}
+
+/* Responsive styles - consistent with site-wide responsive design */
 @media (max-width: 768px) {
   .two-column-layout {
     flex-direction: column;
@@ -244,18 +298,8 @@
     width: 100%;
     margin-bottom: var(--spacing-m);
   }
-  .lwm-layout {
-    flex-direction: column;
-  }
-  .lwm-sidebar {
-    width: 100%;
-    margin-bottom: 1rem;
-  }
+  
   .lwm-content {
     width: 100%;
-  }
-  .modal-container {
-    width: 95%;
-    max-width: 95%;
   }
 }

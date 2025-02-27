@@ -16,6 +16,7 @@
   --hero-overlay-home: rgba(0, 0, 0, 0.4);
   --hero-overlay-lwm: rgba(0, 0, 0, 0.25);
 
+  /* Consistent spacing variables */
   --spacing-xs: 0.5rem;
   --spacing-s: 1rem;
   --spacing-m: 1.5rem;
@@ -24,6 +25,7 @@
 
   --radius-card: 8px;
   --shadow-card: 0 4px 8px rgba(0,0,0,0.1);
+  --shadow-card-hover: 0 6px 12px rgba(0,0,0,0.15);
 }
 
 /* 3) Global Reset & Body Styles */
@@ -99,12 +101,9 @@ h5, h6 {
   text-align: center;
   color: #fff; /* Contrasts with background image/color */
   padding: var(--spacing-m);
-  margin-bottom: var(--spacing-m);
+  margin-bottom: var(--spacing-l);
   border-radius: var(--radius-card);
   overflow: hidden;
-
-  /* Fallback background color if no image is set. 
-     If you ALWAYS have a background-image, you can remove this. */
   background-color: var(--color-slate);
   background-image: url('/assets/images/circuitbackground.webp') !important;
   background-size: cover;
@@ -146,13 +145,41 @@ h5, h6 {
 .two-column-layout {
   display: flex;
   gap: var(--spacing-m);
+  margin-bottom: var(--spacing-l);
 }
 
 /* Two-column layout with standardized sizing */
 .two-column-layout .left-col {
   width: 300px;
+  flex-shrink: 0;
+  background-color: var(--color-off-white);
+  border-radius: var(--radius-card);
+  padding: var(--spacing-s);
+  border: 1px solid #ddd;
+  box-shadow: var(--shadow-card);
+  height: fit-content;
 }
 
 .two-column-layout .right-col {
   flex: 1;
+  min-width: 0;
 }
+/* Each main .resume-section (white sub-card). 
+   Or you can keep a slight background difference if you want. */
+   .resume-section {
+    background-color: var(--color-bg);
+    margin-bottom: var(--spacing-m);
+    padding: var(--spacing-s) var(--spacing-m);
+    border-radius: var(--radius-card);
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  .education {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: var(--radius-card);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    margin: var(--spacing-s) 0;
+    padding: var(--spacing-s) var(--spacing-m);
+  }
+  

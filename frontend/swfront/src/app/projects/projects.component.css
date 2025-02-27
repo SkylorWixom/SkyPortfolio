@@ -55,6 +55,7 @@
   row-gap: 0.75rem;
   cursor: pointer;
   border: 2px solid transparent;
+  margin-bottom: var(--spacing-m);
 }
 
 .project-card.selected {
@@ -188,6 +189,7 @@
 /* Hero banner specific */
 .page-hero.projects-hero {
   min-height: 200px;
+  margin-bottom: var(--spacing-l);
 }
 
 .page-hero.projects-hero .hero-content h1 {
@@ -328,6 +330,8 @@
   gap: var(--spacing-xs);
   cursor: pointer;
   border: 2px solid transparent;
+  border: 1px solid #ddd;
+  margin-bottom: var(--spacing-m);
 }
 
 .project-card:hover {
@@ -440,4 +444,15 @@
   box-shadow: var(--shadow-card);
   padding: var(--spacing-s);
   height: fit-content;
+  border: 1px solid #ddd;
+}
+
+/* Right column - add this to create the grey container */
+.right-col .projects-content {
+  background-color: var(--color-bg);
+  border-radius: var(--radius-card);
+  padding: var(--spacing-m);
+  border: 1px solid #ddd;
+  box-shadow: var(--shadow-card);
+  margin-bottom: var(--spacing-m);
 }

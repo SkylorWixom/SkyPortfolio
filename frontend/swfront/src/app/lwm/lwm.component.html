@@ -1,6 +1,6 @@
 <main class="page-wrapper">
   <div class="page-container content-container learn-with-me">
-    <!-- Hero Banner remains the same -->
+    <!-- Hero Banner -->
     <section
       class="page-hero lwm-hero"
       style="background-image: url('/assets/images/circuitbackground.webp');"
@@ -16,16 +16,14 @@
       <h2>Multiple Subjects, Endless Learning</h2>
       <p>
         As a lifelong learner, I'm always exploring new technologies.
-        On the left, you can pick a subject like "Frontend" or "Backend,"
-        then dive into its courses, modules, and final items on the right.
-        Click on any "Final Item" to see more details, watch embedded videos,
-        or read content in the modal.
+        Navigate through the left sidebar to explore subjects, courses, modules, and sections.
+        Click on any final item to view its detailed content on the right.
       </p>
     </section>
 
-    <!-- THIS IS THE IMPORTANT FIX: Use the two-column-layout class DIRECTLY, not as a wrapper -->
+    <!-- Main content layout -->
     <div class="two-column-layout">
-      <!-- LEFT SIDEBAR: subjects from the DB -->
+      <!-- LEFT SIDEBAR: deep navigation structure -->
       <nav class="left-col lwm-sidebar">
         <div class="subjects-list">
           <div class="subject-item" *ngFor="let subj of subjects">
@@ -38,64 +36,90 @@
               <span class="arrow">{{ subj.expanded ? '▼' : '▶' }}</span>
             </div>
 
-            <ul class="courses-list" *ngIf="subj.expanded">
-              <li
-                *ngFor="let c of subj.courses"
-                (click)="selectCourse(c); $event.stopPropagation()"
-                [class.selected]="c === selectedCourse"
-              >
-                {{ c.courseTitle }}
-              </li>
-            </ul>
+            <!-- Courses nested under Subject -->
+            <div class="nav-submenu" *ngIf="subj.expanded">
+              <div class="course-item" *ngFor="let course of subj.courses">
+                <div
+                  class="course-header"
+                  [class.expanded]="course.expanded"
+                  [class.selected]="course === selectedCourse"
+                  (click)="toggleCourse(course); $event.stopPropagation()"
+                >
+                  {{ course.courseTitle }}
+                  <span class="arrow">{{ course.expanded ? '▼' : '▶' }}</span>
+                </div>
+
+                <!-- Sections nested under Course -->
+                <div class="nav-submenu" *ngIf="course.expanded">
+                  <div class="section-nav-item" *ngFor="let section of course.sections">
+                    <div
+                      class="section-nav-header"
+                      [class.expanded]="section.expanded"
+                      (click)="toggleSectionNav(section); $event.stopPropagation()"
+                    >
+                      {{ section.sectionTitle }}
+                      <span class="arrow">{{ section.expanded ? '▼' : '▶' }}</span>
+                    </div>
+
+                    <!-- Modules nested under Section -->
+                    <div class="nav-submenu" *ngIf="section.expanded">
+                      <div class="module-nav-item" *ngFor="let module of section.modules">
+                        <div
+                          class="module-nav-header"
+                          [class.expanded]="module.expanded"
+                          (click)="toggleModuleNav(module); $event.stopPropagation()"
+                        >
+                          {{ module.moduleTitle }}
+                          <span class="arrow">{{ module.expanded ? '▼' : '▶' }}</span>
+                        </div>
+
+                        <!-- Final Items nested under Module -->
+                        <ul class="final-items-nav" *ngIf="module.expanded">
+                          <li
+                            *ngFor="let fi of module.finalItems"
+                            (click)="selectFinalItem(fi); $event.stopPropagation()"
+                            [class.selected]="fi === selectedFinalItem"
+                          >
+                            {{ fi.title }}
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </nav>
 
-      <!-- RIGHT CONTENT: expanded course details -->
+      <!-- RIGHT CONTENT: selected final item details -->
       <div class="right-col">
         <article class="lwm-content">
-          <ng-container *ngIf="selectedCourse; else noCourse">
-            <h2>{{ selectedCourse.courseTitle }}</h2>
-
-            <!-- For each section, build an accordion + tabs -->
-            <div class="section-accordion" *ngFor="let sec of sectionsEx">
-              <div class="section-header" (click)="toggleSection(sec)">
-                <h4>{{ sec.sectionTitle }}</h4>
-                <span class="accordion-arrow">{{ sec.expanded ? '▼' : '▶' }}</span>
-              </div>
-
-              <div class="section-body" *ngIf="sec.expanded">
-                <nav class="tabs">
-                  <button
-                    *ngFor="let mod of sec.modules"
-                    [class.active]="sec.activeTab === mod.moduleTitle"
-                    (click)="setActiveTab(sec, mod.moduleTitle); $event.stopPropagation()"
-                  >
-                    {{ mod.moduleTitle }}
-                  </button>
-                </nav>
-
-                <div class="tab-content">
-                  <ng-container *ngFor="let mod of sec.modules">
-                    <div *ngIf="sec.activeTab === mod.moduleTitle">
-                      <ul class="final-items">
-                        <li
-                          *ngFor="let fi of mod.finalItems"
-                          (click)="onFinalItemClick(fi); $event.stopPropagation()"
-                        >
-                          <strong>{{ fi.title }}</strong>
-                          <small>{{ fi.content }}</small>
-                        </li>
-                      </ul>
-                    </div>
-                  </ng-container>
-                </div>
-              </div>
-            </div><!-- end sections loop -->
-
+          <ng-container *ngIf="selectedFinalItem; else noSelection">
+            <h2>{{ selectedFinalItem.title }}</h2>
+            
+            <div class="final-item-description" *ngIf="selectedFinalItem.description">
+              <p>{{ selectedFinalItem.description }}</p>
+            </div>
+            
+            <div class="final-item-content" *ngIf="selectedFinalItem.content">
+              <p>{{ selectedFinalItem.content }}</p>
+            </div>
+            
+            <div class="final-item-video" *ngIf="selectedFinalItem.videoUrl">
+              <iframe
+                width="100%"
+                height="400"
+                [src]="selectedFinalItem.videoUrl | safeUrl"
+                frameborder="0"
+                allowfullscreen
+              ></iframe>
+            </div>
           </ng-container>
-          <ng-template #noCourse>
-            <p>Select a course on the left.</p>
+          
+          <ng-template #noSelection>
+            <p>Select an item from the navigation menu to view its content here.</p>
           </ng-template>
         </article>
       </div>
