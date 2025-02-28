@@ -9,10 +9,10 @@ import { TasksService, Task } from '../services/task/task.service';
   templateUrl: './task.component.html',
   styleUrls: ['./task.component.css']
 })
-export class TasksComponent implements OnInit {
+export class TaskComponent implements OnInit {
   allTasks: Task[] = [];
   
-  // (A) We’ll store the latest update date here
+  // Store the latest update date here
   lastUpdate: Date | null = null;
 
   constructor(private tasksService: TasksService) {}
@@ -21,14 +21,13 @@ export class TasksComponent implements OnInit {
     this.tasksService.getAllTasks().subscribe({
       next: (data) => {
         this.allTasks = data;
-        // (B) After we load tasks, find the latest updatedAt
         this.calculateLastUpdate();
       },
       error: (err) => console.error('Error loading tasks:', err)
     });
   }
 
-  // (C) Simple helper to find the maximum updatedAt
+  // Helper to find the maximum updatedAt
   calculateLastUpdate(): void {
     if (!this.allTasks.length) {
       this.lastUpdate = null;

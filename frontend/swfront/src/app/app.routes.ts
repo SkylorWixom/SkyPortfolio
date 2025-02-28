@@ -6,7 +6,7 @@ import { LwmComponent } from './lwm/lwm.component';
 import { ProjectsComponent } from './projects/projects.component';
 import { ContactComponent } from './contact/contact.component';
 import { ResumeComponent } from './resume/resume.component';
-import { TasksComponent } from './task/task.component';
+import { TaskComponent } from './task/task.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -20,5 +20,5 @@ export const routes: Routes = [
   { path: 'projects', component: ProjectsComponent },
   { path: 'contact', component: ContactComponent },
   { path: 'resume', component: ResumeComponent },
-  { path: 'updates', component: TasksComponent }
+  { path: 'updates', component: TaskComponent }
 ];

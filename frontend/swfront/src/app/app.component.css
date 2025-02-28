@@ -1,2 +1,10 @@
+:host {
+  display: block;
+  min-height: 100%;
+}
 
-  
+main {
+  padding-top: 64px; /* Adjust this value to match your header height */
+}
+
+

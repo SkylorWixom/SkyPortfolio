@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { TasksComponent } from '../task/task.component';
+import { TaskComponent } from '../task/task.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
   imports: [
     RouterLink,
-    TasksComponent
+    TaskComponent
   ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']

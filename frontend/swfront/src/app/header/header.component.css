@@ -1,87 +1,120 @@
-/* header.component.css */
-
-/* 1) Outer header container */
-.main-nav {
-  background-color: var(--color-navy); /* A darker navy for the header bar */
-  color: #ffffff;                      /* White text in the header */
-  padding: 0.75rem 1rem;              /* Slightly smaller vertical padding */
-  
-  /* Sticky so it stays on top, if desired */
-  position: sticky;
-  top: 0;
-  z-index: 999;
-
-  /* Light box-shadow for some depth */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-}
-
-/* 2) Flex container for logo & nav links */
-.nav-inner {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
+/* Complete header reset with sticky positioning */
+header {
   width: 100%;
-}
-
-/* 4) Nav links in a row */
-.nav-links {
-  display: flex;
-  gap: 1.5rem;
-}
-
-/* 5) Links: simple hover underline effect */
-.nav-links a {
-  text-decoration: none;
-  color: #ffffff;
-  font-weight: 500;
-  position: relative;
-  padding: 0.25rem 0;
-  transition: color 0.3s ease; 
-}
-
-/* Underline animation */
-.nav-links a::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
+  margin: 0;
+  padding: 0;
+  background-color: var(--color-headline);
+  display: block; /* Ensure block display */
+  position: fixed; /* Changed from sticky to fixed for more reliable behavior */
+  top: 0; /* Stick to the top of the viewport */
   left: 0;
-  height: 2px;
-  width: 0;
-  background-color: #ffffff;
-  transition: width 0.3s ease;
+  right: 0;
+  z-index: 1000; /* Ensure it stays on top of other content */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); /* Add shadow for visual separation */
 }
 
-.nav-links a:hover::after {
-  width: 100%;
+/* Container for content alignment */
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--padding-header);
+  max-width: 1440px; /* Or whatever max-width you want for the content */
+  margin: 0 auto; /* Center the container */
+  width: 100%; /* Take full width up to the max-width */
+  box-sizing: border-box; /* Include padding in width calculation */
 }
 
-/* header.component.css */
-.logo {
+/* Logo container */
+.logo-link {
   text-decoration: none;
+  display: block;
+}
+
+/* Circular logo styling */
+.logo {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-circle); /* Fix the typo from 'cirlce' to 'circle' */
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-}
-
-.logo-circle {
-  display: inline-flex;
   justify-content: center;
-  align-items: center;
-  width: 3rem;
-  height: 3rem;
-  border-radius: 50%;
-  background-color: var(--color-slate);
-  color: #fff;
-  font-size: 1.2rem;
-  font-weight: 700;
-  font-family: 'Helvetica Neue', Arial, sans-serif;
-  text-transform: uppercase;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  background-color: var(--color-highlight);
+  border: 2px solid var(--color-main);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
 }
 
+.logo:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(7, 128, 128, 0.5);
+}
+
+/* Logo text */
 .logo-text {
-  font-size: 1.4rem;
-  font-weight: 600;
-  color: #fff; /* or var(--color-off-white) if your header is dark */
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-main);
+  line-height: 1;
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+/* Navigation */
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--margin-xs);
+}
+
+nav a {
+  padding: var(--padding-nav-item);
+  color: var(--color-main);
+  font-size: var(--font-size-s);
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+  position: relative;
+}
+
+nav a:hover {
+  color: var(--color-highlight);
+}
+
+/* Underline effect on hover */
+nav a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 50%;
+  background-color: var(--color-highlight);
+  transition: all var(--transition-fast);
+}
+
+nav a:hover::after {
+  width: 100%;
+  left: 0;
+}
+
+/* Make the header responsive */
+@media (max-width: 768px) {
+  .header-container {
+    flex-direction: column;
+    padding: var(--padding-xs);
+  }
+  
+  .logo {
+    margin-bottom: var(--margin-s);
+  }
+  
+  nav {
+    margin-top: var(--margin-xs);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  nav a {
+    padding: var(--padding-xs);
+    margin: var(--margin-xs);
+  }
 }

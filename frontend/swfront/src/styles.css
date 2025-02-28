@@ -1,185 +1,497 @@
-/* 1) Import Poppins from Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
-/* 2) Root CSS Variables */
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
 :root {
-  --color-dark-navy: #0D1B2A;
-  --color-navy: #1B263B;
-  --color-slate: #415A77;
-  --color-light-slate: #778DA9;
-  --color-off-white: #E0E1DD;
-  --color-bg: var(--color-off-white);
-  --color-button: var(--color-slate);
-  --color-button-text: #fff;
+  /*Elements*/
+  --color-background: #f8f5f2;
+  --color-headline: #232323;
+  --color-paragraph: #222525;
+  --color-button:#078080;
+  --color-button-text: #232323;
 
-  /* Key change: Use a partially transparent overlay for the hero. */
-  --hero-overlay-home: rgba(0, 0, 0, 0.4);
-  --hero-overlay-lwm: rgba(0, 0, 0, 0.25);
+  /*Illustration*/
+  --color-stroke: #232323;
+  --color-main: #fffffe;
+  --color-highlight: #078080;
+  --color-secondary: #f45d48;
+  --color-tertiary: #f8f5f2;
 
-  /* Consistent spacing variables */
-  --spacing-xs: 0.5rem;
-  --spacing-s: 1rem;
-  --spacing-m: 1.5rem;
-  --spacing-l: 2rem;
-  --spacing-xl: 3rem;
+  /*Sizes*/
+  --sizing-xs: 0.5rem;
+  --sizing-s: 1rem;
+  --sizing-m: 1.5rem;
+  --sizing-l: 2rem;
+  --sizing-xl: 3rem;
 
-  --radius-card: 8px;
-  --shadow-card: 0 4px 8px rgba(0,0,0,0.1);
-  --shadow-card-hover: 0 6px 12px rgba(0,0,0,0.15);
+  /* Padding system for consistent spacing */
+  --padding-xs: 0.5rem;     /* 8px */
+  --padding-s: 1rem;        /* 16px */
+  --padding-m: 1.5rem;      /* 24px */
+  --padding-l: 2rem;        /* 32px */
+  --padding-xl: 3rem;       /* 48px */
+
+    /* Padding system for consistent spacing */
+  --padding-xs: 0.5rem;     /* 8px */
+  --padding-s: 1rem;        /* 16px */
+  --padding-m: 1.5rem;      /* 24px */
+  --padding-l: 2rem;        /* 32px */
+  --padding-xl: 3rem;       /* 48px */
+  
+  /* Padding for specific components */
+  --padding-button: 0.75rem 1.5rem;
+  --padding-card: 1.5rem;
+  --padding-section: 2rem 1rem;
+  --padding-container: 0 1rem;
+  
+  /* Padding for header/navigation */
+  --padding-header: 1rem;
+  --padding-nav-item: 0.5rem 1rem;
+
+  /* Margin system for consistent spacing */
+  --margin-xs: 0.5rem;     /* 8px */
+  --margin-s: 1rem;        /* 16px */
+  --margin-m: 1.5rem;      /* 24px */
+  --margin-l: 2rem;        /* 32px */
+  --margin-xl: 3rem;       /* 48px */
+  
+  /* Margin for specific components */
+  --margin-paragraph: 0 0 1rem 0;
+  --margin-heading: 0 0 1.5rem 0;
+  --margin-card: 0 0 1.5rem 0;
+  --margin-section: 0 0 3rem 0;
+  --margin-button: 0 0.5rem 0 0;
+  
+  /* Element-specific margins */
+  --margin-form-element: 0 0 1rem 0;
+  --margin-list-item: 0 0 0.5rem 0;
+  --margin-image: 0 0 1.5rem 0;
+  
+  /* Responsive margin scales */
+  --margin-mobile-block: 1.5rem;
+  --margin-tablet-block: 2rem;
+  --margin-desktop-block: 3rem;
+  
+  /* Responsive padding scales */
+  --padding-mobile: 1rem;
+  --padding-tablet: 1.5rem;
+  --padding-desktop: 2rem;
+  
+  /* Padding for specific components */
+  --padding-button: 0.75rem 1.5rem;
+  --padding-card: 1.5rem;
+  --padding-section: 2rem 1rem;
+  --padding-container: 0 1rem;
+  
+  /* Padding for header/navigation */
+  --padding-header: 1rem;
+  --padding-nav-item: 0.5rem 1rem;
+  
+  /* Responsive padding scales */
+  --padding-mobile: 1rem;
+  --padding-tablet: 1.5rem;
+  --padding-desktop: 2rem;
+
+  /*border radius*/
+  --radius-small: 4px;
+  --radius-medium: 8px;
+  --radius-card: 12px;
+  --radius-large: 16px;
+  --radius-circle: 50%;
+
+  /*shadows*/
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+  --shadow-card: 0 10px 20px rgba(0,0,0,0.05);
+  --shadow-lg: 0 10px 25px rgba(0,0,0,0.1), 0 6px 6px rgba(0,0,0,0.1);
+
+  /*transitions*/
+  --transition-fast: 0.2s ease;
+  --transition-medium: 0.3s ease;
+  --transition-slow: 0.5s ease;
+
+  /* Typography */
+  --font-family-primary: 'Inter', sans-serif;
+  --font-family-secondary: 'Inter', sans-serif; /* You can change this if you want a second font */
+  --font-family-code: 'Roboto Mono', monospace; /* For code snippets */
+  
+  /* Happy Hues font scale */
+  --font-size-xs: 0.79rem;      /* 12px */
+  --font-size-s: 0.889rem;      /* 14px */
+  --font-size-m: 1rem;          /* 16px - base */
+  --font-size-l: 1.125rem;      /* 18px */
+  --font-size-xl: 1.266rem;     /* 20px */
+  --font-size-xxl: 1.424rem;    /* 22px */
+  --font-size-xxxl: 1.602rem;   /* 25px */
+  --heading-1: 2.25rem;         /* 36px */
+  --heading-2: 1.802rem;        /* 28px */
+  --heading-3: 1.602rem;        /* 25px */
+  --heading-4: 1.424rem;        /* 22px */
+  --heading-5: 1.266rem;        /* 20px */
+  --heading-6: 1.125rem;        /* 18px */
+  
+  /* Font weights - Happy Hues uses different weights */
+  --font-weight-light: 300;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  
+  /* Line heights */
+  --line-height-tight: 1.3;
+  --line-height-normal: 1.5;
+  --line-height-loose: 1.75;
+  
+  /* Letter spacing */
+  --letter-spacing-tight: -0.015em;
+  --letter-spacing-normal: 0;
+  --letter-spacing-wide: 0.015em;
 }
 
-/* 3) Global Reset & Body Styles */
-body {
+/* Base styles */
+html {
+  font-size: 16px;
   margin: 0;
-  font-family: 'Poppins', sans-serif;
-  background-color: var(--color-bg);
-  color: var(--color-navy);
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden; /* Prevent horizontal scrolling */
 }
 
-/* 4) Global Heading Styles */
-h1, h2, h3, h4, h5, h6 {
-  margin-top: 0;
-  margin-bottom: var(--spacing-s);
-  color: var(--color-dark-navy);
+/* Base typography styles */
+body {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-m);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-normal);
+  color: var(--color-paragraph);
+  background-color: var(--color-background);
+  margin: 0; /* Add this to remove default body margin */
+  padding: 0; /* Add this to remove any padding */
+  width: 100%; /* Add this to ensure full width */
+  overflow-x: hidden; /* Prevent horizontal scrolling */
 }
 
-/* Example heading sizes (feel free to tweak) */
 h1 {
-  font-size: 2rem;    /* Larger main title size */
+  font-size: var(--heading-1);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
 }
+
 h2 {
-  font-size: 1.6rem;  
+  font-size: var(--heading-2);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
 }
+
 h3 {
-  font-size: 1.3rem;
+  font-size: var(--heading-3);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-tight);
 }
+
 h4 {
-  font-size: 1.1rem;
-}
-h5, h6 {
-  font-size: 1rem;
-  margin-bottom: var(--spacing-xs);
+  font-size: var(--heading-4);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-tight);
 }
 
-/* 5) Layout Wrappers */
-.page-wrapper {
-  /* Maintains background-color from body, but you could override if desired */
-  padding-top: var(--spacing-l);
-  padding-bottom: var(--spacing-l);
-  min-height: 100vh;
+h5 {
+  font-size: var(--heading-5);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-normal);
 }
 
-.page-container {
-  background-color: #fff;
-  max-width: 95%;
+h6 {
+  font-size: var(--heading-6);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-normal);
+}
+
+/* Common text elements */
+p {
+  margin: var(--margin-paragraph);
+  line-height: var(--line-height-normal);
+}
+
+small {
+  font-size: var(--font-size-xs);
+}
+
+.lead {
+  font-size: var(--font-size-l);
+  line-height: var(--line-height-loose);
+}
+
+.subtitle {
+  font-size: var(--font-size-l);
+  color: var(--color-paragraph);
+  font-weight: var(--font-weight-medium);
+}
+
+a {
+  color: var(--color-highlight);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--color-secondary);
+}
+
+/* General container styles */
+.content-container {
+  width: 100%;
+  box-sizing: border-box;
+  padding-left: var(--padding-s);  /* Use padding, not sizing */
+  padding-right: var(--padding-s); /* Use padding, not sizing */
   margin: 0 auto;
-  border-radius: var(--radius-card);
-  box-shadow: var(--shadow-card);
-  padding: var(--spacing-m);
+  max-width: 1600px; /* Match the new width standard */
 }
 
-/* 6) Reusable Page Section */
-.page-section {
-  background-color: var(--color-bg);
-  border: 1px solid #ddd;
+/* Card and content block styling */
+.content-block {
+  background-color: var(--color-main);
   border-radius: var(--radius-card);
+  padding: var(--padding-card);
+  margin: var(--margin-card);
   box-shadow: var(--shadow-card);
-  padding: var(--spacing-m);
-  margin-bottom: var(--spacing-m);
-  color: var(--color-navy);
 }
 
-/* 7) Global Page Hero (Banner) 
-   We provide a fallback color & partial overlay. 
-   If you want no fallback color, remove background-color below. 
-*/
+.btn {
+  display: inline-block;
+  background-color: var(--color-button);
+  color: var(--color-button-text);
+  border: none;
+  border-radius: var(--radius-medium);
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  margin: var(--margin-button);
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-secondary {
+  background-color: var(--color-secondary);
+  color: var(--color-main);
+}
+
+.btn-outline {
+  background-color: transparent;
+  border: 2px solid var(--color-button);
+  color: var(--color-headline);
+}
+
+li {
+  margin: var(--margin-list-item);
+}
+
+input, 
+textarea, 
+select {
+  margin: var(--margin-form-element);
+  padding: var(--padding-s);
+}
+
+/*****************************************/
+/* Hero global - KEEP AND IMPROVE THIS SECTION */
+/*****************************************/
 .page-hero {
   position: relative;
+  width: 100%;
+  background-image: url('/assets/images/heroBanner1.jpg');
+  background-size: cover;
   display: flex;
   align-items: center;
   justify-content: center;
-  text-align: center;
-  color: #fff; /* Contrasts with background image/color */
-  padding: var(--spacing-m);
-  margin-bottom: var(--spacing-l);
-  border-radius: var(--radius-card);
   overflow: hidden;
-  background-color: var(--color-slate);
-  background-image: url('/assets/images/circuitbackground.webp') !important;
-  background-size: cover;
-  background-position: center;
-  min-height: 200px;
-
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: cover;
+  padding: var(--padding-l) 0;
 }
 
+/* Dark overlay to improve text readability */
 .page-hero::before {
-  /* Semi-transparent overlay for better text legibility */
-  content: "";
+  content: '';
   position: absolute;
-  inset: 0;
-  background-color: rgba(0,0,0,0.4);
-  z-index: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(35, 35, 35, 0.85) 0%, rgba(35, 35, 35, 0.65) 100%);
+  z-index: 1;
 }
 
-.page-hero .hero-content {
+.hero-content {
   position: relative;
-  z-index: 1; /* On top of overlay */
+  z-index: 2;
+  text-align: center;
   max-width: 800px;
+  padding: 0 var(--padding-m);
+  animation: fadeInUp 0.8s ease-out forwards;
 }
 
-.page-hero h1 {
-  font-size: 2.2rem; /* Slightly bigger than default h1 */
-  margin-bottom: var(--spacing-s);
+.hero-content h1 {
+  color: var(--color-main);
+  font-size: 2.5rem;
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--margin-s);
+  line-height: 1.2;
 }
 
-.page-hero p {
-  font-size: 1.1rem;
-  max-width: 600px;
-  margin: 0 auto; /* Center paragraph text */
+.hero-content p {
+  color: var(--color-main);
+  font-size: 1.25rem;
+  margin-bottom: var(--margin-m);
+  line-height: 1.6;
+  opacity: 0.9;
 }
 
-/* Standardized grid layouts */
-.two-column-layout {
-  display: flex;
-  gap: var(--spacing-m);
-  margin-bottom: var(--spacing-l);
+/* Accent bar under the heading */
+.hero-content h1::after {
+  content: '';
+  display: block;
+  width: 80px;
+  height: 4px;
+  background-color: var(--color-highlight);
+  margin: var(--margin-s) auto;
 }
 
-/* Two-column layout with standardized sizing */
-.two-column-layout .left-col {
-  width: 300px;
-  flex-shrink: 0;
-  background-color: var(--color-off-white);
-  border-radius: var(--radius-card);
-  padding: var(--spacing-s);
-  border: 1px solid #ddd;
-  box-shadow: var(--shadow-card);
-  height: fit-content;
-}
-
-.two-column-layout .right-col {
-  flex: 1;
-  min-width: 0;
-}
-/* Each main .resume-section (white sub-card). 
-   Or you can keep a slight background difference if you want. */
-   .resume-section {
-    background-color: var(--color-bg);
-    margin-bottom: var(--spacing-m);
-    padding: var(--spacing-s) var(--spacing-m);
-    border-radius: var(--radius-card);
-    border: 1px solid #ddd;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
   }
-  .education {
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: var(--radius-card);
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    margin: var(--spacing-s) 0;
-    padding: var(--spacing-s) var(--spacing-m);
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Base responsive adjustments */
+@media (max-width: 768px) {
+  .page-hero {
+    background-attachment: scroll; /* Better mobile performance */
   }
   
+  .hero-content h1 {
+    font-size: 2rem;
+  }
+  
+  .hero-content p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-hero {
+    padding: var(--padding-m) 0;
+  }
+  
+  .hero-content h1 {
+    font-size: 1.75rem;
+  }
+  
+  .hero-content h1::after {
+    width: 60px;
+    margin: var(--margin-xs) auto;
+  }
+}
+
+/*****************************************/
+/* Two column global */
+/*****************************************/
+
+/*****************************************/
+/* left col global */
+/*****************************************/
+
+/*****************************************/
+/* right col global */
+/*****************************************/
+
+/*****************************************/
+/* section heading global */
+/*****************************************/
+
+/*****************************************/
+/* content block global */
+/*****************************************/
+
+/*****************************************/
+/* card global */
+/*****************************************/
+
+
+/* Responsive breakpoints */
+@media (min-width: 576px) {
+  .content-container {
+    max-width: 540px;
+  }
+}
+
+@media (min-width: 768px) {
+  .content-container {
+    max-width: 720px;
+  }
+  h1 {
+    font-size: 2.5rem;
+  }
+  h2 {
+    font-size: 2rem;
+  }
+  h3 {
+    font-size: 1.75rem;
+  }
+}
+
+@media (min-width: 992px) {
+  .content-container {
+    max-width: 960px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .content-container {
+    max-width: 1600px; /* Consistent with two-column layout */
+  }
+  html {
+    font-size: 18px;
+  }
+}
+
+/* Adjust section margins based on screen size */
+@media (max-width: 767px) {
+  .section {
+    margin-bottom: var(--margin-mobile-block);
+  }
+  
+  .content-block {
+    margin-bottom: var(--margin-mobile-block);
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .section {
+    margin-bottom: var(--margin-tablet-block);
+  }
+  
+  .content-block {
+    margin-bottom: var(--margin-tablet-block);
+  }
+}
+
+@media (min-width: 992px) {
+  .section {
+    margin-bottom: var(--margin-desktop-block);
+  }
+  
+  .content-block {
+    margin-bottom: var(--margin-desktop-block);
+  }
+}

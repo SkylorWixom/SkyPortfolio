@@ -1,205 +1,433 @@
-/* HOME COMPONENT STYLES
-   ======================
-   This file references site-wide color variables from styles.css.
-*/
-
-/* 1) Hero Section Overwrites */
-.page-hero {
-  min-height: 200px; /* Ensure the hero has enough height to show background image */
-  margin-bottom: var(--spacing-l); /* Match LWM spacing */
-}
-.page-hero::before {
-  background-color: var(--hero-overlay-home);
-}
-.page-hero .hero-content {
-  position: relative;
-  z-index: 1;
-  text-align: center;
-  padding: var(--spacing-l) var(--spacing-m);
-}
-.page-hero .hero-content h1 {
-  color: var(--color-button-text); /* typically #fff */
-  font-weight: 700;
-  margin: 0 0 var(--spacing-xs) 0;
-}
-.page-hero .hero-content p {
-  color: var(--color-off-white);
-  margin: 0;
-  font-size: 1.1rem;
+@media (max-width: 768px) {
+  .home-hero {
+    min-height: 60vh;
+  }
+  
+  .home-hero .hero-content h1 {
+    font-size: 2.25rem;
+  }
 }
 
-/* Use the circuit background banner image */
-.home-hero {
-  background-image: url('/assets/images/circuitbackground.webp') !important;
-  background-size: cover;
-  background-position: center;
+@media (max-width: 480px) {
+  .home-hero {
+    min-height: 50vh;
+  }
+  
+  .home-hero .hero-content h1 {
+    font-size: 2rem;
+  }
 }
 
-/* 2) Mobile "Dev Updates" button (hidden on desktop) */
-.toggle-tasks-btn {
-  display: none;
-  background-color: var(--color-slate);
-  color: var(--color-button-text);
-  padding: var(--spacing-xs) var(--spacing-s); /* Use variables */
-  border: none;
-  border-radius: 4px;
-  margin-bottom: var(--spacing-s); /* Use variable */
-  cursor: pointer;
-  font-weight: 600;
-  transition: background 0.3s ease;
-}
-.toggle-tasks-btn:hover {
-  background-color: var(--color-dark-navy);
-}
-
-/* 3) Two-column layout container: left-col (Tasks) + right-col (Content) */
+/* Two-column layout styling */
 .two-column-layout {
   display: flex;
-  gap: var(--spacing-m); /* Match LWM spacing */
-  margin-bottom: var(--spacing-l); /* Match LWM spacing */
-}
-
-/* Left column for tasks/updates */
-.left-col {
-  width: 300px;
-  background-color: var(--color-off-white);
-  border: 1px solid #ddd;
-  border-radius: var(--radius-card);
-  padding: var(--spacing-s); /* Use variable */
-  box-shadow: var(--shadow-card);
+  gap: var(--margin-l);
+  margin-top: var(--margin-l);
   position: relative;
-  margin: 0; /* Remove margin to match LWM spacing */
+  max-width: 1600px; /* Reduced from 1800px for slightly narrower content */
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 var(--padding-m);
+  width: 100%;
+  box-sizing: border-box;
 }
 
-/* Right column */
-.right-col {
+/* Left column - Task sidebar */
+.task-sidebar {
+  width: 280px; /* Back to original width */
+  flex-shrink: 0;
+  background-color: var(--color-main);
+  border-radius: var(--radius-card);
+  padding: var(--padding-m);
+  box-shadow: var(--shadow-card);
+  border-top: 4px solid var(--color-highlight); /* Keep teal accent */
+  position: relative;
+}
+
+/* Section title styling with orange accent for the line */
+.task-sidebar .section-title {
+  font-size: var(--heading-3);
+  color: var(--color-headline);
+  margin-bottom: var(--margin-m);
+  position: relative;
+  padding-bottom: var(--padding-s);
+  border-bottom: 2px solid var(--color-tertiary);
+}
+
+.task-sidebar .section-title::after {
+  content: '';
+  position: absolute;
+  width: 60px;
+  height: 3px;
+  background-color: var(--color-secondary); /* Orange accent color */
+  bottom: -2px;
+  left: 0;
+}
+
+/* Section title styling with orange accent for the line */
+.task-sidebar .section-title::after,
+.welcome-section .section-title::after,
+.explore-section .section-title::after {
+  content: '';
+  position: absolute;
+  width: 60px;
+  height: 3px;
+  background-color: var(--color-secondary); /* Orange accent color */
+  bottom: -2px;
+  left: 0;
+}
+
+/* Close button for mobile sidebar */
+.close-sidebar-btn {
+  display: none;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--color-secondary);
+  font-size: var(--font-size-m);
+  position: absolute;
+  right: var(--padding-s);
+  top: var(--padding-s);
+  padding: var(--padding-xs);
+}
+
+/* Mobile toggle button */
+.mobile-toggle-btn {
+  display: none;
+  background-color: var(--color-button);
+  color: var(--color-main);
+  border: none;
+  border-radius: var(--radius-medium);
+  padding: var(--padding-s);
+  margin-bottom: var(--margin-m);
+  cursor: pointer;
+  font-weight: var(--font-weight-medium);
+  width: 100%;
+}
+
+/* Right column - Main content */
+.main-content {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-m); /* Match LWM spacing */
-  margin: 0; /* Remove margin to match LWM spacing */
+  gap: var(--margin-l);
 }
 
-/* Content block padding adjustment */
-.page-section.content-block {
-  padding-top: var(--spacing-s); /* Use variable */
-  margin-bottom: var(--spacing-m); /* Add to match LWM spacing */
+/* Section components */
+.section-title {
+  font-size: var(--font-size-xl);
+  color: var(--color-headline);
+  margin-bottom: var(--margin-m);
+  position: relative;
+  padding-bottom: var(--padding-xs);
+  border-bottom: 1px solid #eaeaea;
 }
 
-/* 4) "Explore" Cards — Modern, More Visual
-   ---------------------------------------
-   a) We do a grid with consistent card widths.
-   b) Each card has an image at the top (100% width), then heading, text, CTA. 
-   c) Hover: slight raise or shadow intensification.
-*/
-.link-cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: var(--spacing-m);
-  margin-top: var(--spacing-s);
-}
-
-/* Each card: white background, border, shadow, column layout */
-.link-cards article {
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: var(--radius-card);
-  box-shadow: var(--shadow-card);
-  display: flex;
-  flex-direction: column;
-  overflow: hidden; /* so corners are rounded on image */
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  text-align: left;
-}
-.link-cards article:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
-}
-
-/* 4a) Card Image — top, full width, auto height. 
-       If your icons are small, consider a bigger image or a placeholder image. */
-.card-icon {
-  width: 100%;
-  height: auto;
-  display: block;
-  object-fit: cover; 
-}
-
-/* 4b) Card Content => padding inside, parted from the top image */
-.card-content {
-  padding: var(--spacing-s);
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-xs);
-}
-.card-content h4 {
-  margin-top: 0;
-  font-size: 1.2rem;
-  margin-bottom: 0.25rem;
-  color: var(--color-dark-navy);
-}
-.card-content p {
-  color: var(--color-navy);
-  font-size: 0.95rem;
-  line-height: 1.4;
-  margin: 0 0 var(--spacing-s) 0;
-}
-
-/* 4c) CTA Button => smaller accent button at the bottom */
-.card-content a {
-  align-self: flex-start; /* or center if you prefer */
-  background-color: var(--color-slate);
-  color: var(--color-button-text);
-  padding: var(--spacing-xs) var(--spacing-s); /* Use variables */
-  border-radius: 4px;
-  text-decoration: none;
-  transition: background 0.2s;
-  font-weight: 600;
-}
-.card-content a:hover {
-  background-color: var(--color-dark-navy);
-}
-
-/* 5) Mobile close button inside the tasks sidebar */
-.close-tasks-btn {
-  display: none;
-  background-color: var(--color-slate);
-  color: var(--color-button-text);
-  border: none;
-  border-radius: 4px;
-  padding: var(--spacing-xs) var(--spacing-s); /* Use variables */
-  cursor: pointer;
+/* Section title styling with orange accent for the line */
+.welcome-section .section-title::after,
+.explore-section .section-title::after {
+  content: '';
   position: absolute;
-  top: 0.5rem;
-  right: 0.5rem;
-  z-index: 1001;
+  width: 60px;
+  height: 3px;
+  background-color: var(--color-secondary); /* Orange accent color */
+  bottom: -2px;
+  left: 0;
 }
 
-/* 6) Responsive (Under 768px) */
-@media (max-width: 768px) {
-  .toggle-tasks-btn {
-    display: inline-block;
-  }
-  .close-tasks-btn {
-    display: inline-block;
-  }
-  .left-col {
-    display: none;
-    position: absolute; 
-    top: 6rem; /* adjust if you have a sticky header */
-    left: 0;
-    z-index: 999;
-    width: 80%;
-    max-width: 320px;
-  }
-  .left-col.open {
-    display: block;
-  }
+/* Welcome section */
+.welcome-section {
+  background-color: var(--color-main);
+  border-radius: var(--radius-card);
+  padding: var(--padding-l);
+  box-shadow: var(--shadow-card);
+  border-top: 4px solid var(--color-highlight); /* Teal border */
+}
+
+/* Orange highlight for strong text */
+.welcome-text strong {
+  color: var(--color-secondary); /* Orange accent color */
+  font-weight: var(--font-weight-semibold);
+}
+
+/* Explore section */
+.explore-section {
+  background-color: var(--color-main);
+  border-radius: var(--radius-card);
+  padding: var(--padding-l);
+  box-shadow: var(--shadow-card);
+  border-top: 4px solid var(--color-highlight); /* Teal border */
+}
+
+/* Explore card grid */
+.explore-section {
+  background-color: var(--color-main);
+  border-radius: var(--radius-card);
+  padding: var(--padding-m);
+  box-shadow: var(--shadow-card);
+  border: 1px solid #eaeaea;
+}
+
+/* Card grid - adjust for 4 cards */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2x2 grid for 4 cards */
+  gap: var(--margin-m);
+}
+
+/* Explore cards - fix layout issues */
+.explore-card {
+  background-color: var(--color-tertiary);
+  border-radius: var(--radius-medium);
+  overflow: hidden;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  border: 1px solid #eaeaea;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  animation: slideUp 0.5s ease-in-out forwards;
+  opacity: 0;
+}
+
+.card-content {
+  padding: var(--padding-m);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Key for alignment */
+  flex-grow: 1;
+  height: 100%;
+}
+
+/* Fixed height content area */
+.card-text-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+/* Card title with orange accent line */
+.card-title {
+  color: var(--color-headline);
+  font-size: var(--heading-4);
+  margin-bottom: var(--margin-s);
+  position: relative;
+  display: inline-block;
+}
+
+.card-title::after {
+  content: '';
+  position: absolute;
+  width: 40px;
+  height: 3px;
+  bottom: -8px;
+  left: 0;
+  background-color: var(--color-secondary); /* Orange accent color */
+  transition: width var(--transition-medium);
+}
+
+/* Card description - maintain consistent height */
+.card-description {
+  color: var(--color-paragraph);
+  margin-bottom: var(--margin-m);
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Limit to 3 lines */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  flex-grow: 0; /* Don't let it grow with content */
+  min-height: 4.5em; /* Consistent height for ~3 lines */
+  line-height: 1.5;
+}
+
+/* Card link area - positioned at bottom */
+.card-link-container {
+  margin-top: auto; /* Push to bottom */
+  padding-top: var(--padding-s);
+}
+
+/* Card link styling */
+.card-link {
+  display: inline-flex;
+  align-items: center;
+  color: var(--color-highlight); /* Teal link */
+  font-weight: var(--font-weight-semibold);
+  text-decoration: none;
+  position: relative;
+}
+
+.card-link::after {
+  content: '→';
+  margin-left: 6px;
+  transition: transform var(--transition-fast);
+}
+
+.card-link:hover {
+  color: var(--color-secondary); /* Orange on hover */
+}
+
+.card-link:hover::after {
+  transform: translateX(4px);
+}
+
+/* Responsive styles */
+@media (max-width: 992px) {
   .two-column-layout {
     flex-direction: column;
   }
-  .right-col {
+  
+  .task-sidebar {
     width: 100%;
-    margin-top: var(--spacing-s); /* Use variable */
+    position: static;
+    max-height: none;
+    margin-bottom: var(--margin-m);
+  }
+  
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .mobile-toggle-btn {
+    display: block;
+  }
+  
+  .task-sidebar {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100%;
+    z-index: 1000;
+    border-radius: 0;
+  }
+  
+  .task-sidebar.open {
+    display: block;
+  }
+  
+  .close-sidebar-btn {
+    display: block;
+  }
+  
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Responsive adjustments */
+@media (min-width: 1200px) {
+  .card-grid {
+    grid-template-columns: repeat(4, 1fr); /* Show all 4 cards in one row on large screens */
+  }
+}
+
+@media (max-width: 576px) {
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Responsive styles - keep all 4 cards visible when possible */
+@media (min-width: 1400px) {
+  .card-grid {
+    grid-template-columns: repeat(4, 1fr); /* Show all 4 cards in one row on large screens */
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1399px) {
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2x2 grid on medium-large screens */
+  }
+}
+
+@media (max-width: 991px) {
+  .two-column-layout {
+    flex-direction: column;
+  }
+  
+  .task-sidebar {
+    width: 100%;
+    position: static;
+    max-height: none;
+    margin-bottom: var(--margin-m);
+  }
+  
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2x2 grid on medium screens */
+  }
+}
+
+@media (max-width: 767px) {
+  .mobile-toggle-btn {
+    display: block;
+  }
+  
+  .task-sidebar {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100%;
+    z-index: 1000;
+    border-radius: 0;
+  }
+  
+  .task-sidebar.open {
+    display: block;
+  }
+  
+  .close-sidebar-btn {
+    display: block;
+  }
+}
+
+/* Responsive adjustments for wider sidebar */
+@media (max-width: 1200px) {
+  .task-sidebar {
+    width: 380px; /* Slightly smaller on medium screens */
+  }
+}
+
+/* Animation for content loading */
+.welcome-section, .explore-section {
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+.explore-card {
+  animation: slideUp 0.5s ease-in-out forwards;
+  opacity: 0;
+}
+
+.explore-card:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.explore-card:nth-child(2) {
+  animation-delay: 0.3s;
+}
+
+.explore-card:nth-child(3) {
+  animation-delay: 0.5s;
+}
+
+.explore-card:nth-child(4) {
+  animation-delay: 0.7s;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { 
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to { 
+    opacity: 1;
+    transform: translateY(0);
   }
 }
