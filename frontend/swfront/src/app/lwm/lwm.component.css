@@ -9,6 +9,7 @@
   max-width: 1600px;
   margin: 0 auto;
   padding: var(--padding-m);
+  width: 100%;
 }
 
 /* Introduction section */

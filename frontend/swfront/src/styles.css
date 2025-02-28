@@ -148,6 +148,43 @@
   --letter-spacing-tight: -0.015em;
   --letter-spacing-normal: 0;
   --letter-spacing-wide: 0.015em;
+
+  /* Standardized spacing system - consolidate all the duplicates */
+  --spacing-xs: 0.5rem;     /* 8px */
+  --spacing-s: 1rem;        /* 16px */
+  --spacing-m: 1.5rem;      /* 24px */
+  --spacing-l: 2rem;        /* 32px */
+  --spacing-xl: 3rem;       /* 48px */
+  
+  /* For backward compatibility */
+  --padding-xs: var(--spacing-xs);
+  --padding-s: var(--spacing-s);
+  --padding-m: var(--spacing-m);
+  --padding-l: var(--spacing-l);
+  --padding-xl: var(--spacing-xl);
+  --margin-xs: var(--spacing-xs);
+  --margin-s: var(--spacing-s);
+  --margin-m: var(--spacing-m);
+  --margin-l: var(--spacing-l);
+  --margin-xl: var(--spacing-xl);
+  
+  /* Common component spacing */
+  --padding-button: 0.75rem 1.5rem;
+  --padding-card: var(--spacing-m);
+  
+  /* UI Elements */
+  --radius-small: 4px;
+  --radius-medium: 8px;
+  --radius-card: 12px;
+  --radius-large: 16px;
+  --radius-circle: 50%;
+  
+  --shadow-card: 0 10px 20px rgba(0,0,0,0.05);
+  --shadow-card-hover: 0 10px 20px rgba(0,0,0,0.1);
+  
+  /* Layout */
+  --max-width: 1200px;
+  --sidebar-width: 300px;
 }
 
 /* Base styles */
@@ -312,6 +349,11 @@ select {
   justify-content: center;
   overflow: hidden;
   padding: var(--padding-l) 0;
+  margin-bottom: var(--spacing-l);
+  border-radius: var(--radius-card);
+  background-color: var(--color-headline);
+  min-height: 200px;
+  background-position: center;
 }
 
 /* Dark overlay to improve text readability */
@@ -406,27 +448,85 @@ select {
 /*****************************************/
 /* Two column global */
 /*****************************************/
+.two-column-layout {
+  display: flex;
+  gap: var(--spacing-m);
+  margin-bottom: var(--spacing-l);
+  max-width: var(--max-width);
+  margin-left: auto;
+  margin-right: auto;
+}
 
 /*****************************************/
 /* left col global */
 /*****************************************/
+.left-col {
+  width: 300px;
+  flex-shrink: 0;
+  background-color: var(--color-main);
+  border-radius: var(--radius-card);
+  padding: var(--spacing-m);
+  border: 1px solid #ddd;
+  box-shadow: var(--shadow-card);
+  height: fit-content;
+  border-top: 4px solid var(--color-highlight);
+}
 
 /*****************************************/
 /* right col global */
 /*****************************************/
+.right-col {
+  flex: 1;
+  min-width: 0;
+}
 
 /*****************************************/
 /* section heading global */
 /*****************************************/
+.section-title {
+  margin-bottom: var(--spacing-m);
+  position: relative;
+  padding-bottom: var(--spacing-xs);
+  border-bottom: 2px solid var(--color-tertiary);
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  width: 60px;
+  height: 3px;
+  background-color: var(--color-secondary);
+  bottom: -2px;
+  left: 0;
+}
 
 /*****************************************/
 /* content block global */
 /*****************************************/
+.content-container, .page-section {
+  background-color: var(--color-tertiary);
+  border-radius: var(--radius-card);
+  padding: var(--spacing-m);
+  border: 1px solid #ddd;
+  box-shadow: var(--shadow-card);
+  margin-bottom: var(--spacing-m);
+}
 
 /*****************************************/
 /* card global */
 /*****************************************/
+.content-card {
+  background-color: var(--color-main);
+  border-radius: var(--radius-card);
+  padding: var(--spacing-m);
+  margin-bottom: var(--spacing-m);
+  border: 1px solid #ddd;
+  box-shadow: var(--shadow-card);
+}
 
+.content-card:last-child {
+  margin-bottom: 0;
+}
 
 /* Responsive breakpoints */
 @media (min-width: 576px) {
@@ -493,5 +593,24 @@ select {
   
   .content-block {
     margin-bottom: var(--margin-desktop-block);
+  }
+}
+
+@media (max-width: 768px) {
+  .two-column-layout {
+    flex-direction: column;
+  }
+  
+  .left-col {
+    width: 100%;
+    margin-bottom: var(--spacing-m);
+  }
+  
+  .page-hero {
+    background-attachment: scroll;
+  }
+  
+  .hero-content h1 {
+    font-size: 2rem;
   }
 }

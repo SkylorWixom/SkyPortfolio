@@ -1,14 +1,11 @@
 /* TASK COMPONENT STYLES
    ======================
-   This aims for higher contrast to help with accessibility checks.
-*/
 
 /* Main board container */
 .task-board {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  /* Slightly larger base font for clarity */
   font-size: 1rem;
   color: #333; /* Dark default text color for better contrast */
 }
@@ -65,6 +62,7 @@
 /* Larger, darker left border stripes for each status */
 .task-card.completed {
   border-left: 6px solid #1e8c57;  /* darker green for stronger contrast */
+  border-radius: var(--rad);
 }
 .task-card.active {
   border-left: 6px solid #c49e0f;  /* deeper yellow/gold */
