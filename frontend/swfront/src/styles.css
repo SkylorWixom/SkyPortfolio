@@ -1,202 +1,107 @@
+/*****************************************/
+/* 1) Import + Global Reset + :root      */
+/*****************************************/
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
-*, *:before, *:after {
+/* A simple reset (you can expand if needed) */
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
+/* Root variables */
 :root {
-  /*Elements*/
+  /* Color palette */
   --color-background: #f8f5f2;
   --color-headline: #232323;
   --color-paragraph: #222525;
-  --color-button:#078080;
+  --color-button: #078080;
   --color-button-text: #232323;
-
-  /*Illustration*/
   --color-stroke: #232323;
   --color-main: #fffffe;
   --color-highlight: #078080;
   --color-secondary: #f45d48;
   --color-tertiary: #f8f5f2;
 
-  /*Sizes*/
-  --sizing-xs: 0.5rem;
-  --sizing-s: 1rem;
-  --sizing-m: 1.5rem;
-  --sizing-l: 2rem;
-  --sizing-xl: 3rem;
+  /* Spacing & sizing */
+  --spacing-xs: 0.5rem;
+  --spacing-s: 1rem;
+  --spacing-m: 1.5rem;
+  --spacing-l: 2rem;
+  --spacing-xl: 3rem;
 
-  /* Padding system for consistent spacing */
-  --padding-xs: 0.5rem;     /* 8px */
-  --padding-s: 1rem;        /* 16px */
-  --padding-m: 1.5rem;      /* 24px */
-  --padding-l: 2rem;        /* 32px */
-  --padding-xl: 3rem;       /* 48px */
-
-    /* Padding system for consistent spacing */
-  --padding-xs: 0.5rem;     /* 8px */
-  --padding-s: 1rem;        /* 16px */
-  --padding-m: 1.5rem;      /* 24px */
-  --padding-l: 2rem;        /* 32px */
-  --padding-xl: 3rem;       /* 48px */
-  
-  /* Padding for specific components */
-  --padding-button: 0.75rem 1.5rem;
-  --padding-card: 1.5rem;
-  --padding-section: 2rem 1rem;
-  --padding-container: 0 1rem;
-  
-  /* Padding for header/navigation */
-  --padding-header: 1rem;
-  --padding-nav-item: 0.5rem 1rem;
-
-  /* Margin system for consistent spacing */
-  --margin-xs: 0.5rem;     /* 8px */
-  --margin-s: 1rem;        /* 16px */
-  --margin-m: 1.5rem;      /* 24px */
-  --margin-l: 2rem;        /* 32px */
-  --margin-xl: 3rem;       /* 48px */
-  
-  /* Margin for specific components */
-  --margin-paragraph: 0 0 1rem 0;
-  --margin-heading: 0 0 1.5rem 0;
-  --margin-card: 0 0 1.5rem 0;
-  --margin-section: 0 0 3rem 0;
-  --margin-button: 0 0.5rem 0 0;
-  
-  /* Element-specific margins */
-  --margin-form-element: 0 0 1rem 0;
-  --margin-list-item: 0 0 0.5rem 0;
-  --margin-image: 0 0 1.5rem 0;
-  
-  /* Responsive margin scales */
-  --margin-mobile-block: 1.5rem;
-  --margin-tablet-block: 2rem;
-  --margin-desktop-block: 3rem;
-  
-  /* Responsive padding scales */
-  --padding-mobile: 1rem;
-  --padding-tablet: 1.5rem;
-  --padding-desktop: 2rem;
-  
-  /* Padding for specific components */
-  --padding-button: 0.75rem 1.5rem;
-  --padding-card: 1.5rem;
-  --padding-section: 2rem 1rem;
-  --padding-container: 0 1rem;
-  
-  /* Padding for header/navigation */
-  --padding-header: 1rem;
-  --padding-nav-item: 0.5rem 1rem;
-  
-  /* Responsive padding scales */
-  --padding-mobile: 1rem;
-  --padding-tablet: 1.5rem;
-  --padding-desktop: 2rem;
-
-  /*border radius*/
-  --radius-small: 4px;
-  --radius-medium: 8px;
-  --radius-card: 12px;
-  --radius-large: 16px;
-  --radius-circle: 50%;
-
-  /*shadows*/
-  --shadow-sm: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-  --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
-  --shadow-card: 0 10px 20px rgba(0,0,0,0.05);
-  --shadow-lg: 0 10px 25px rgba(0,0,0,0.1), 0 6px 6px rgba(0,0,0,0.1);
-
-  /*transitions*/
-  --transition-fast: 0.2s ease;
-  --transition-medium: 0.3s ease;
-  --transition-slow: 0.5s ease;
-
-  /* Typography */
-  --font-family-primary: 'Inter', sans-serif;
-  --font-family-secondary: 'Inter', sans-serif; /* You can change this if you want a second font */
-  --font-family-code: 'Roboto Mono', monospace; /* For code snippets */
-  
-  /* Happy Hues font scale */
-  --font-size-xs: 0.79rem;      /* 12px */
-  --font-size-s: 0.889rem;      /* 14px */
-  --font-size-m: 1rem;          /* 16px - base */
-  --font-size-l: 1.125rem;      /* 18px */
-  --font-size-xl: 1.266rem;     /* 20px */
-  --font-size-xxl: 1.424rem;    /* 22px */
-  --font-size-xxxl: 1.602rem;   /* 25px */
-  --heading-1: 2.25rem;         /* 36px */
-  --heading-2: 1.802rem;        /* 28px */
-  --heading-3: 1.602rem;        /* 25px */
-  --heading-4: 1.424rem;        /* 22px */
-  --heading-5: 1.266rem;        /* 20px */
-  --heading-6: 1.125rem;        /* 18px */
-  
-  /* Font weights - Happy Hues uses different weights */
-  --font-weight-light: 300;
-  --font-weight-regular: 400;
-  --font-weight-medium: 500;
-  --font-weight-semibold: 600;
-  --font-weight-bold: 700;
-  
-  /* Line heights */
-  --line-height-tight: 1.3;
-  --line-height-normal: 1.5;
-  --line-height-loose: 1.75;
-  
-  /* Letter spacing */
-  --letter-spacing-tight: -0.015em;
-  --letter-spacing-normal: 0;
-  --letter-spacing-wide: 0.015em;
-
-  /* Standardized spacing system - consolidate all the duplicates */
-  --spacing-xs: 0.5rem;     /* 8px */
-  --spacing-s: 1rem;        /* 16px */
-  --spacing-m: 1.5rem;      /* 24px */
-  --spacing-l: 2rem;        /* 32px */
-  --spacing-xl: 3rem;       /* 48px */
-  
-  /* For backward compatibility */
+  /* Same for padding & margin (backward-compat) */
   --padding-xs: var(--spacing-xs);
   --padding-s: var(--spacing-s);
   --padding-m: var(--spacing-m);
   --padding-l: var(--spacing-l);
   --padding-xl: var(--spacing-xl);
+
   --margin-xs: var(--spacing-xs);
   --margin-s: var(--spacing-s);
   --margin-m: var(--spacing-m);
   --margin-l: var(--spacing-l);
   --margin-xl: var(--spacing-xl);
-  
-  /* Common component spacing */
-  --padding-button: 0.75rem 1.5rem;
-  --padding-card: var(--spacing-m);
-  
-  /* UI Elements */
+
+  /* Typographic scale */
+  --font-family-primary: 'Inter', sans-serif;
+  --font-size-xs: 0.79rem;       /* 12px */
+  --font-size-s: 0.889rem;       /* 14px */
+  --font-size-m: 1rem;           /* 16px */
+  --font-size-l: 1.125rem;       /* 18px */
+  --font-size-xl: 1.266rem;      /* 20px */
+  --font-size-xxl: 1.424rem;     /* 22px */
+  --font-size-xxxl: 1.602rem;    /* 25px */
+  --heading-1: 2.25rem;          /* 36px */
+  --heading-2: 1.802rem;         /* 28px */
+  --heading-3: 1.602rem;         /* 25px */
+  --heading-4: 1.424rem;         /* 22px */
+  --heading-5: 1.266rem;         /* 20px */
+  --heading-6: 1.125rem;         /* 18px */
+
+  /* Font weights */
+  --font-weight-light: 300;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Line-heights */
+  --line-height-tight: 1.3;
+  --line-height-normal: 1.5;
+  --line-height-loose: 1.75;
+
+  /* Border radius */
   --radius-small: 4px;
   --radius-medium: 8px;
   --radius-card: 12px;
   --radius-large: 16px;
   --radius-circle: 50%;
-  
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
   --shadow-card: 0 10px 20px rgba(0,0,0,0.05);
-  --shadow-card-hover: 0 10px 20px rgba(0,0,0,0.1);
-  
-  /* Layout */
-  --max-width: 1200px;
-  --sidebar-width: 300px;
+  --shadow-lg: 0 10px 25px rgba(0,0,0,0.1), 0 6px 6px rgba(0,0,0,0.1);
+
+  /* Transitions */
+  --transition-fast: 0.2s ease;
+  --transition-medium: 0.3s ease;
+  --transition-slow: 0.5s ease;
 }
 
-/* Base styles */
+/*****************************************/
+/* 2) Base / Mobile Styles (no media query) */
+/*****************************************/
 html {
   font-size: 16px;
   margin: 0;
   padding: 0;
   width: 100%;
-  overflow-x: hidden; /* Prevent horizontal scrolling */
+  overflow-x: hidden;
 }
 
-/* Base typography styles */
 body {
   font-family: var(--font-family-primary);
   font-size: var(--font-size-m);
@@ -204,12 +109,13 @@ body {
   line-height: var(--line-height-normal);
   color: var(--color-paragraph);
   background-color: var(--color-background);
-  margin: 0; /* Add this to remove default body margin */
-  padding: 0; /* Add this to remove any padding */
-  width: 100%; /* Add this to ensure full width */
-  overflow-x: hidden; /* Prevent horizontal scrolling */
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
 }
 
+/* Headings */
 h1 {
   font-size: var(--heading-1);
   font-weight: var(--font-weight-bold);
@@ -246,9 +152,9 @@ h6 {
   line-height: var(--line-height-normal);
 }
 
-/* Common text elements */
+/* Paragraphs, text, etc. */
 p {
-  margin: var(--margin-paragraph);
+  margin: var(--margin-s) 0; /* or var(--margin-paragraph) if you like */
   line-height: var(--line-height-normal);
 }
 
@@ -272,30 +178,11 @@ a {
   text-decoration: none;
   transition: color var(--transition-fast);
 }
-
 a:hover {
   color: var(--color-secondary);
 }
 
-/* General container styles */
-.content-container {
-  width: 100%;
-  box-sizing: border-box;
-  padding-left: var(--padding-s);  /* Use padding, not sizing */
-  padding-right: var(--padding-s); /* Use padding, not sizing */
-  margin: 0 auto;
-  max-width: 1600px; /* Match the new width standard */
-}
-
-/* Card and content block styling */
-.content-block {
-  background-color: var(--color-main);
-  border-radius: var(--radius-card);
-  padding: var(--padding-card);
-  margin: var(--margin-card);
-  box-shadow: var(--shadow-card);
-}
-
+/* Buttons */
 .btn {
   display: inline-block;
   background-color: var(--color-button);
@@ -303,41 +190,39 @@ a:hover {
   border: none;
   border-radius: var(--radius-medium);
   padding: 0.75rem 1.5rem;
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   cursor: pointer;
   transition: transform var(--transition-fast), box-shadow var(--transition-fast);
-  margin: var(--margin-button);
+  margin-right: var(--margin-xs);
+  margin-bottom: var(--margin-xs);
 }
-
 .btn:hover {
   transform: translateY(-2px);
   box-shadow: var(--shadow-md);
 }
-
 .btn-secondary {
   background-color: var(--color-secondary);
   color: var(--color-main);
 }
-
 .btn-outline {
   background-color: transparent;
   border: 2px solid var(--color-button);
   color: var(--color-headline);
 }
 
+/* Lists, forms */
 li {
-  margin: var(--margin-list-item);
+  margin: calc(var(--margin-xs) / 2) 0;
 }
-
-input, 
-textarea, 
+input,
+textarea,
 select {
-  margin: var(--margin-form-element);
+  margin-bottom: var(--margin-s);
   padding: var(--padding-s);
 }
 
 /*****************************************/
-/* Hero global - KEEP AND IMPROVE THIS SECTION */
+/* Hero (Mobile-first base)             */
 /*****************************************/
 .page-hero {
   position: relative;
@@ -348,22 +233,17 @@ select {
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  padding: var(--padding-l) 0;
-  margin-bottom: var(--spacing-l);
-  border-radius: var(--radius-card);
+  padding: var(--spacing-l) 0;
   background-color: var(--color-headline);
   min-height: 200px;
   background-position: center;
 }
 
-/* Dark overlay to improve text readability */
+/* Dark overlay for contrast */
 .page-hero::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  inset: 0;
   background: linear-gradient(135deg, rgba(35, 35, 35, 0.85) 0%, rgba(35, 35, 35, 0.65) 100%);
   z-index: 1;
 }
@@ -373,13 +253,13 @@ select {
   z-index: 2;
   text-align: center;
   max-width: 800px;
-  padding: 0 var(--padding-m);
+  padding: 0 var(--spacing-m);
   animation: fadeInUp 0.8s ease-out forwards;
 }
 
 .hero-content h1 {
   color: var(--color-main);
-  font-size: 2.5rem;
+  font-size: 2.0rem; 
   font-weight: var(--font-weight-bold);
   margin-bottom: var(--margin-s);
   line-height: 1.2;
@@ -387,7 +267,7 @@ select {
 
 .hero-content p {
   color: var(--color-main);
-  font-size: 1.25rem;
+  font-size: 1rem;
   margin-bottom: var(--margin-m);
   line-height: 1.6;
   opacity: 0.9;
@@ -397,13 +277,13 @@ select {
 .hero-content h1::after {
   content: '';
   display: block;
-  width: 80px;
+  width: 60px;
   height: 4px;
   background-color: var(--color-highlight);
-  margin: var(--margin-s) auto;
+  margin: var(--spacing-s) auto;
 }
 
-/* Animations */
+/* Keyframe for hero animation */
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -415,202 +295,96 @@ select {
   }
 }
 
-/* Base responsive adjustments */
-@media (max-width: 768px) {
-  .page-hero {
-    background-attachment: scroll; /* Better mobile performance */
-  }
-  
-  .hero-content h1 {
-    font-size: 2rem;
-  }
-  
-  .hero-content p {
-    font-size: 1rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .page-hero {
-    padding: var(--padding-m) 0;
-  }
-  
-  .hero-content h1 {
-    font-size: 1.75rem;
-  }
-  
-  .hero-content h1::after {
-    width: 60px;
-    margin: var(--margin-xs) auto;
-  }
-}
 
 /*****************************************/
-/* Two column global */
+/* Main content (Mobile-first base)      */
 /*****************************************/
-.two-column-layout {
+.main-content {
+  background-color: blue;
+}
+
+.page-columns {
   display: flex;
-  gap: var(--spacing-m);
-  margin-bottom: var(--spacing-l);
-  max-width: var(--max-width);
-  margin-left: auto;
-  margin-right: auto;
+  gap: var(--spacing-l);
+  /* For very narrow mobile, columns might stack by default 
+     or you can default them to "column" if you want: 
+     flex-direction: column; */
+  flex-direction: column;
+  max-width: 100%;
+  margin: 0 auto;
 }
 
-/*****************************************/
-/* left col global */
-/*****************************************/
-.left-col {
-  width: 300px;
-  flex-shrink: 0;
-  background-color: var(--color-main);
-  border-radius: var(--radius-card);
-  padding: var(--spacing-m);
-  border: 1px solid #ddd;
-  box-shadow: var(--shadow-card);
-  height: fit-content;
-  border-top: 4px solid var(--color-highlight);
+.left-column {
+
 }
 
-/*****************************************/
-/* right col global */
-/*****************************************/
-.right-col {
-  flex: 1;
-  min-width: 0;
+.right-column {
+
 }
 
-/*****************************************/
-/* section heading global */
-/*****************************************/
+.section-header {
+  text-align: left;
+}
+
 .section-title {
-  margin-bottom: var(--spacing-m);
-  position: relative;
-  padding-bottom: var(--spacing-xs);
-  border-bottom: 2px solid var(--color-tertiary);
-}
 
-.section-title::after {
-  content: '';
-  position: absolute;
-  width: 60px;
-  height: 3px;
-  background-color: var(--color-secondary);
-  bottom: -2px;
-  left: 0;
 }
 
 /*****************************************/
-/* content block global */
+/* 3) Media Queries: Tablet / Desktop / Large / Etc. */
 /*****************************************/
-.content-container, .page-section {
-  background-color: var(--color-tertiary);
-  border-radius: var(--radius-card);
-  padding: var(--spacing-m);
-  border: 1px solid #ddd;
-  box-shadow: var(--shadow-card);
-  margin-bottom: var(--spacing-m);
-}
 
-/*****************************************/
-/* card global */
-/*****************************************/
-.content-card {
-  background-color: var(--color-main);
-  border-radius: var(--radius-card);
-  padding: var(--spacing-m);
-  margin-bottom: var(--spacing-m);
-  border: 1px solid #ddd;
-  box-shadow: var(--shadow-card);
-}
-
-.content-card:last-child {
-  margin-bottom: 0;
-}
-
-/* Responsive breakpoints */
-@media (min-width: 576px) {
-  .content-container {
-    max-width: 540px;
+/* >= 480px (Small-ish screens up) */
+@media (min-width: 480px) {
+  .hero-content h1 {
+    font-size: 2.25rem;
+  }
+  .hero-content p {
+    font-size: 1.125rem;
   }
 }
 
+/* >= 768px (Tablet up) */
 @media (min-width: 768px) {
-  .content-container {
-    max-width: 720px;
+  .page-hero {
+    background-attachment: scroll; /* If you prefer parallax, can adjust here */
   }
-  h1 {
+
+  .hero-content h1 {
     font-size: 2.5rem;
   }
-  h2 {
-    font-size: 2rem;
-  }
-  h3 {
-    font-size: 1.75rem;
+
+  .page-columns {
+    flex-direction: row; /* Now show columns side by side at tablet size */
+    max-width: 768px;
   }
 }
 
-@media (min-width: 992px) {
-  .content-container {
-    max-width: 960px;
+/* >= 1024px (Desktop up) */
+@media (min-width: 1024px) {
+  .page-columns {
+    max-width: 1024px;
   }
-}
 
-@media (min-width: 1200px) {
-  .content-container {
-    max-width: 1600px; /* Consistent with two-column layout */
-  }
-  html {
-    font-size: 18px;
-  }
-}
-
-/* Adjust section margins based on screen size */
-@media (max-width: 767px) {
-  .section {
-    margin-bottom: var(--margin-mobile-block);
-  }
-  
-  .content-block {
-    margin-bottom: var(--margin-mobile-block);
-  }
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-  .section {
-    margin-bottom: var(--margin-tablet-block);
-  }
-  
-  .content-block {
-    margin-bottom: var(--margin-tablet-block);
-  }
-}
-
-@media (min-width: 992px) {
-  .section {
-    margin-bottom: var(--margin-desktop-block);
-  }
-  
-  .content-block {
-    margin-bottom: var(--margin-desktop-block);
-  }
-}
-
-@media (max-width: 768px) {
-  .two-column-layout {
-    flex-direction: column;
-  }
-  
-  .left-col {
-    width: 100%;
-    margin-bottom: var(--spacing-m);
-  }
-  
-  .page-hero {
-    background-attachment: scroll;
-  }
-  
   .hero-content h1 {
-    font-size: 2rem;
+    font-size: 2.75rem;
+  }
+}
+
+/* >= 1200px (Large desktops) */
+@media (min-width: 1200px) {
+  .page-columns {
+    max-width: 1200px;
+  }
+
+  .hero-content h1 {
+    font-size: 3rem;
+  }
+}
+
+/* >= 1440px (Extra large) */
+@media (min-width: 1440px) {
+  .page-columns {
+    max-width: 1440px;
   }
 }

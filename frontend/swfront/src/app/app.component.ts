@@ -4,7 +4,6 @@ import { HeaderComponent } from "./header/header.component";
 
 @Component({
   selector: 'app-root',
-  // The only thing we actually need is RouterOutlet (and HeaderComponent):
   imports: [
     RouterOutlet,
     HeaderComponent

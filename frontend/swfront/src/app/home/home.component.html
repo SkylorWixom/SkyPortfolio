@@ -1,124 +1,42 @@
-<section class="page-hero home-hero">
+<section class="page-hero">
   <div class="hero-content">
     <h1>Hello, I'm Skylor.</h1>
     <p>A Full-Stack Developer specializing in Angular, Node.js, and more!</p>
   </div>
 </section>
 
-<main>
-  <!-- Two-column layout -->
-  <section class="two-column-layout" [class.tasks-open]="isTasksOpen">
-    <!-- Mobile "Dev Updates" button -->
-    <button class="mobile-toggle-btn" (click)="toggleTasksSidebar()">
-      Dev Updates
-    </button>
-
-    <!-- Left column: Dev Updates -->
-    <div class="left-col task-sidebar" [class.open]="isTasksOpen">
-      <!-- Close button for mobile -->
-      <button class="close-sidebar-btn" (click)="toggleTasksSidebar()">
-        Close ✕
-      </button>
-
-      <h2 class="section-title">Updates</h2>
-      <app-task></app-task>
-    </div>
-
-    <!-- Right column: Content -->
-    <div class="right-col main-content">
-      <!-- Welcome section -->
-      <section class="welcome-section">
-        <h2 class="section-title">Welcome to My Personal Site</h2>
-        <p class="welcome-text">
-          My digital playground for sharing projects, honing my development skills,
-          and documenting my progress. Here, you'll find insights on my latest work,
-          blog posts about tech & personal interests, and a record of my journey in
-          software engineering. Feel free to explore and learn with me!
-          <br><br>
-          <strong>Note:</strong> This site is under active construction and may change daily.
-          Pages under "Learn with Me," "Blog," and "Projects" reflect ideas I'm actively creating
-          content for. My résumé is accurate, and the contact form will reach me directly.
-          Stay tuned for further updates as the site evolves!
-        </p>
-      </section>
-
-      <!-- Explore section -->
-      <section class="explore-section">
-        <h2 class="section-title">Explore</h2>
-        <div class="card-grid">
-          <!-- Blog Card -->
-          <article class="explore-card">
-            <img
-              src="/assets/images/blog3.jpg"
-              alt="Blog icon"
-              class="card-image"
-            />
-            <div class="card-content">
-              <div class="card-text-content">
-                <h3 class="card-title">Blog</h3>
-                <p class="card-description">Check out my latest posts on development, reviews, and more.</p>
-              </div>
-              <div class="card-link-container">
-                <a routerLink="/blog" class="card-link">Visit Blog</a>
-              </div>
-            </div>
-          </article>
+<main class="main-content">
       
-          <!-- Projects Card -->
-          <article class="explore-card">
-            <img
-              src="/assets/images/blog2.jpg"
-              alt="Projects icon"
-              class="card-image"
-            />
-            <div class="card-content">
-              <div class="card-text-content">
-                <h3 class="card-title">Projects</h3>
-                <p class="card-description">Have a look at some of my personal projects.</p>
-              </div>
-              <div class="card-link-container">
-                <a routerLink="/projects" class="card-link">View Projects</a>
-              </div>
-            </div>
-          </article>
-
-          <!-- Learn With Me Card (NEW) -->
-          <article class="explore-card">
-            <img
-              src="/assets/images/blog3.jpg"
-              alt="Learn With Me"
-              class="card-image"
-            />
-            <div class="card-content">
-              <div class="card-text-content">
-                <h3 class="card-title">Learn With Me</h3>
-                <p class="card-description">Join me on my learning journey with tutorials and resources.</p>
-              </div>
-              <div class="card-link-container">
-                <a routerLink="/learn-with-me" class="card-link">Start Learning</a>
-              </div>
-            </div>
-          </article>
-      
-          <!-- Contact Card -->
-          <article class="explore-card">
-            <img
-              src="/assets/images/blog3.jpg"
-              alt="Contact icon"
-              class="card-image"
-            />
-            <div class="card-content">
-              <div class="card-text-content">
-                <h3 class="card-title">Contact</h3>
-                <p class="card-description">Have a question or want to collaborate? Reach out here.</p>
-              </div>
-              <div class="card-link-container">
-                <a routerLink="/contact" class="card-link">Get in Touch</a>
-              </div>
-            </div>
-          </article>
-        </div>
-      </section>
-    </div>
+  <section class="page-introduction">
+    <h2>Welcome to My Personal Site</h2>
+    <p>
+      My digital playground for sharing projects, honing my development skills,
+      and documenting my progress. Here, you'll find insights on my latest work,
+      blog posts about tech & personal interests, and a record of my journey in
+      software engineering. Feel free to explore and learn with me!
+      <br><br>
+      <strong>Note:</strong> This site is under active construction and may change daily.
+      Pages under "Learn with Me," "Blog," and "Projects" reflect ideas I'm actively creating
+      content for. My résumé is accurate, and the contact form will reach me directly.
+      Stay tuned for further updates as the site evolves!
+    </p>
   </section>
+  
+  <div class="page-columns">
+    <section class="left-column">
+      <div class="section-header">
+        <h2 class="section-title">Explore</h2>
+      </div>
+      <div class="section-content">
+
+      </div>
+    </section>
+
+    <section class="right-column">
+      <div class="section-header">
+        <h2 class="section-title">Development Updates</h2>
+
+      </div>
+    </section>
+  </div>
 </main>
