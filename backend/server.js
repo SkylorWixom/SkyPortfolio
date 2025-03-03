@@ -38,7 +38,7 @@ app.use('/api/tasks', taskRoutes);
 
 // Serve the Angular build
 // (One level up from backend -> SkyPortfolio -> down into frontend/swfront/dist/swfront)
-app.use(express.static(path.join(__dirname, '../frontend/swfront/dist/swfront')));
+app.use(express.static(path.join(__dirname, '../frontend/swfront/dist/swfront/browser')));
 
 // Catch-all route to serve index.html
 app.get('*', (req, res) => {
