@@ -42,7 +42,7 @@ app.use(express.static(path.join(__dirname, '../frontend/swfront/dist/swfront/br
 
 // Catch-all route to serve index.html
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/swfront/dist/swfront', 'index.html'));
+  res.sendFile(path.join(__dirname, '../frontend/swfront/dist/swfront/browser', 'index.html'));
 });
 
 const PORT = process.env.PORT || 5000;
