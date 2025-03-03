@@ -42,7 +42,7 @@ export interface SubjectData {
   providedIn: 'root'
 })
 export class SubjectService {
-  private baseUrl = 'http://wixhaven.com/api/subjects'; 
+  private baseUrl = 'https://wixhaven.com/api/subjects'; 
 
   constructor(private http: HttpClient) {}
 

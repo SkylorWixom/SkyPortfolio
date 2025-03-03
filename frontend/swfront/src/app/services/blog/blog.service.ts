@@ -21,7 +21,7 @@ export interface Blog {
   providedIn: 'root'
 })
 export class BlogService {
-  private baseUrl = 'http://wixhaven/api/blogs';
+  private baseUrl = 'https://wixhaven/api/blogs';
 
   constructor(private http: HttpClient) {}
 

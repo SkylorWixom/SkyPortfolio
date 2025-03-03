@@ -17,7 +17,7 @@ export interface Contact {
   providedIn: 'root'
 })
 export class ContactService {
-  private baseUrl = 'http://wixhaven/api/contacts';
+  private baseUrl = 'https://wixhaven/api/contacts';
 
   constructor(private http: HttpClient) {}
 
