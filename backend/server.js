@@ -45,7 +45,7 @@ app.use(express.static(path.join(__dirname, '../swfront/dist/swfront')));
 // 7) Catch-all route to serve index.html for any path not handled by /api
 //    This lets Angular do client-side routing.
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../swfront/dist/swfront', 'index.html'));
+  res.sendFile(path.join(__dirname, '../../frontend/swfront/dist/swfront', 'index.html'));
 });
 
 // 8) Start listening on the port from environment or default to 5000
