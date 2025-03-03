@@ -42,8 +42,7 @@ export interface SubjectData {
   providedIn: 'root'
 })
 export class SubjectService {
-  private baseUrl = 'http://localhost:5000/api/subjects'; 
-  // Make sure your server.js has: app.use('/api/subjects', subjectRoutes)
+  private baseUrl = 'http://wixhaven.com/api/subjects'; 
 
   constructor(private http: HttpClient) {}
 

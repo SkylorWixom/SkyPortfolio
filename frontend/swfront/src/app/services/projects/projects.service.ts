@@ -23,7 +23,7 @@ export interface Project {
 })
 export class ProjectsService {
 
-  private baseUrl = 'http://localhost:5000/api/projects'; // Adjust if needed
+  private baseUrl = 'http://wixhaven/api/projects'; // Adjust if needed
 
   constructor(private http: HttpClient) {}
 

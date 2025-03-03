@@ -14,7 +14,7 @@ export interface Task {
   providedIn: 'root'
 })
 export class TasksService {
-  private baseUrl = 'http://localhost:5000/api/tasks';
+  private baseUrl = 'http://wixhaven.com/api/tasks';
 
   constructor(private http: HttpClient) {}
 
