@@ -1,96 +1,155 @@
-<section class="page-hero projects-hero">
+<section class="page-hero">
   <div class="hero-content">
-    <h1>My Projects</h1>
-    <p>Explore my recent development work and personal projects</p>
+    <h1>Projects</h1>
+    <p>Explore my development work and technical projects</p>
   </div>
 </section>
 
-<main>
+<main class="content-container">
+  <!-- Introduction section -->
+  <section class="featured-section">
+    <h2>My Portfolio</h2>
+    <p>
+      Below you'll find a collection of my recent projects spanning web development, 
+      mobile apps, and backend services. Feel free to explore different categories 
+      or filter by the technologies used.
+    </p>
+  </section>
 
-    <!-- Two-column layout -->
-    <div class="two-column-layout">
-      <!-- LEFT COLUMN: Categories and Filters -->
-      <div class="left-col projects-sidebar">
-        <section class="filter-section">
-          <h2>Project Categories</h2>
-          
+  <!-- Projects area with side-by-side layout -->
+  <section class="projects-area">
+    <!-- Left side: Projects sidebar -->
+    <div class="projects-sidebar">
+      <div class="sidebar-header">
+        <h2>Projects</h2>
+        
+        <!-- Mobile toggle button -->
+        <button class="toggle-panel-btn" (click)="toggleNavigationSidebar()">
+          <span>{{ isNavOpen ? 'Hide Filters' : 'Show Filters' }}</span>
+          <span class="icon">{{ isNavOpen ? '−' : '+' }}</span>
+        </button>
+      </div>
+      
+      <!-- Filter & sort controls -->
+      <div class="projects-controls" [class.open]="isNavOpen">
+        <!-- Categories section -->
+        <div class="control-section">
+          <h3 class="control-title">Categories</h3>
           <div class="projects-categories">
-            <button (click)="filterProjects('all')" [class.active]="selectedCategory === 'all'">
-              All Projects
-            </button>
-            <button (click)="filterProjects('web')" [class.active]="selectedCategory === 'web'">
-              Web Apps
-            </button>
-            <button (click)="filterProjects('mobile')" [class.active]="selectedCategory === 'mobile'">
-              Mobile Apps
-            </button>
-            <button (click)="filterProjects('backend')" [class.active]="selectedCategory === 'backend'">
-              Backend APIs
-            </button>
+            <button 
+              (click)="filterProjects('all')" 
+              [class.active]="selectedCategory === 'all'" 
+              class="category-btn">All Projects</button>
+            <button 
+              (click)="filterProjects('web')" 
+              [class.active]="selectedCategory === 'web'" 
+              class="category-btn">Web Apps</button>
+            <button 
+              (click)="filterProjects('mobile')" 
+              [class.active]="selectedCategory === 'mobile'" 
+              class="category-btn">Mobile Apps</button>
+            <button 
+              (click)="filterProjects('backend')" 
+              [class.active]="selectedCategory === 'backend'" 
+              class="category-btn">Backend APIs</button>
           </div>
-        </section>
-
-        <section class="tech-filter">
-          <h3>Filter by Technology</h3>
+        </div>
+        
+        <!-- Tech filter section -->
+        <div class="control-section">
+          <h3 class="control-title">Filter by Technology</h3>
           <div class="tech-filter-list">
             <div 
-              *ngFor="let tech of availableTech" 
-              class="tech-filter-item"
+              *ngFor="let tech of availableTech"
               [class.active]="selectedTech === tech"
               (click)="filterByTech(tech)"
-            >
+              class="tech-filter-item">
               {{ tech }}
             </div>
           </div>
-        </section>
-
-        <section class="project-info" *ngIf="selectedProject">
-          <h3>Project Details</h3>
-          <div class="project-details">
-            <h4>{{ selectedProject.title }}</h4>
-            <p class="project-date" *ngIf="selectedProject.date">{{ selectedProject.date }}</p>
-            <p>{{ selectedProject.description }}</p>
-            <div class="project-links" *ngIf="selectedProject.demoLink || selectedProject.githubLink">
-              <a *ngIf="selectedProject.demoLink" [href]="selectedProject.demoLink" target="_blank" class="project-demo-button">
-                View Demo
-              </a>
-              <a *ngIf="selectedProject.githubLink" [href]="selectedProject.githubLink" target="_blank" class="project-github-button">
-                View Code
-              </a>
-            </div>
-          </div>
-        </section>
+        </div>
       </div>
-
-      <!-- RIGHT COLUMN: Project Cards -->
-      <div class="right-col">
-        <section class="projects-section content-block">
-          <div class="projects-intro">
-            <h2>{{ selectedCategory === 'all' ? 'Featured Work' : (selectedCategory | titlecase) + ' Projects' }}</h2>
-            <p>
-              {{ selectedTech 
-                 ? 'Projects using ' + selectedTech 
-                 : 'These projects represent my skills in front-end and back-end development.' }}
-            </p>
+      
+      <!-- Projects List -->
+      <div class="projects-list" [class.open]="isNavOpen">
+        <div *ngIf="filteredProjects.length === 0" class="no-projects-message">
+          <p>No projects available in this category.</p>
+        </div>
+        
+        <div 
+          class="project-item" 
+          *ngFor="let proj of filteredProjects"
+          [class.selected]="selectedProject === proj"
+          (click)="selectProject(proj)"
+        >
+          <div class="project-item-thumbnail">
+            <img [src]="proj.imageUrl || '/assets/images/heroBanner2.jpg'" [alt]="proj.title">
           </div>
-          
-          <!-- Project cards in a grid layout -->
-          <div class="project-list card-grid">
-            <div 
-              class="project-card" 
-              *ngFor="let proj of filteredProjects"
-              [class.selected]="selectedProject === proj"
-              (click)="selectProject(proj)"
-            >
-              <img *ngIf="proj.imageUrl" [src]="proj.imageUrl" [alt]="proj.title" class="project-image">
-              <h3>{{ proj.title }}</h3>
-              <p>{{ proj.description }}</p>
-              <div class="project-stack">
-                <span class="stack-item" *ngFor="let tech of proj.stack">{{ tech }}</span>
-              </div>
+          <div class="project-item-content">
+            <span class="project-item-category">{{ proj.category | titlecase }}</span>
+            <h3 class="project-item-title">{{ proj.title }}</h3>
+            <div class="project-item-meta">
+              <span class="project-item-date">{{ proj.date || 'Ongoing' }}</span>
             </div>
           </div>
-        </section>
+        </div>
       </div>
     </div>
+
+    <!-- Right side: Project detail -->
+    <div class="project-detail" *ngIf="selectedProject">
+      <header class="project-header">
+        <!-- Banner image at the top (if provided) -->
+        <div *ngIf="selectedProject.imageUrl" class="project-banner">
+          <img [src]="selectedProject.imageUrl" alt="Project Banner" />
+        </div>
+
+        <div class="project-header-content">
+          <h2 class="project-title">{{ selectedProject.title }}</h2>
+          <div class="project-meta">
+            <span class="project-category">{{ selectedProject.category | titlecase }}</span>
+            <span class="project-date" *ngIf="selectedProject.date">{{ selectedProject.date }}</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Project content -->
+      <div class="project-content">
+        <p>{{ selectedProject.description }}</p>
+        
+        <!-- Technologies used -->
+        <div class="project-stack">
+          <span class="stack-item" *ngFor="let tech of selectedProject.stack">{{ tech }}</span>
+        </div>
+        
+        <!-- Links to live site and source code -->
+        <div class="project-links">
+          <a 
+            *ngIf="selectedProject.demoLink" 
+            [href]="selectedProject.demoLink" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            class="project-demo-button">
+            View Demo
+          </a>
+          <a 
+            *ngIf="selectedProject.githubLink" 
+            [href]="selectedProject.githubLink" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            class="project-github-button">
+            View Code
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Empty state when no project is selected -->
+    <div class="empty-state" *ngIf="!selectedProject">
+      <div class="no-selection-message">
+        <h3>Select a Project</h3>
+        <p>Choose any project from the list to view details.</p>
+      </div>
+    </div>
+  </section>
 </main>

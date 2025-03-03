@@ -14,6 +14,7 @@ export interface Blog {
   references?: string[];     // new field
   tags?: string[];           // optional new field
   createdAt?: Date;
+  excerpt?: string;          // Add this property to fix the TypeScript error
 }
 
 @Injectable({

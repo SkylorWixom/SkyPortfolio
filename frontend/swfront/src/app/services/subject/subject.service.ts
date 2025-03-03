@@ -2,18 +2,25 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
+// Add a Resource interface first
+export interface Resource {
+  title: string;
+  url: string;
+}
+
 export interface FinalItem {
   title: string;
   content?: string;
-
-  // NEW
   videoUrl?: string;
   description?: string;
+  // Add the missing resources property
+  resources?: Resource[];
 }
 
 export interface ModuleLevel {
   moduleTitle: string; // "Learn" or "Do" or "Resources"
   finalItems: FinalItem[];
+  expanded?: boolean; // For UI state
 }
 export interface SectionLevel {
   sectionTitle: string;

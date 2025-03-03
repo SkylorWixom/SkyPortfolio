@@ -5,105 +5,132 @@
   </div>
 </section>
 
-<main> 
-    <!-- Two-column layout -->
-    <div class="two-column-layout">
-      <!-- LEFT COLUMN: Filter & Sort + Post List -->
-      <div class="left-col blog-sidebar">
-        <section class="filter-row">
-          <h2>Filter &amp; Sort</h2>
-          <div class="blog-category-buttons">
-            <button (click)="filterCategory('all')" [class.active]="selectedCategory === 'all'">All</button>
-            <button (click)="filterCategory('learning')" [class.active]="selectedCategory === 'learning'">Learning</button>
-            <button (click)="filterCategory('reviews')" [class.active]="selectedCategory === 'reviews'">Reviews</button>
-            <button (click)="filterCategory('responses')" [class.active]="selectedCategory === 'responses'">Responses</button>
-            <button (click)="filterCategory('personal')" [class.active]="selectedCategory === 'personal'">Personal</button>
-          </div>
+<main class="content-container">
+  <!-- Introduction section -->
+  <section class="featured-section">
+    <h2>Welcome to My Blog</h2>
+    <p>
+      Here I share my experiences, insights, and thoughts on software development,
+      new technologies, and my learning journey. Select a post from the list to read more.
+    </p>
+  </section>
 
+  <!-- Blog content area with side-by-side layout -->
+  <section class="blog-area">
+    <!-- Left side: Posts sidebar -->
+    <div class="posts-sidebar">
+      <div class="sidebar-header">
+        <h2 class="section-heading">Blog Posts</h2>
+        
+        <!-- Mobile toggle button -->
+        <button class="toggle-panel-btn" (click)="toggleNavigationSidebar()">
+          <span>{{ isNavOpen ? 'Hide Posts' : 'Show Posts' }}</span>
+          <span class="icon">{{ isNavOpen ? '−' : '+' }}</span>
+        </button>
+      </div>
+      
+      <!-- Filter & sort controls -->
+      <div class="posts-controls" [class.open]="isNavOpen">
+        <!-- Categories section -->
+        <div class="control-section">
+          <h3 class="control-title">Categories</h3>
+          <div class="blog-categories">
+            <button (click)="filterCategory('all')" [class.active]="selectedCategory === 'all'" class="category-btn">All</button>
+            <button (click)="filterCategory('learning')" [class.active]="selectedCategory === 'learning'" class="category-btn">Learning</button>
+            <button (click)="filterCategory('reviews')" [class.active]="selectedCategory === 'reviews'" class="category-btn">Reviews</button>
+            <button (click)="filterCategory('responses')" [class.active]="selectedCategory === 'responses'" class="category-btn">Responses</button>
+            <button (click)="filterCategory('personal')" [class.active]="selectedCategory === 'personal'" class="category-btn">Personal</button>
+          </div>
+        </div>
+        
+        <!-- Sort controls section -->
+        <div class="control-section">
+          <h3 class="control-title">Sort Options</h3>
           <div class="sort-controls">
-            <label for="sortFieldSelect">Sort Field:</label>
-            <select 
-              id="sortFieldSelect"
-              [(ngModel)]="sortField"
-              (change)="changeSortField(sortField)"
-            >
-              <option value="createdAt">Date</option>
-              <option value="title">Title</option>
-              <option value="category">Category</option>
-              <option value="author">Author</option>
-            </select>
+            <div class="sort-group">
+              <label for="sortFieldSelect"><strong>Sort By:</strong></label>
+              <select 
+                id="sortFieldSelect"
+                [(ngModel)]="sortField"
+                (change)="changeSortField(sortField)"
+                class="sort-select"
+              >
+                <option value="createdAt">Date</option>
+                <option value="title">Title</option>
+                <option value="category">Category</option>
+                <option value="author">Author</option>
+              </select>
+            </div>
 
-            <label for="sortDirectionSelect">Order:</label>
-            <select 
-              id="sortDirectionSelect"
-              [(ngModel)]="sortDirection"
-              (change)="changeSortDirection(sortDirection)"
-            >
-              <option value="asc">Ascending</option>
-              <option value="desc">Descending</option>
-            </select>
-          </div>
-        </section>
-
-        <section>
-          <h3>
-            {{ selectedCategory === 'all' ? 'All Posts' : (selectedCategory | titlecase) + ' Posts' }}
-          </h3>
-          <div *ngIf="filteredPosts.length === 0">
-            <p>No posts available in this category yet.</p>
-          </div>
-          <div class="post-list">
-            <div 
-              class="post-list-item"
-              *ngFor="let post of filteredPosts"
-              (click)="selectPost(post)"
-              [class.selected]="selectedPost === post"
-            >
-              <h4>{{ post.title }}</h4>
-              <small>{{ post.createdAt | date:'mediumDate' }}</small>
+            <div class="sort-group">
+              <label for="sortDirectionSelect"><strong>Order:</strong></label>
+              <select 
+                id="sortDirectionSelect"
+                [(ngModel)]="sortDirection"
+                (change)="changeSortDirection(sortDirection)"
+                class="sort-select"
+              >
+                <option value="asc">Ascending</option>
+                <option value="desc">Descending</option>
+              </select>
             </div>
           </div>
-        </section>
-      </div><!-- /left-col -->
+        </div>
+      </div>
+      
+      <!-- Posts List -->
+      <div class="posts-list" [class.open]="isNavOpen">
+        <div *ngIf="filteredPosts.length === 0" class="no-posts-message">
+          <p>No posts available in this category yet.</p>
+        </div>
+        
+        <div 
+          class="post-item" 
+          *ngFor="let post of filteredPosts"
+          [class.selected]="selectedPost === post"
+          (click)="selectPost(post)"
+        >
+          <div class="post-item-thumbnail">
+            <img src="/assets/images/abstract1.jpg" [alt]="post.title">
+          </div>
+          <div class="post-item-content">
+            <span class="post-item-category">{{ post.category | titlecase }}</span>
+            <h3 class="post-item-title">{{ post.title }}</h3>
+            <div class="post-item-meta">
+              <span class="post-item-date">{{ post.createdAt | date:'mediumDate' }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-     <!-- RIGHT COLUMN: Detailed View -->
-      <div class="right-col">
-        <!-- If user hasn't selected anything, a short message -->
-        <section class="page-section" *ngIf="!selectedPost">
-          <h2>Select a Post</h2>
-          <p>Choose one from the left to read its details here.</p>
-        </section>
-
-        <!-- Otherwise, display the blog post details -->
-        <section class="page-section post-detail" *ngIf="selectedPost">
+    <!-- Right side: Selected post content -->
+    <div class="blog-content">
+      <!-- Selected post detail -->
+      <div class="post-detail" *ngIf="selectedPost">
+        <header class="post-header">
           <!-- Banner image at the top (if provided) -->
-          <div *ngIf="selectedPost.bannerImageUrl">
-            <img [src]="selectedPost.bannerImageUrl" alt="Post Banner" class="blog-banner-image"/>
+          <div *ngIf="selectedPost.bannerImageUrl" class="post-banner">
+            <img [src]="selectedPost.bannerImageUrl" alt="Post Banner" />
           </div>
 
-          <!-- Title -->
-          <h2 class="post-title">{{ selectedPost.title }}</h2>
-
-          <!-- Author & date row -->
-          <div class="post-meta">
-            <span class="post-author">By {{ selectedPost.author || 'Anonymous' }}</span>
-            &nbsp;|&nbsp;
-            <span class="post-date">
-              {{ selectedPost.createdAt | date:'longDate' }}
-            </span>
+          <div class="post-header-content">
+            <h2 class="post-title">{{ selectedPost.title }}</h2>
+            <div class="post-meta">
+              <span class="post-author">By {{ selectedPost.author || 'Anonymous' }}</span>
+              <span class="post-date">{{ selectedPost.createdAt | date:'longDate' }}</span>
+              <span class="post-category">{{ selectedPost.category | titlecase }}</span>
+            </div>
           </div>
+        </header>
 
-          <!-- Category or tags row -->
-          <div class="post-category">
-            <strong>Category:</strong> {{ selectedPost.category | titlecase }}
-          </div>
-          
-          <!-- Post content -->
-          <div class="post-content" [innerHTML]="getSafeContent(selectedPost)"></div>
+        <!-- Post content -->
+        <div class="post-content" [innerHTML]="getSafeContent(selectedPost)"></div>
 
-
-          <!-- If references exist, show them as a small list -->
-          <div class="post-references" *ngIf="selectedPost.references?.length">
+        <!-- Post footer -->
+        <footer class="post-footer">
+          <!-- References if available -->
+          <div class="post-references" *ngIf="selectedPost.references && selectedPost.references.length > 0">
             <h3>References &amp; Links</h3>
             <ul>
               <li *ngFor="let link of selectedPost.references">
@@ -112,14 +139,25 @@
             </ul>
           </div>
 
-          <!-- If you want to display tags as well -->
-          <div class="post-tags" *ngIf="selectedPost.tags?.length">
+          <!-- Tags if available -->
+          <div class="post-tags" *ngIf="selectedPost.tags && selectedPost.tags.length > 0">
             <strong>Tags:</strong>
-            <span *ngFor="let tag of selectedPost.tags" class="tag-badge">
-              {{ tag }}
-            </span>
+            <div class="post-tags-list">
+              <span *ngFor="let tag of selectedPost.tags" class="tag-badge">
+                {{ tag }}
+              </span>
+            </div>
           </div>
-        </section>
+        </footer>
+      </div>
+      
+      <!-- Empty state when no post is selected -->
+      <div class="empty-state" *ngIf="!selectedPost">
+        <div class="no-selection-message">
+          <h3>Select a Post to Read</h3>
+          <p>Choose any post from the list on the left to start reading.</p>
+        </div>
       </div>
     </div>
+  </section>
 </main>

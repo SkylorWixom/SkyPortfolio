@@ -26,6 +26,9 @@ export class ProjectsComponent implements OnInit {
   // Available technologies list (built from project data)
   availableTech: string[] = [];
 
+  // Add this property to your ProjectsComponent class
+  isNavOpen = true;
+
   constructor(private projectsService: ProjectsService) {}
 
   ngOnInit(): void {
@@ -102,5 +105,10 @@ export class ProjectsComponent implements OnInit {
   // Select a project
   selectProject(project: Project): void {
     this.selectedProject = project;
+  }
+
+  // Add this method to your ProjectsComponent class
+  toggleNavigationSidebar(): void {
+    this.isNavOpen = !this.isNavOpen;
   }
 }

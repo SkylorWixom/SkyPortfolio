@@ -15,12 +15,15 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
   styleUrls: ['./blog.component.css']
 })
 export class BlogComponent implements OnInit {
-  // (B) Sorting fields
-  sortField: string = 'createdAt';   // 'createdAt' | 'title' | 'category'
-  sortDirection: string = 'desc';    // 'asc' | 'desc'
+  // Sorting fields
+  sortField: string = 'createdAt';
+  sortDirection: string = 'desc';
 
-  // Existing filter by category
+  // Filter by category
   selectedCategory: string = 'all';
+
+  // New property for navigation on mobile
+  isNavOpen = true;
 
   posts: Blog[] = [];
   filteredPosts: Blog[] = [];
@@ -43,38 +46,34 @@ export class BlogComponent implements OnInit {
   }
   
   getSafeContent(post: Blog): SafeHtml {
-    // Or add checks if post.content is undefined
     return this.sanitizer.bypassSecurityTrustHtml(post.content);
   }
-  // Provide the method that returns SafeHtml:
-  // (C) Single method to filter by category, then apply advanced sorting
+
   applyFiltersAndSort(): void {
-    // 1) Filter by category
+    // Filter by category
     let temp = (this.selectedCategory === 'all')
       ? [...this.posts]
       : this.posts.filter(post => post.category === this.selectedCategory);
     
-    // 2) Sort by selected field + direction
+    // Sort by selected field + direction
     temp.sort((a, b) => {
       let valA: string | number = '';
       let valB: string | number = '';
       
       if (this.sortField === 'createdAt') {
-        // Convert date to timestamp
         valA = new Date(a.createdAt || '').getTime();
         valB = new Date(b.createdAt || '').getTime();
       } else if (this.sortField === 'title') {
-        // Title sorting -> compare strings
         valA = a.title.toLowerCase();
         valB = b.title.toLowerCase();
       } else if (this.sortField === 'category') {
         valA = a.category.toLowerCase();
         valB = b.category.toLowerCase();
-      }// Inside applyFiltersAndSort():
-      else if (this.sortField === 'author') {
+      } else if (this.sortField === 'author') {
         valA = a.author?.toLowerCase() || '';
         valB = b.author?.toLowerCase() || '';
-      }      
+      }
+      
       if (valA < valB) return (this.sortDirection === 'asc') ? -1 : 1;
       if (valA > valB) return (this.sortDirection === 'asc') ? 1 : -1;
       return 0;
@@ -83,7 +82,6 @@ export class BlogComponent implements OnInit {
     this.filteredPosts = temp;
   }
 
-  // (D) Handlers for UI events
   filterCategory(category: string) {
     this.selectedCategory = category;
     this.applyFiltersAndSort();
@@ -99,8 +97,32 @@ export class BlogComponent implements OnInit {
     this.applyFiltersAndSort();
   }
 
-  // (E) Master-detail: user clicks a post in the left column -> display detail on right
   selectPost(post: Blog) {
     this.selectedPost = post;
+    
+    // Close navigation on mobile when selecting a post
+    if (window.innerWidth < 768) {
+      this.isNavOpen = false;
+    }
+  }
+
+  toggleNavigationSidebar() {
+    this.isNavOpen = !this.isNavOpen;
+  }
+
+  // Safe excerpt method
+  getExcerpt(post: Blog): string {
+    // First try to use excerpt if it exists
+    if (post.excerpt) {
+      return post.excerpt;
+    }
+    
+    // If no excerpt, create one from content
+    if (post.content) {
+      const plainText = post.content.replace(/<[^>]*>/g, '');
+      return plainText.length > 100 ? plainText.slice(0, 100) + '...' : plainText;
+    }
+    
+    return 'Click to read more...';
   }
 }

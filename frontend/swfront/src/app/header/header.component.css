@@ -1,41 +1,42 @@
 /* Complete header reset with sticky positioning */
-header {
+nav.main-nav {
   width: 100%;
   margin: 0;
-  padding: 0;
+  padding: 0 var(--padding-m);
   background-color: var(--color-headline);
-  display: block; /* Ensure block display */
-  position: fixed; /* Changed from sticky to fixed for more reliable behavior */
-  top: 0; /* Stick to the top of the viewport */
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center; 
+  position: fixed;
+  top: 0;
   left: 0;
   right: 0;
-  z-index: 1000; /* Ensure it stays on top of other content */
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); /* Add shadow for visual separation */
+  z-index: 1000;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  box-sizing: border-box;
+  height: 64px;
+  /* Add bottom border that matches the page-hero top border */
+  border-bottom: 2px solid var(--color-secondary);
 }
 
-/* Container for content alignment */
-.header-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: var(--padding-header);
-  max-width: 1440px; /* Or whatever max-width you want for the content */
-  margin: 0 auto; /* Center the container */
-  width: 100%; /* Take full width up to the max-width */
-  box-sizing: border-box; /* Include padding in width calculation */
+/* Fix nav positioning on mobile */
+@media (max-width: 768px) {
+  .main-nav {
+    padding: 0 var(--padding-s); /* Smaller padding on mobile */
+  }
 }
 
-/* Logo container */
 .logo-link {
   text-decoration: none;
   display: block;
+  z-index: 1001; /* Above the mobile menu */
 }
 
 /* Circular logo styling */
 .logo {
   width: 48px;
   height: 48px;
-  border-radius: var(--radius-circle); /* Fix the typo from 'cirlce' to 'circle' */
+  border-radius: var(--radius-circle);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -49,7 +50,6 @@ header {
   box-shadow: 0 0 15px rgba(7, 128, 128, 0.5);
 }
 
-/* Logo text */
 .logo-text {
   font-size: var(--font-size-xl);
   font-weight: var(--font-weight-bold);
@@ -58,14 +58,94 @@ header {
   letter-spacing: var(--letter-spacing-tight);
 }
 
-/* Navigation */
-nav {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--margin-xs);
+/* Mobile menu toggle button - Enhance visibility */
+.mobile-menu-toggle {
+  display: none; /* Hide by default on larger screens */
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 21px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 1001; /* Above the mobile menu */
+  padding: 0;
+  margin-left: auto; /* Push to right side */
 }
 
-nav a {
+/* Show toggle only on mobile */
+@media (max-width: 768px) {
+  .mobile-menu-toggle {
+    display: flex; /* Show on mobile */
+  }
+  
+  /* Make toggle more visible */
+  .mobile-menu-toggle .bar {
+    width: 100%;
+    height: 3px;
+    background-color: var(--color-main);
+    transition: all 0.3s ease;
+    border-radius: 3px;
+  }
+  
+  /* Better animation for toggle */
+  .mobile-menu-toggle.active .bar:nth-child(1) {
+    transform: translateY(9px) rotate(45deg);
+  }
+  
+  .mobile-menu-toggle.active .bar:nth-child(2) {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  
+  .mobile-menu-toggle.active .bar:nth-child(3) {
+    transform: translateY(-9px) rotate(-45deg);
+  }
+}
+
+.nav-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--margin-s);
+}
+
+/* Mobile-first approach */
+@media (max-width: 768px) {
+  .nav-links {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 80%;
+    max-width: 300px;
+    height: 100vh;
+    flex-direction: column;
+    background-color: var(--color-headline);
+    padding: 80px var(--padding-m) var(--padding-m);
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+    z-index: 1000;
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+  }
+
+  .nav-links.open {
+    transform: translateX(0);
+  }
+
+  .nav-links a {
+    padding: var(--padding-m);
+    width: 100%;
+    text-align: left;
+  }
+}
+
+/* Hide toggle on larger screens */
+@media (min-width: 769px) {
+  .mobile-menu-toggle {
+    display: none;
+  }
+}
+
+.nav-links a {
   padding: var(--padding-nav-item);
   color: var(--color-main);
   font-size: var(--font-size-s);
@@ -75,12 +155,11 @@ nav a {
   position: relative;
 }
 
-nav a:hover {
+.nav-links a:hover {
   color: var(--color-highlight);
 }
 
-/* Underline effect on hover */
-nav a::after {
+.nav-links a::after {
   content: '';
   position: absolute;
   width: 0;
@@ -91,30 +170,14 @@ nav a::after {
   transition: all var(--transition-fast);
 }
 
-nav a:hover::after {
+.nav-links a:hover::after {
   width: 100%;
   left: 0;
 }
 
-/* Make the header responsive */
+/* Only show underline effect on non-mobile */
 @media (max-width: 768px) {
-  .header-container {
-    flex-direction: column;
-    padding: var(--padding-xs);
-  }
-  
-  .logo {
-    margin-bottom: var(--margin-s);
-  }
-  
-  nav {
-    margin-top: var(--margin-xs);
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-  
-  nav a {
-    padding: var(--padding-xs);
-    margin: var(--margin-xs);
+  .nav-links a::after {
+    display: none;
   }
 }

@@ -43,6 +43,9 @@ export class LwmComponent implements OnInit {
   // For modal (if you still want to keep this functionality)
   isModalOpen = false;
 
+  // Add this property to your component class:
+  isNavOpen = true; // Change to true so navigation shows by default
+
   constructor(private subjectService: SubjectService) {}
 
   ngOnInit() {
@@ -111,6 +114,11 @@ export class LwmComponent implements OnInit {
    */
   selectFinalItem(item: FinalItem) {
     this.selectedFinalItem = item;
+    
+    // Add this line to close navigation on mobile after selection
+    if (window.innerWidth < 768) {
+      this.isNavOpen = false;
+    }
   }
   
   /**
@@ -118,5 +126,10 @@ export class LwmComponent implements OnInit {
    */
   closeModal() {
     this.isModalOpen = false;
+  }
+
+  // Add this method to your component class:
+  toggleNavigationSidebar() {
+    this.isNavOpen = !this.isNavOpen;
   }
 }

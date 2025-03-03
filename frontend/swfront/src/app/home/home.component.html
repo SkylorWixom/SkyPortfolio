@@ -1,122 +1,142 @@
-<section class="page-hero home-hero">
+<section class="page-hero">
   <div class="hero-content">
     <h1>Hello, I'm Skylor.</h1>
     <p>A Full-Stack Developer specializing in Angular, Node.js, and more!</p>
   </div>
 </section>
 
-<main>
-  <!-- Two-column layout -->
-  <section class="two-column-layout" [class.tasks-open]="isTasksOpen">
-    <!-- Mobile "Dev Updates" button -->
-    <button class="mobile-toggle-btn" (click)="toggleTasksSidebar()">
-      Dev Updates
-    </button>
+<main class="content-container">
+  <!-- Introduction section -->
+  <section class="featured-section">
+    <h2>Welcome to My Personal Site</h2>
+    <p>
+      My digital playground for sharing projects, honing my development skills,
+      and documenting my progress. Here, you'll find insights on my latest work,
+      blog posts about tech & personal interests, and a record of my journey in
+      software engineering. Feel free to explore and learn with me!
+    </p>
+    <p>
+      <strong>Note:</strong> This site is under active construction and may change daily.
+      Pages under "Learn with Me," "Blog," and "Projects" reflect ideas I'm actively creating
+      content for. My résumé is accurate, and the contact form will reach me directly.
+    </p>
+  </section>
 
-    <!-- Left column: Dev Updates -->
-    <div class="left-col task-sidebar" [class.open]="isTasksOpen">
-      <!-- Close button for mobile -->
-      <button class="close-sidebar-btn" (click)="toggleTasksSidebar()">
-        Close ✕
-      </button>
-
-      <h2 class="section-title">Updates</h2>
-      <app-task></app-task>
+  <!-- Two-column layout - matching other pages -->
+  <section class="home-area">
+    <!-- Left column: Explore section -->
+    <div class="explore-sidebar">
+      <div class="sidebar-header">
+        <h2>Explore</h2>
+      </div>
+      
+      <!-- Explore Cards - Vertical Layout -->
+      <div class="explore-panel">
+        <!-- Blog Card -->
+        <div class="explore-card">
+          <img src="/assets/images/blog3.jpg" alt="Blog" class="card-image">
+          <div class="card-body">
+            <h3 class="card-title">Blog</h3>
+            <p class="card-text">Read my thoughts on development, technology trends, and more.</p>
+          </div>
+          <div class="card-footer">
+            <a routerLink="/blog" class="btn">Explore Blog</a>
+          </div>
+        </div>
+        
+        <!-- Projects Card -->
+        <div class="explore-card">
+          <img src="/assets/images/abstract2.jpg" alt="Projects" class="card-image">
+          <div class="card-body">
+            <h3 class="card-title">Projects</h3>
+            <p class="card-text">Explore the various projects I've built using modern technologies.</p>
+          </div>
+          <div class="card-footer">
+            <a routerLink="/projects" class="btn">View Projects</a>
+          </div>
+        </div>
+        
+        <!-- Learn With Me Card -->
+        <div class="explore-card">
+          <img src="/assets/images/abstract1.jpg" alt="Learn With Me" class="card-image">
+          <div class="card-body">
+            <h3 class="card-title">Learn With Me</h3>
+            <p class="card-text">Join me as I document my learning journey and share tutorials.</p>
+          </div>
+          <div class="card-footer">
+            <a routerLink="/learn-with-me" class="btn">Start Learning</a>
+          </div>
+        </div>
+      </div>
     </div>
-
-    <!-- Right column: Content -->
-    <div class="right-col main-content">
-      <!-- Welcome section -->
-      <section class="welcome-section">
-        <h2 class="section-title">Welcome to My Personal Site</h2>
-        <p class="welcome-text">
-          My digital playground for sharing projects, honing my development skills,
-          and documenting my progress. Here, you'll find insights on my latest work,
-          blog posts about tech & personal interests, and a record of my journey in
-          software engineering. Feel free to explore and learn with me!
-          <br><br>
-          <strong>Note:</strong> This site is under active construction and may change daily.
-          Pages under "Learn with Me," "Blog," and "Projects" reflect ideas I'm actively creating
-          content for. My résumé is accurate, and the contact form will reach me directly.
-          Stay tuned for further updates as the site evolves!
-        </p>
-      </section>
-
-      <!-- Explore section -->
-      <section class="explore-section">
-        <h2 class="section-title">Explore</h2>
-        <div class="card-grid">
-          <!-- Blog Card -->
-          <article class="explore-card">
-            <img
-              src="/assets/images/blog3.jpg"
-              alt="Blog icon"
-              class="card-image"
-            />
-            <div class="card-content">
-              <div class="card-text-content">
-                <h3 class="card-title">Blog</h3>
-                <p class="card-description">Check out my latest posts on development, reviews, and more.</p>
-              </div>
-              <div class="card-link-container">
-                <a routerLink="/blog" class="card-link">Visit Blog</a>
-              </div>
-            </div>
-          </article>
+    
+    <!-- Right column: Focus & Development Updates -->
+    <div class="main-content">
       
-          <!-- Projects Card -->
-          <article class="explore-card">
-            <img
-              src="/assets/images/blog2.jpg"
-              alt="Projects icon"
-              class="card-image"
-            />
-            <div class="card-content">
-              <div class="card-text-content">
-                <h3 class="card-title">Projects</h3>
-                <p class="card-description">Have a look at some of my personal projects.</p>
-              </div>
-              <div class="card-link-container">
-                <a routerLink="/projects" class="card-link">View Projects</a>
-              </div>
+      <!-- Development Updates section -->
+      <section class="updates-section">
+        <h2 class="section-heading">Development Updates</h2>
+        
+        <!-- Mobile toggle button -->
+        <button class="task-toggle-btn" (click)="toggleTasksSidebar()">
+          <span>{{ isTasksOpen ? 'Hide Updates' : 'Show Updates' }}</span>
+          <span class="icon">{{ isTasksOpen ? '−' : '+' }}</span>
+        </button>
+        
+        <!-- Task board -->
+        <div class="task-board" [class.open]="isTasksOpen">
+          <p>
+            A quick overview of recent completions, active work, and backlog items.
+            <br />
+            <strong>
+              Last Updated: {{ lastUpdate ? (lastUpdate | date:'short') : 'N/A' }}
+            </strong>
+          </p>
+          
+          <!-- RECENTLY COMPLETED -->
+          <div class="task-category">
+            <h3>Recently Completed</h3>
+            <div class="task-list">
+              <ng-container *ngFor="let t of allTasks">
+                <div class="task-card completed" *ngIf="t.status === 'completed'">
+                  <div class="task-card-body">
+                    <strong class="task-card-title">{{ t.title }}</strong>
+                    <p class="task-card-details" *ngIf="t.details">{{ t.details }}</p>
+                  </div>
+                </div>
+              </ng-container>
             </div>
-          </article>
+          </div>
 
-          <!-- Learn With Me Card (NEW) -->
-          <article class="explore-card">
-            <img
-              src="/assets/images/blog3.jpg"
-              alt="Learn With Me"
-              class="card-image"
-            />
-            <div class="card-content">
-              <div class="card-text-content">
-                <h3 class="card-title">Learn With Me</h3>
-                <p class="card-description">Join me on my learning journey with tutorials and resources.</p>
-              </div>
-              <div class="card-link-container">
-                <a routerLink="/learn-with-me" class="card-link">Start Learning</a>
-              </div>
+          <!-- ACTIVE DEVELOPMENT -->
+          <div class="task-category">
+            <h3>Active Development</h3>
+            <div class="task-list">
+              <ng-container *ngFor="let t of allTasks">
+                <div class="task-card active" *ngIf="t.status === 'active'">
+                  <div class="task-card-body">
+                    <strong class="task-card-title">{{ t.title }}</strong>
+                    <p class="task-card-details" *ngIf="t.details">{{ t.details }}</p>
+                  </div>
+                </div>
+              </ng-container>
             </div>
-          </article>
-      
-          <!-- Contact Card -->
-          <article class="explore-card">
-            <img
-              src="/assets/images/blog3.jpg"
-              alt="Contact icon"
-              class="card-image"
-            />
-            <div class="card-content">
-              <div class="card-text-content">
-                <h3 class="card-title">Contact</h3>
-                <p class="card-description">Have a question or want to collaborate? Reach out here.</p>
-              </div>
-              <div class="card-link-container">
-                <a routerLink="/contact" class="card-link">Get in Touch</a>
-              </div>
+          </div>
+
+          <!-- BACKLOG -->
+          <div class="task-category">
+            <h3>Backlog</h3>
+            <div class="task-list">
+              <ng-container *ngFor="let t of allTasks">
+                <div class="task-card backlog" *ngIf="t.status === 'backlog'">
+                  <div class="task-card-body">
+                    <strong class="task-card-title">{{ t.title }}</strong>
+                    <p class="task-card-details" *ngIf="t.details">{{ t.details }}</p>
+                  </div>
+                </div>
+              </ng-container>
             </div>
-          </article>
+          </div>
         </div>
       </section>
     </div>

@@ -9,7 +9,14 @@
   max-width: 1600px;
   margin: 0 auto;
   padding: var(--padding-m);
+}
+
+/* Main container structure */
+.content-container {
   width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: var(--spacing-m);
 }
 
 /* Introduction section */
@@ -20,6 +27,34 @@
   margin-bottom: var(--margin-l);
   box-shadow: var(--shadow-card);
   border-top: 4px solid var(--color-highlight);
+}
+
+/* Featured introduction section */
+.featured-section {
+  background-color: var(--color-main);
+  border-radius: var(--radius-card);
+  padding: var(--padding-l);
+  margin-bottom: var(--spacing-xl);
+  box-shadow: var(--shadow-card);
+  border-top: 4px solid var(--color-highlight);
+}
+
+.featured-section h2 {
+  color: var(--color-headline);
+  margin-bottom: var(--margin-m);
+  position: relative;
+  padding-bottom: var(--padding-s);
+  border-bottom: 2px solid var(--color-tertiary);
+}
+
+.featured-section h2::after {
+  content: '';
+  position: absolute;
+  width: 60px;
+  height: 3px;
+  background-color: var(--color-secondary);
+  bottom: -2px;
+  left: 0;
 }
 
 .intro-section h2 {
@@ -83,32 +118,30 @@
 
 /* Subject styling */
 .subject-item {
-  margin-bottom: var(--margin-s);
-  border-radius: var(--radius-small);
+  margin-bottom: var(--spacing-s);
+  border-radius: var(--radius-medium);
   overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
 
 .subject-title {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 15px;
-  background-color: var(--color-tertiary);
+  padding: var(--padding-s);
+  background-color: var(--color-highlight);
+  color: var(--color-main);
   font-weight: var(--font-weight-semibold);
-  color: var(--color-headline);
   cursor: pointer;
-  transition: all 0.2s ease;
-  border-left: 3px solid transparent;
+  transition: background-color 0.2s ease;
 }
 
 .subject-title:hover {
-  background-color: #f0f0f5;
-  border-left-color: var(--color-highlight);
+  background-color: rgba(35, 35, 35, 0.9);
 }
 
 .subject-title.expanded {
-  background-color: #e8e8f0;
-  border-left-color: var(--color-highlight);
+  background-color: var(--color-secondary);
 }
 
 /* Course styling */
@@ -145,6 +178,41 @@
   font-weight: var(--font-weight-semibold);
 }
 
+/* Course level styling */
+.course-container {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.course-container.visible {
+  max-height: 2000px; /* Arbitrary large height */
+}
+
+.course-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px var(--padding-s);
+  background-color: #f8f8f8;
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.course-title:hover {
+  background-color: #f0f0f5;
+}
+
+.course-title.expanded {
+  background-color: #e8e8f0;
+}
+
+.course-title.selected {
+  border-left: 3px solid var(--color-secondary);
+  padding-left: calc(var(--padding-s) - 3px);
+}
+
 /* Section styling */
 .section-item {
   margin-top: 1px;
@@ -173,6 +241,37 @@
   background-color: #f0f0f5;
 }
 
+/* Section level styling */
+.section-container {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.section-container.visible {
+  max-height: 1500px; /* Arbitrary large height */
+}
+
+.section-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px var(--padding-s) 8px calc(var(--padding-s) + 10px);
+  background-color: #fafafa;
+  font-size: var(--font-size-s);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.section-title:hover {
+  background-color: #f5f5f8;
+}
+
+.section-title.expanded {
+  background-color: #f0f0f5;
+  font-weight: var(--font-weight-medium);
+}
+
 /* Module styling */
 .module-item {
   margin-top: 1px;
@@ -184,7 +283,7 @@
   align-items: center;
   padding: 6px 15px 6px 45px;
   font-size: var(--font-size-s);
-  color: var(--color-paragraph);
+  color: var (--color-paragraph);
   cursor: pointer;
   transition: all 0.2s ease;
   background-color: #fcfcfc;
@@ -201,12 +300,79 @@
   background-color: #f5f5f8;
 }
 
+/* Module level styling */
+.module-container {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.module-container.visible {
+  max-height: 1000px; /* Arbitrary large height */
+}
+
+.module-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px var(--padding-s) 6px calc(var(--padding-s) + 20px);
+  background-color: #fcfcfc;
+  font-size: var(--font-size-xs);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.module-title:hover {
+  background-color: #f8f8fa;
+}
+
+.module-title.expanded {
+  background-color: #f5f5f8;
+  font-weight: var(--font-weight-medium);
+}
+
 /* Final Item styling - remove bullets and improve layout */
 .final-items-list {
   list-style: none;
   padding: 0;
   margin: 0;
   border-top: 1px solid #f0f0f0;
+}
+
+/* Final items styling */
+.final-items-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  border-top: 1px solid #f0f0f0;
+}
+
+.final-items-list.visible {
+  max-height: 500px; /* Arbitrary large height */
+}
+
+.final-item {
+  padding: 6px var(--padding-s) 6px calc(var(--padding-s) + 30px);
+  font-size: var(--font-size-xs);
+  color: var(--color-paragraph);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.final-item:hover {
+  background-color: #f8f8fa;
+  color: var(--color-headline);
+}
+
+.final-item.selected {
+  background-color: #f0f0f5;
+  color: var (--color-headline);
+  font-weight: var(--font-weight-medium);
+  border-left: 3px solid var(--color-secondary);
+  padding-left: calc(var(--padding-s) + 27px);
 }
 
 .final-item {
@@ -335,6 +501,23 @@
   max-width: 50ch;
 }
 
+/* Empty state styling */
+.no-selection-message {
+  padding: var(--padding-xl);
+  text-align: center;
+}
+
+.no-selection-message h3 {
+  margin-bottom: var(--margin-s);
+  color: var(--color-headline);
+}
+
+.no-selection-message p {
+  color: var(--color-paragraph);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
 /* Arrow indicators */
 .arrow {
   font-size: var(--font-size-xs);
@@ -386,4 +569,284 @@
   .lwm-content-area {
     padding: var(--padding-m);
   }
+}
+
+/* Content section styling */
+.content-section {
+  margin-bottom: var(--spacing-xl);
+}
+
+.section-heading {
+  margin-bottom: var(--spacing-m);
+  color: var(--color-headline);
+  position: relative;
+  padding-bottom: var(--padding-xs);
+  border-bottom: 2px solid var(--color-tertiary);
+}
+
+.section-heading::after {
+  content: '';
+  position: absolute;
+  width: 60px;
+  height: 3px;
+  background-color: var(--color-secondary);
+  bottom: -2px;
+  left: 0;
+}
+
+/* Toggle button for navigation */
+.toggle-panel-btn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: var(--padding-s) var(--padding-m);
+  margin-bottom: var(--spacing-m);
+  background-color: var(--color-highlight);
+  color: var(--color-main);
+  border: none;
+  border-radius: var(--radius-medium);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.toggle-panel-btn:hover {
+  background-color: var(--color-secondary);
+}
+
+.toggle-panel-btn .icon {
+  font-size: var(--font-size-xl);
+  line-height: 1;
+}
+
+/* Navigation panel styling */
+.navigation-panel {
+  background-color: var(--color-main);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: var(--padding-m);
+  margin-bottom: var(--spacing-l);
+  border-top: 4px solid var(--color-highlight);
+  max-height: none; /* Remove fixed height */
+  overflow-y: visible; /* Remove scrollbar */
+  transition: all 0.3s ease-in-out;
+}
+
+.navigation-panel:not(.open) {
+  max-height: 0;
+  opacity: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-top: 0;
+  margin-bottom: var(--spacing-s);
+  overflow: hidden;
+  border-top: 0;
+}
+
+/* Navigation panel - always visible on desktop */
+.navigation-panel {
+  background-color: var(--color-main);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: var(--padding-m);
+  border-top: 4px solid var(--color-highlight);
+  max-height: none; /* Remove fixed height */
+  overflow-y: visible; /* Remove scrollbar */
+}
+
+/* Only make navigation collapsible on mobile */
+@media (max-width: 768px) {
+  .navigation-panel {
+    max-height: 0;
+    padding: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: all 0.3s ease;
+    border-top: 0;
+  }
+  
+  .navigation-panel.open {
+    max-height: none; /* Let it flow */
+    padding: var(--padding-m);
+    opacity: 1;
+    border-top: 4px solid var(--color-highlight);
+  }
+}
+
+/* Also remove any scroll constraints on nested elements */
+.lwm-nav-accordion {
+  max-height: none;
+  overflow-y: visible;
+  padding: var(--padding-s);
+}
+
+/* Content panel styling */
+.content-panel {
+  background-color: var(--color-main);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: var(--padding-l);
+  border-top: 4px solid var(--color-highlight);
+  min-height: 300px;
+}
+
+.empty-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border-top: 4px solid var(--color-tertiary);
+}
+
+.content-header {
+  margin-bottom: var(--margin-l);
+  padding-bottom: var(--padding-s);
+  border-bottom: 2px solid var(--color-tertiary);
+  position: relative;
+}
+
+.content-header h2 {
+  color: var(--color-headline);
+  margin-bottom: var(--margin-xs);
+}
+
+.content-breadcrumb {
+  color: var(--color-paragraph);
+  font-size: var(--font-size-s);
+  opacity: 0.8;
+}
+
+.content-breadcrumb .separator {
+  margin: 0 5px;
+  color: var(--color-secondary);
+}
+
+.content-header::after {
+  content: '';
+  position: absolute;
+  width: 60px;
+  height: 3px;
+  background-color: var(--color-secondary);
+  bottom: -2px;
+  left: 0;
+}
+
+/* Content styling */
+.content-body {
+  line-height: var(--line-height-loose);
+  color: var(--color-paragraph);
+}
+
+.content-description {
+  margin-bottom: var(--margin-m);
+}
+
+.content-text p {
+  margin-bottom: var(--margin-m);
+}
+
+.content-media {
+  margin: var(--margin-m) 0;
+  border-radius: var(--radius-medium);
+  overflow: hidden;
+  box-shadow: var(--shadow-card-subtle);
+}
+
+/* Learning area grid layout */
+.learning-area {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: var(--spacing-l);
+  margin-bottom: var(--spacing-xl);
+}
+
+/* On mobile, switch to vertical layout */
+@media (max-width: 768px) {
+  .learning-area {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Navigation section */
+.learning-nav {
+  position: relative;
+}
+
+/* Toggle button for navigation panel */
+.toggle-panel-btn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: var(--padding-s) var(--padding-m);
+  margin-bottom: var(--spacing-m);
+  background-color: var(--color-highlight);
+  color: var(--color-main);
+  border: none;
+  border-radius: var(--radius-medium);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+/* Hide toggle on desktop */
+@media (min-width: 769px) {
+  .toggle-panel-btn {
+    display: none;
+  }
+}
+
+.toggle-panel-btn:hover {
+  background-color: var(--color-secondary);
+}
+
+.toggle-panel-btn .icon {
+  font-size: var(--font-size-xl);
+  line-height: 1;
+}
+
+/* Navigation panel */
+.navigation-panel {
+  background-color: var(--color-main);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: var(--padding-m);
+  border-top: 4px solid var(--color-highlight);
+  max-height: none; /* Remove fixed height */
+  overflow-y: visible; /* Remove scrollbar */
+}
+
+/* On mobile, make navigation collapsible */
+@media (max-width: 768px) {
+  .navigation-panel {
+    max-height: 0;
+    padding: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: all 0.3s ease;
+    border-top: 0;
+  }
+  
+  .navigation-panel.open {
+    max-height: none; /* Let it flow */
+    padding: var(--padding-m);
+    opacity: 1;
+    border-top: 4px solid var(--color-highlight);
+  }
+}
+
+/* Content styling */
+.learning-content {
+  min-height: 500px;
+}
+
+.content-panel {
+  background-color: var(--color-main);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: var(--padding-l);
+  border-top: 4px solid var(--color-highlight);
+  min-height: 300px;
+  animation: fadeIn 0.5s ease-in-out;
 }

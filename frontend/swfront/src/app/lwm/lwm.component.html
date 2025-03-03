@@ -5,127 +5,145 @@
   </div>
 </section>
 
-<main class="lwm-content">
-  <!-- Intro section -->
-  <section class="intro-section">
+<main class="content-container">
+  <!-- Introduction section -->
+  <section class="featured-section">
     <h2>Multiple Subjects, Endless Learning</h2>
     <p>
       As a lifelong learner, I'm always exploring new technologies.
-      Navigate through the left sidebar to explore subjects, courses, modules, and sections.
-      Click on any final item to view its detailed content on the right.
+      Navigate through the subjects below to explore courses, modules, and sections.
+      Click on any item to view its detailed content.
     </p>
   </section>
 
-  <!-- Main content layout -->
-  <div class="content-layout">
-    <!-- LEFT SIDEBAR: deep navigation structure -->
-    <nav class="lwm-sidebar">
-      <div class="lwm-nav-header">
-        <h3>Navigation</h3>
-      </div>
-      <div class="lwm-nav-content">
+  <!-- Learning area with side-by-side layout -->
+  <section class="learning-area">
+    <!-- Left side: Navigation -->
+    <div class="learning-nav">
+      <h2 class="section-heading">Course Selection</h2>
+      
+      <!-- Mobile toggle button - only show on mobile -->
+      <button class="toggle-panel-btn" (click)="toggleNavigationSidebar()">
+        <span>{{ isNavOpen ? 'Hide Course List' : 'Show Course List' }}</span>
+        <span class="icon">{{ isNavOpen ? '−' : '+' }}</span>
+      </button>
+
+      <!-- Navigation panel - visible by default on desktop -->
+      <div class="navigation-panel" [class.open]="isNavOpen">
+        <!-- Subject Level -->
         <div class="subject-item" *ngFor="let subj of subjects">
           <div 
             class="subject-title"
             [class.expanded]="subj.expanded"
             (click)="toggleSubject(subj)"
           >
-            {{ subj.subjectTitle }}
+            <span>{{ subj.subjectTitle }}</span>
             <span class="arrow">{{ subj.expanded ? '▼' : '▶' }}</span>
           </div>
 
-          <!-- Courses nested under Subject -->
-          <div class="course-item" *ngFor="let course of subj.courses" [hidden]="!subj.expanded">
-            <div
-              class="course-title"
-              [class.expanded]="course.expanded"
-              [class.selected]="course === selectedCourse"
-              (click)="toggleCourse(course); $event.stopPropagation()"
-            >
-              {{ course.courseTitle }}
-              <span class="arrow">{{ course.expanded ? '▼' : '▶' }}</span>
-            </div>
-
-            <!-- Sections nested under Course -->
-            <div class="section-item" *ngFor="let section of course.sections" [hidden]="!course.expanded">
+          <!-- Courses Level -->
+          <div class="course-container" [class.visible]="subj.expanded">
+            <div class="course-item" *ngFor="let course of subj.courses">
               <div
-                class="section-title"
-                [class.expanded]="section.expanded"
-                (click)="toggleSectionNav(section); $event.stopPropagation()"
+                class="course-title"
+                [class.expanded]="course.expanded"
+                [class.selected]="course === selectedCourse"
+                (click)="toggleCourse(course); $event.stopPropagation()"
               >
-                {{ section.sectionTitle }}
-                <span class="arrow">{{ section.expanded ? '▼' : '▶' }}</span>
+                <span>{{ course.courseTitle }}</span>
+                <span class="arrow">{{ course.expanded ? '▼' : '▶' }}</span>
               </div>
 
-              <!-- Modules nested under Section -->
-              <div class="module-item" *ngFor="let module of section.modules" [hidden]="!section.expanded">
-                <div
-                  class="module-title"
-                  [class.expanded]="module.expanded"
-                  (click)="toggleModuleNav(module); $event.stopPropagation()"
-                >
-                  {{ module.moduleTitle }}
-                  <span class="arrow">{{ module.expanded ? '▼' : '▶' }}</span>
-                </div>
-
-                <!-- Final Items nested under Module -->
-                <ul class="final-items-list" *ngIf="module.expanded">
-                  <li
-                    *ngFor="let fi of module.finalItems"
-                    class="final-item"
-                    [class.selected]="fi === selectedFinalItem"
-                    (click)="selectFinalItem(fi); $event.stopPropagation()"
+              <!-- Sections Level -->
+              <div class="section-container" [class.visible]="course.expanded">
+                <div class="section-item" *ngFor="let section of course.sections">
+                  <div
+                    class="section-title"
+                    [class.expanded]="section.expanded"
+                    (click)="toggleSectionNav(section); $event.stopPropagation()"
                   >
-                    {{ fi.title }}
-                  </li>
-                </ul>
+                    <span>{{ section.sectionTitle }}</span>
+                    <span class="arrow">{{ section.expanded ? '▼' : '▶' }}</span>
+                  </div>
+
+                  <!-- Modules Level -->
+                  <div class="module-container" [class.visible]="section.expanded">
+                    <div class="module-item" *ngFor="let module of section.modules">
+                      <div
+                        class="module-title"
+                        [class.expanded]="module.expanded"
+                        (click)="toggleModuleNav(module); $event.stopPropagation()"
+                      >
+                        <span>{{ module.moduleTitle }}</span>
+                        <span class="arrow">{{ module.expanded ? '▼' : '▶' }}</span>
+                      </div>
+
+                      <!-- Final Items Level -->
+                      <ul class="final-items-list" [class.visible]="module.expanded">
+                        <li
+                          *ngFor="let fi of module.finalItems"
+                          class="final-item"
+                          [class.selected]="fi === selectedFinalItem"
+                          (click)="selectFinalItem(fi); $event.stopPropagation()"
+                        >
+                          {{ fi.title }}
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </nav>
-
-    <!-- RIGHT CONTENT: selected final item details -->
-    <div class="lwm-content-area">
-      <article>
-        <ng-container *ngIf="selectedFinalItem; else noSelection">
-          <header class="content-header">
-            <h2>{{ selectedFinalItem.title }}</h2>
-          </header>
-          
-          <div class="content-body">
-            <!-- Description if available -->
-            <div class="content-description" *ngIf="selectedFinalItem.description">
-              <p>{{ selectedFinalItem.description }}</p>
-            </div>
-            
-            <!-- Content if available -->
-            <div class="content-text" *ngIf="selectedFinalItem.content">
-              <p>{{ selectedFinalItem.content }}</p>
-            </div>
-            
-            <!-- Video content if available -->
-            <div class="content-media" *ngIf="selectedFinalItem.videoUrl">
-              <iframe 
-                width="100%" 
-                height="400" 
-                [src]="selectedFinalItem.videoUrl | safeUrl" 
-                frameborder="0" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                allowfullscreen>
-              </iframe>
-            </div>
-          </div>
-        </ng-container>
-        
-        <ng-template #noSelection>
-          <div class="no-selection-message">
-            <h3>Select a Topic to Begin</h3>
-            <p>Navigate through the sidebar to explore subjects, courses, and modules. Click on any item to view its content here.</p>
-          </div>
-        </ng-template>
-      </article>
     </div>
-  </div>
+
+    <!-- Right side: Content -->
+    <div class="learning-content">
+      <!-- Selected content -->
+      <div class="content-panel" *ngIf="selectedFinalItem">
+        <header class="content-header">
+          <h2>{{ selectedFinalItem.title }}</h2>
+          <div class="content-breadcrumb" *ngIf="selectedCourse">
+            <span>{{ selectedCourse.courseTitle }}</span>
+            <span class="separator">›</span>
+            <span>{{ selectedFinalItem.title }}</span>
+          </div>
+        </header>
+        
+        <div class="content-body">
+          <!-- Description if available -->
+          <div class="content-description" *ngIf="selectedFinalItem.description">
+            <p>{{ selectedFinalItem.description }}</p>
+          </div>
+          
+          <!-- Content if available -->
+          <div class="content-text" *ngIf="selectedFinalItem.content">
+            <p>{{ selectedFinalItem.content }}</p>
+          </div>
+          
+          <!-- Video content if available -->
+          <div class="content-media" *ngIf="selectedFinalItem.videoUrl">
+            <iframe 
+              width="100%" 
+              height="400" 
+              [src]="selectedFinalItem.videoUrl | safeUrl" 
+              frameborder="0" 
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+              allowfullscreen>
+            </iframe>
+          </div>
+        </div>
+      </div>
+
+      <!-- Empty state message when no selection -->
+      <div class="content-panel empty-state" *ngIf="!selectedFinalItem">
+        <div class="no-selection-message">
+          <h3>Select a Topic to Begin</h3>
+          <p>Navigate through the menu to explore subjects, courses, and modules. Click on any item to view its content here.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 </main>
