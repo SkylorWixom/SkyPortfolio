@@ -1,1 +1,21 @@
-<p>dashboard works!</p>
+<div class="admin-dashboard">
+  <nav class="admin-nav">
+    <div class="brand">
+      <h2>Admin Dashboard</h2>
+    </div>
+    <ul class="nav-links">
+      <li><a routerLink="tasks" routerLinkActive="active">Tasks</a></li>
+      <li><a routerLink="blogs" routerLinkActive="active">Blogs</a></li>
+      <li><a routerLink="projects" routerLinkActive="active">Projects</a></li>
+      <li><a routerLink="lwm" routerLinkActive="active">Learn With Me</a></li>
+      <li><a routerLink="contact" routerLinkActive="active">Contacts</a></li>
+    </ul>
+    <div class="logout">
+      <button (click)="logout()" class="logout-btn">Logout</button>
+    </div>
+  </nav>
+  
+  <main class="admin-content">
+    <router-outlet></router-outlet>
+  </main>
+</div>

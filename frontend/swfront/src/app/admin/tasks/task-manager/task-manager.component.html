@@ -1,1 +1,74 @@
-<p>task-manager works!</p>
+<div class="task-manager">
+  <h2>Manage Tasks</h2>
+  
+  <div class="alert alert-success" *ngIf="successMessage">{{ successMessage }}</div>
+  <div class="alert alert-danger" *ngIf="errorMessage">{{ errorMessage }}</div>
+  
+  <!-- Add task form -->
+  <div class="task-form">
+    <h3>{{ editMode ? 'Edit Task' : 'Add New Task' }}</h3>
+    <div class="form-group">
+      <label for="title">Title</label>
+      <input type="text" id="title" [(ngModel)]="newTask.title" class="form-control">
+    </div>
+    
+    <div class="form-group">
+      <label for="details">Details</label>
+      <textarea id="details" [(ngModel)]="newTask.details" class="form-control"></textarea>
+    </div>
+    
+    <div class="form-group">
+      <label for="status">Status</label>
+      <select id="status" [(ngModel)]="newTask.status" class="form-control">
+        <option value="backlog">Backlog</option>
+        <option value="active">Active</option>
+        <option value="completed">Completed</option>
+      </select>
+    </div>
+    
+    <div class="form-actions">
+      <button (click)="saveTask()" class="btn btn-primary">
+        {{ editMode ? 'Update Task' : 'Add Task' }}
+      </button>
+      <button *ngIf="editMode" (click)="cancelEdit()" class="btn btn-secondary">
+        Cancel
+      </button>
+    </div>
+  </div>
+  
+  <!-- Task list -->
+  <div class="task-list">
+    <h3>All Tasks</h3>
+    
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Status</th>
+          <th>Last Updated</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let task of tasks">
+          <td>{{ task.title }}</td>
+          <td>
+            <span class="badge" 
+                 [ngClass]="{
+                   'badge-success': task.status === 'completed',
+                   'badge-primary': task.status === 'active',
+                   'badge-secondary': task.status === 'backlog'
+                 }">
+              {{ task.status }}
+            </span>
+          </td>
+          <td>{{ task.updatedAt | date:'short' }}</td>
+          <td>
+            <button (click)="editTask(task)" class="btn btn-sm btn-info">Edit</button>
+            <button (click)="deleteTask(task._id)" class="btn btn-sm btn-danger">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
