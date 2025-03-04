@@ -64,7 +64,7 @@ router.post('/', async (req, res) => {
 });
 
 //POST /nested: to create a subject with nested courses→sections→modules→finalItems
-in one request, unroll them here.
+//in one request, unroll them here.
 
 router.post('/nested', async (req, res) => {
   try {
