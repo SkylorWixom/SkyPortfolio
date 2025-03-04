@@ -1,8 +1,8 @@
+// File: contact.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-// Updated Contact interface with optional fields
 export interface Contact {
   _id?: string;
   name: string;
@@ -17,7 +17,7 @@ export interface Contact {
   providedIn: 'root'
 })
 export class ContactService {
-  private baseUrl = 'https://wixhaven/api/contacts';
+  private baseUrl = 'https://wixhaven.com/api/contacts';
 
   constructor(private http: HttpClient) {}
 
@@ -27,5 +27,10 @@ export class ContactService {
 
   getAllContacts(): Observable<Contact[]> {
     return this.http.get<Contact[]>(this.baseUrl);
+  }
+
+  // === ADD THIS for DELETE ===
+  deleteContact(contactId: string): Observable<{ message: string }> {
+    return this.http.delete<{ message: string }>(`${this.baseUrl}/${contactId}`);
   }
 }

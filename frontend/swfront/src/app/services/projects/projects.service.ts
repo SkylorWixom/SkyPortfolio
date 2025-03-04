@@ -1,4 +1,3 @@
-// src/app/services/projects.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -9,45 +8,45 @@ export interface Project {
   description: string;
   stack: string[];
   demoLink?: string;
-  githubLink?: string; // Added missing property
-  imageUrl?: string;   // Added for image support
-  category?: string;   // Added for category filtering
-  date?: string;       // Added for display date
-  featured?: boolean;  // Optional for featured projects
-  thumbnail?: string;  // Keep existing property if used elsewhere
-  createdAt?: Date;    // Keep existing property if used elsewhere
+  githubLink?: string;
+  imageUrl?: string;
+  category?: string;
+  date?: string;
+  featured?: boolean;
+  thumbnail?: string;
+  createdAt?: Date;
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProjectsService {
-
-  private baseUrl = 'https://wixhaven/api/projects'; // Adjust if needed
+  // Make sure this matches your backend route: 'https://wixhaven.com/api/projects'
+  private baseUrl = 'https://wixhaven.com/api/projects';
 
   constructor(private http: HttpClient) {}
 
-  // GET all projects
+  // GET all
   getAllProjects(): Observable<Project[]> {
     return this.http.get<Project[]>(this.baseUrl);
   }
 
-  // POST new project
+  // POST
   createProject(proj: Partial<Project>): Observable<Project> {
     return this.http.post<Project>(this.baseUrl, proj);
   }
 
-  // GET one project by ID (optional)
+  // GET by ID (optional)
   getProjectById(id: string): Observable<Project> {
     return this.http.get<Project>(`${this.baseUrl}/${id}`);
   }
 
-  // PUT (update) existing project
+  // PUT
   updateProject(id: string, updated: Partial<Project>): Observable<Project> {
     return this.http.put<Project>(`${this.baseUrl}/${id}`, updated);
   }
 
-  // DELETE a project
+  // DELETE
   deleteProject(id: string): Observable<{ message: string }> {
     return this.http.delete<{ message: string }>(`${this.baseUrl}/${id}`);
   }

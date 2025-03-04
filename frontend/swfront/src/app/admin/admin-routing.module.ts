@@ -7,7 +7,7 @@ import { BlogManagerComponent } from './blogs/blog-manager/blog-manager.componen
 import { ProjectManagerComponent } from './projects/project-manager/project-manager.component';
 import { LwmManagerComponent } from './lwm/lwm-manager/lwm-manager.component';
 import { ContactManagerComponent } from './contact/contact-manager/contact-manager.component';
-import { adminGuard } from './admin.guard';
+import { adminGuard } from './admin.guard'; 
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },

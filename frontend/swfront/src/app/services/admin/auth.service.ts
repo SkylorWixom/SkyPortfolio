@@ -1,25 +1,25 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  // Store admin credentials (in a real app, these would be stored securely on the server)
-  private adminUsername = 'admin';
-  private adminPassword = 'securepassword'; // Change this to something secure!
-  
-  // JWT helper
-  private jwtHelper = new JwtHelperService();
-  private JWT_SECRET = 'your-secure-secret-key-change-this'; // Secret key for JWT
+  private readonly JWT_SECRET = environment.jwtSecret;
+  private readonly tokenKey = 'auth_token';
+  private readonly adminUsername = environment.authConfig.adminUsername;
+  private readonly adminPassword = environment.authConfig.adminPassword;
 
-  // Observable for authentication state
-  private isAuthenticatedSubject = new BehaviorSubject<boolean>(this.hasValidToken());
+  // Create a new instance of the service
+  private jwtHelperInstance = new JwtHelperService();
+
+  // Initialize subject AFTER the helper is created
+  private isAuthenticatedSubject = new BehaviorSubject<boolean>(this.checkAuthentication());
   public isAuthenticated$ = this.isAuthenticatedSubject.asObservable();
   
-  constructor() {
-    // Check token validity on service initialization
+  constructor(private jwtHelper: JwtHelperService) {
     this.checkTokenValidity();
   }
 
@@ -31,7 +31,7 @@ export class AuthService {
     if (username === this.adminUsername && password === this.adminPassword) {
       // Create a proper JWT token
       const token = this.generateJWT();
-      localStorage.setItem('admin_token', token);
+      localStorage.setItem(this.tokenKey, token);
       
       this.isAuthenticatedSubject.next(true);
       return of(true);
@@ -44,49 +44,67 @@ export class AuthService {
    * Logs out the admin user
    */
   logout(): void {
-    localStorage.removeItem('admin_token');
+    localStorage.removeItem(this.tokenKey);
     this.isAuthenticatedSubject.next(false);
+  }
+
+  // Use our own implementation that doesn't rely on JwtHelperService
+  private checkAuthentication(): boolean {
+    const token = localStorage.getItem(this.tokenKey);
+    if (!token) return false;
+    
+    try {
+      // Simple check for token expiration
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      return payload.exp > Date.now() / 1000;
+    } catch (e) {
+      return false;
+    }
   }
 
   /**
    * Checks if the user is authenticated
    */
   isAuthenticated(): boolean {
-    return this.hasValidToken();
+    return this.checkAuthentication();
   }
 
   /**
-   * Validates if there's a valid token in local storage
-   */
-  private hasValidToken(): boolean {
-    const token = localStorage.getItem('admin_token');
-    
-    if (!token) return false;
-    
-    // Check if token is expired using the JWT helper
-    return !this.jwtHelper.isTokenExpired(token);
-  }
-
-  /**
-   * Checks if the token is still valid
+   * Checks token validity and logs out if invalid
    */
   private checkTokenValidity(): void {
-    if (!this.hasValidToken()) {
+    if (!this.isAuthenticated()) {
       this.logout();
     }
   }
 
   /**
-   * Generates a proper JWT token
+   * Generates a JWT token
    */
   private generateJWT(): string {
-    const payload = {
-      username: this.adminUsername,
-      role: 'admin',
-      exp: Math.floor(Date.now() / 1000) + (24 * 60 * 60) // 24 hours expiration
+    const header = {
+      alg: 'HS256',
+      typ: 'JWT'
     };
     
-    // Use the JWT library to create a token
-    return this.jwtHelper.tokenGetter(payload, this.JWT_SECRET);
+    const payload = {
+      sub: this.adminUsername,
+      name: 'Admin User',
+      exp: Math.floor(Date.now() / 1000) + (24 * 60 * 60) // 24 hours from now
+    };
+    
+    const headerBase64 = btoa(JSON.stringify(header));
+    const payloadBase64 = btoa(JSON.stringify(payload));
+    const signature = this.generateSignature(`${headerBase64}.${payloadBase64}`);
+    
+    return `${headerBase64}.${payloadBase64}.${signature}`;
+  }
+
+  /**
+   * Generates a signature for the JWT
+   */
+  private generateSignature(data: string): string {
+    // This is a simplified implementation - not secure for production
+    return btoa(data + this.JWT_SECRET);
   }
 }
