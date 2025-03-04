@@ -1,0 +1,316 @@
+<div class="lwm-manager">
+    <h1>Learn With Me Manager</h1>
+    
+    <div class="messages">
+      <div class="alert alert-success" *ngIf="successMessage">{{ successMessage }}</div>
+      <div class="alert alert-danger" *ngIf="errorMessage">{{ errorMessage }}</div>
+    </div>
+    
+    <div class="lwm-container">
+      <!-- Hierarchy Navigation -->
+      <div class="hierarchy-panel">
+        <div class="panel-header">
+          <h2>Content Hierarchy</h2>
+          <button class="btn btn-sm btn-primary" (click)="showAddForm('subject')">
+            <i class="fas fa-plus"></i> Add Subject
+          </button>
+        </div>
+        
+        <div class="hierarchy-tree">
+          <!-- Subjects -->
+          <div class="tree-item" *ngFor="let subject of hierarchyItems">
+            <div class="item-header"
+                 [class.selected]="selectedItem === subject"
+                 (click)="selectItem(subject)">
+              
+              <!-- Expand/Collapse Icon -->
+              <span class="expand-icon" (click)="toggleExpanded(subject); $event.stopPropagation()">
+                <i [class]="subject.expanded ? 'fas fa-caret-down' : 'fas fa-caret-right'"></i>
+              </span>
+              
+              <!-- Subject Icon -->
+              <span class="item-icon">
+                <i class="fas fa-book"></i>
+              </span>
+              
+              <span class="item-title">
+                {{ subject.title }}
+              </span>
+              
+              <div class="item-actions">
+                <!-- Add Course Button -->
+                <button class="btn btn-sm btn-outline"
+                        (click)="showAddForm('course', subject); $event.stopPropagation()">
+                  <i class="fas fa-plus"></i>
+                </button>
+              </div>
+            </div>
+            
+            <!-- Courses -->
+            <div class="tree-children" *ngIf="subject.expanded && subject.children">
+              <div class="tree-item" *ngFor="let course of subject.children">
+                <div class="item-header"
+                     [class.selected]="selectedItem === course"
+                     (click)="selectItem(course)">
+                  
+                  <span class="expand-icon" (click)="toggleExpanded(course); $event.stopPropagation()">
+                    <i [class]="course.expanded ? 'fas fa-caret-down' : 'fas fa-caret-right'"></i>
+                  </span>
+                  <span class="item-icon"><i class="fas fa-graduation-cap"></i></span>
+                  <span class="item-title">{{ course.title }}</span>
+                  
+                  <div class="item-actions">
+                    <button class="btn btn-sm btn-outline"
+                            (click)="showAddForm('section', course); $event.stopPropagation()">
+                      <i class="fas fa-plus"></i>
+                    </button>
+                  </div>
+                </div>
+                
+                <!-- Sections -->
+                <div class="tree-children" *ngIf="course.expanded && course.children">
+                  <div class="tree-item" *ngFor="let section of course.children">
+                    <div class="item-header"
+                         [class.selected]="selectedItem === section"
+                         (click)="selectItem(section)">
+                      
+                      <span class="expand-icon" (click)="toggleExpanded(section); $event.stopPropagation()">
+                        <i [class]="section.expanded ? 'fas fa-caret-down' : 'fas fa-caret-right'"></i>
+                      </span>
+                      <span class="item-icon"><i class="fas fa-layer-group"></i></span>
+                      <span class="item-title">{{ section.title }}</span>
+                      
+                      <div class="item-actions">
+                        <button class="btn btn-sm btn-outline"
+                                (click)="showAddForm('module', section); $event.stopPropagation()">
+                          <i class="fas fa-plus"></i>
+                        </button>
+                      </div>
+                    </div>
+                    
+                    <!-- Modules -->
+                    <div class="tree-children" *ngIf="section.expanded && section.children">
+                      <div class="tree-item" *ngFor="let module of section.children">
+                        <div class="item-header"
+                             [class.selected]="selectedItem === module"
+                             (click)="selectItem(module)">
+                          
+                          <span class="expand-icon" (click)="toggleExpanded(module); $event.stopPropagation()">
+                            <i [class]="module.expanded ? 'fas fa-caret-down' : 'fas fa-caret-right'"></i>
+                          </span>
+                          <span class="item-icon"><i class="fas fa-cube"></i></span>
+                          <span class="item-title">{{ module.title }}</span>
+                          
+                          <div class="item-actions">
+                            <button class="btn btn-sm btn-outline"
+                                    (click)="showAddForm('finalItem', module); $event.stopPropagation()">
+                              <i class="fas fa-plus"></i>
+                            </button>
+                          </div>
+                        </div>
+                        
+                        <!-- Final Items -->
+                        <div class="tree-children" *ngIf="module.expanded && module.children">
+                          <div class="tree-item" *ngFor="let finalItem of module.children">
+                            <div class="item-header"
+                                 [class.selected]="selectedItem === finalItem"
+                                 (click)="selectItem(finalItem)">
+                              <span class="expand-icon spacer"></span>
+                              <span class="item-icon"><i class="fas fa-file-alt"></i></span>
+                              <span class="item-title">{{ finalItem.title }}</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Content Panel -->
+      <div class="content-panel">
+        <!-- Selected Item Details -->
+        <div class="item-details" *ngIf="selectedItem && !showForm">
+          <div class="detail-header">
+            <h2>{{ selectedItem.title }}</h2>
+            <div class="detail-actions">
+              <button class="btn btn-primary" (click)="showEditForm()">Edit</button>
+              <button class="btn btn-danger" (click)="deleteItem()">Delete</button>
+            </div>
+          </div>
+          
+          <div class="detail-content">
+            <!-- Subject Details -->
+            <div *ngIf="selectedItem.type === 'subject' && currentContent">
+              <div class="detail-field">
+                <label>Subject Title:</label>
+                <div>{{ currentContent.subjectTitle }}</div>
+              </div>
+              <div class="detail-field" *ngIf="currentContent.iconUrl">
+                <label>Icon:</label>
+                <div><img [src]="currentContent.iconUrl" alt="Subject Icon" class="icon-preview"></div>
+              </div>
+              <div class="detail-field" *ngIf="currentContent.bannerUrl">
+                <label>Banner:</label>
+                <div><img [src]="currentContent.bannerUrl" alt="Subject Banner" class="banner-preview"></div>
+              </div>
+              <div class="detail-field">
+                <label>Courses:</label>
+                <div>{{ currentContent.courses?.length || 0 }} courses</div>
+              </div>
+            </div>
+            
+            <!-- Course Details -->
+            <div *ngIf="selectedItem.type === 'course' && currentContent">
+              <div class="detail-field">
+                <label>Course Title:</label>
+                <div>{{ currentContent.courseTitle }}</div>
+              </div>
+              <div class="detail-field">
+                <label>Sections:</label>
+                <div>{{ currentContent.sections?.length || 0 }} sections</div>
+              </div>
+            </div>
+            
+            <!-- Section Details -->
+            <div *ngIf="selectedItem.type === 'section' && currentContent">
+              <div class="detail-field">
+                <label>Section Title:</label>
+                <div>{{ currentContent.sectionTitle }}</div>
+              </div>
+              <div class="detail-field">
+                <label>Modules:</label>
+                <div>{{ currentContent.modules?.length || 0 }} modules</div>
+              </div>
+            </div>
+            
+            <!-- Module Details -->
+            <div *ngIf="selectedItem.type === 'module' && currentContent">
+              <div class="detail-field">
+                <label>Module Title:</label>
+                <div>{{ currentContent.moduleTitle }}</div>
+              </div>
+              <div class="detail-field">
+                <label>Final Items:</label>
+                <div>{{ currentContent.finalItems?.length || 0 }} items</div>
+              </div>
+            </div>
+            
+            <!-- Final Item Details -->
+            <div *ngIf="selectedItem.type === 'finalItem' && currentContent">
+              <div class="detail-field">
+                <label>Title:</label>
+                <div>{{ currentContent.title }}</div>
+              </div>
+              <div class="detail-field" *ngIf="currentContent.description">
+                <label>Description:</label>
+                <div>{{ currentContent.description }}</div>
+              </div>
+              <div class="detail-field" *ngIf="currentContent.videoUrl">
+                <label>Video URL:</label>
+                <div>
+                  <a [href]="currentContent.videoUrl" target="_blank">{{ currentContent.videoUrl }}</a>
+                </div>
+              </div>
+              <div class="detail-field" *ngIf="currentContent.content">
+                <label>Content:</label>
+                <div class="content-preview">{{ currentContent.content }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Form for Adding/Editing -->
+        <div class="item-form" *ngIf="showForm">
+          <div class="form-header">
+            <h2>{{ editMode ? 'Edit' : 'Add' }} {{ formType | titlecase }}</h2>
+            <button class="btn btn-outline" (click)="hideForm()">Cancel</button>
+          </div>
+          
+          <!-- Subject Form -->
+          <div *ngIf="formType === 'subject'">
+            <div class="form-group">
+              <label for="subjectTitle">Subject Title</label>
+              <input type="text" id="subjectTitle" [(ngModel)]="newSubject.subjectTitle" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label for="iconUrl">Icon URL</label>
+              <input type="text" id="iconUrl" [(ngModel)]="newSubject.iconUrl" class="form-control">
+              <img *ngIf="newSubject.iconUrl" [src]="newSubject.iconUrl" alt="Icon Preview" class="icon-preview">
+            </div>
+            <div class="form-group">
+              <label for="bannerUrl">Banner URL</label>
+              <input type="text" id="bannerUrl" [(ngModel)]="newSubject.bannerUrl" class="form-control">
+              <img *ngIf="newSubject.bannerUrl" [src]="newSubject.bannerUrl" alt="Banner Preview" class="banner-preview">
+            </div>
+          </div>
+          
+          <!-- Course Form -->
+          <div *ngIf="formType === 'course'">
+            <div class="form-group">
+              <label for="courseTitle">Course Title</label>
+              <input type="text" id="courseTitle" [(ngModel)]="newCourse.courseTitle" class="form-control" required>
+            </div>
+          </div>
+          
+          <!-- Section Form -->
+          <div *ngIf="formType === 'section'">
+            <div class="form-group">
+              <label for="sectionTitle">Section Title</label>
+              <input type="text" id="sectionTitle" [(ngModel)]="newSection.sectionTitle" class="form-control" required>
+            </div>
+          </div>
+          
+          <!-- Module Form -->
+          <div *ngIf="formType === 'module'">
+            <div class="form-group">
+              <label for="moduleTitle">Module Title</label>
+              <input type="text" id="moduleTitle" [(ngModel)]="newModule.moduleTitle" class="form-control" required>
+            </div>
+          </div>
+          
+          <!-- Final Item Form -->
+          <div *ngIf="formType === 'finalItem'">
+            <div class="form-group">
+              <label for="itemTitle">Title</label>
+              <input type="text" id="itemTitle" [(ngModel)]="newFinalItem.title" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label for="description">Description</label>
+              <textarea id="description" [(ngModel)]="newFinalItem.description" class="form-control" rows="3"></textarea>
+            </div>
+            <div class="form-group">
+              <label for="videoUrl">Video URL</label>
+              <input type="text" id="videoUrl" [(ngModel)]="newFinalItem.videoUrl" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="content">Content</label>
+              <textarea id="content" [(ngModel)]="newFinalItem.content" class="form-control" rows="10"></textarea>
+            </div>
+          </div>
+          
+          <div class="form-actions">
+            <button class="btn btn-primary" (click)="saveItem()">
+              {{ editMode ? 'Update' : 'Create' }}
+            </button>
+            <button class="btn btn-secondary" (click)="hideForm()">Cancel</button>
+          </div>
+        </div>
+        
+        <!-- Empty State -->
+        <div class="empty-state" *ngIf="!selectedItem && !showForm">
+          <div class="empty-icon">📚</div>
+          <h3>Select an item from the hierarchy tree</h3>
+          <p>Or add a new subject to get started</p>
+          <button class="btn btn-primary" (click)="showAddForm('subject')">
+            <i class="fas fa-plus"></i> Add Subject
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  

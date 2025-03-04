@@ -1,0 +1,114 @@
+<div class="contact-manager">
+    <h1>Contact Manager</h1>
+  
+    <div class="messages">
+      <div class="alert alert-success" *ngIf="successMessage">{{ successMessage }}</div>
+      <div class="alert alert-danger" *ngIf="errorMessage">{{ errorMessage }}</div>
+    </div>
+  
+    <!-- Create New Contact Form -->
+    <div class="create-contact-form">
+      <h2>Create New Contact</h2>
+  
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input 
+          type="text" 
+          id="name"
+          [(ngModel)]="newContact.name" 
+          class="form-control"
+          required
+        >
+      </div>
+  
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input 
+          type="email" 
+          id="email"
+          [(ngModel)]="newContact.email"
+          class="form-control"
+          required
+        >
+      </div>
+  
+      <div class="form-group">
+        <label for="phone">Phone</label>
+        <input 
+          type="text" 
+          id="phone"
+          [(ngModel)]="newContact.phone"
+          class="form-control"
+        >
+      </div>
+  
+      <div class="form-group">
+        <label for="subject">Subject</label>
+        <input 
+          type="text" 
+          id="subject"
+          [(ngModel)]="newContact.subject"
+          class="form-control"
+        >
+      </div>
+  
+      <div class="form-group">
+        <label for="message">Message</label>
+        <textarea 
+          id="message"
+          [(ngModel)]="newContact.message"
+          class="form-control"
+          rows="5"
+          required
+        ></textarea>
+      </div>
+  
+      <div class="form-actions">
+        <button 
+          class="btn btn-primary"
+          (click)="createNewContact()"
+          [disabled]="!newContact.name || !newContact.email || !newContact.message"
+        >
+          Create Contact
+        </button>
+      </div>
+    </div>
+  
+    <!-- Display Existing Contacts -->
+    <div class="contacts-list">
+      <h2>Existing Contacts</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Subject</th>
+            <th>Message</th>
+            <th>Date</th>
+            <th>Actions</th> <!-- new column -->
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let c of contacts">
+            <td>{{ c.name }}</td>
+            <td>{{ c.email }}</td>
+            <td>{{ c.phone }}</td>
+            <td>{{ c.subject }}</td>
+            <td>{{ c.message }}</td>
+            <td>{{ c.createdAt | date:'medium' }}</td>
+            <td>
+              <!-- new "delete" button -->
+              <button class="btn btn-sm btn-danger" (click)="deleteContact(c._id!)">
+                Delete
+              </button>
+            </td>
+          </tr>
+          <tr *ngIf="contacts.length === 0">
+            <td colspan="7" class="text-center">No contacts found</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  

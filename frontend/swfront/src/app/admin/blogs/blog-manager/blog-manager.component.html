@@ -1,0 +1,239 @@
+<div class="blog-manager">
+  <h1>Blog Manager</h1>
+  
+  <div class="messages">
+    <div class="alert alert-success" *ngIf="successMessage">{{ successMessage }}</div>
+    <div class="alert alert-danger" *ngIf="errorMessage">{{ errorMessage }}</div>
+  </div>
+  
+  <div class="blog-form-container">
+    <h2>{{ editMode ? 'Edit Blog Post' : 'Add New Blog Post' }}</h2>
+    
+    <div class="form-tabs">
+      <button [class.active]="!showPreview" (click)="showPreview = false">Edit</button>
+      <button [class.active]="showPreview" (click)="showPreview = true">Preview</button>
+    </div>
+    
+    <!-- Edit Form -->
+    <div class="blog-form" *ngIf="!showPreview">
+      <!-- TITLE -->
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input 
+          type="text" 
+          id="title" 
+          [(ngModel)]="newBlog.title" 
+          class="form-control" 
+          placeholder="Blog Post Title"
+          required
+        >
+      </div>
+      
+      <!-- AUTHOR -->
+      <div class="form-group">
+        <label for="author">Author</label>
+        <input 
+          type="text" 
+          id="author" 
+          [(ngModel)]="newBlog.author" 
+          class="form-control" 
+          placeholder="Author Name"
+        >
+      </div>
+      
+      <!-- EXCERPT -->
+      <div class="form-group">
+        <label for="excerpt">Excerpt/Summary</label>
+        <textarea 
+          id="excerpt" 
+          [(ngModel)]="newBlog.excerpt" 
+          class="form-control" 
+          placeholder="Brief summary of the blog post"
+          rows="2"
+        ></textarea>
+      </div>
+      
+      <!-- CATEGORY -->
+      <div class="form-group">
+        <label for="category">Category</label>
+        <select
+          id="category"
+          [(ngModel)]="newBlog.category"
+          class="form-control"
+        >
+          <!-- Use the enum values from your Blog.js: ['learning', 'reviews', 'responses', 'personal'] -->
+          <option value="learning">Learning</option>
+          <option value="reviews">Reviews</option>
+          <option value="responses">Responses</option>
+          <option value="personal">Personal</option>
+        </select>
+      </div>
+      
+      <!-- BANNER IMAGE -->
+      <div class="form-group">
+        <label for="bannerImageUrl">Banner Image URL</label>
+        <input 
+          type="text" 
+          id="bannerImageUrl" 
+          [(ngModel)]="newBlog.bannerImageUrl" 
+          class="form-control" 
+          placeholder="https://example.com/image.jpg"
+        >
+      </div>
+      
+      <!-- CONTENT -->
+      <div class="form-group">
+        <label for="content">Content</label>
+        <textarea 
+          id="content" 
+          [(ngModel)]="newBlog.content" 
+          class="form-control" 
+          placeholder="Blog post content in Markdown or plain text"
+          rows="10"
+          required
+        ></textarea>
+      </div>
+      
+      <!-- TAGS -->
+      <div class="form-group">
+        <label>Tags</label>
+        <div class="tags-container">
+          <div 
+            *ngFor="let tag of availableTags" 
+            class="tag" 
+            [class.selected]="isTagSelected(tag)"
+            (click)="toggleTag(tag)"
+          >
+            {{ tag }}
+          </div>
+          <input 
+            type="text" 
+            placeholder="Add custom tag..." 
+            class="custom-tag-input"
+            (keydown)="addCustomTag($event)"
+          >
+        </div>
+        <div class="selected-tags" *ngIf="selectedTags.length > 0">
+          Selected: {{ selectedTags.join(', ') }}
+        </div>
+      </div>
+      
+      <!-- REFERENCES -->
+      <div class="form-group">
+        <label for="references">References (One per line)</label>
+        <textarea
+          id="references"
+          [(ngModel)]="newBlog.references"
+          class="form-control"
+          placeholder="https://example.com/reference1&#10;https://example.com/reference2"
+          rows="3"
+        ></textarea>
+      </div>
+      
+      <!-- ACTION BUTTONS -->
+      <div class="form-actions">
+        <button 
+          type="button"
+          class="btn btn-primary"
+          (click)="saveBlog()"
+          [disabled]="!newBlog.title || !newBlog.content"
+        >
+          {{ editMode ? 'Update' : 'Create' }} Blog Post
+        </button>
+        
+        <button 
+          type="button"
+          class="btn btn-secondary"
+          (click)="cancelEdit()"
+        >
+          Cancel
+        </button>
+      </div>
+    </div>
+    
+    <!-- Preview Section -->
+    <div class="blog-preview" *ngIf="showPreview">
+      <h1>{{ newBlog.title }}</h1>
+      
+      <div class="blog-meta">
+        <span class="author" *ngIf="newBlog.author">By {{ newBlog.author }}</span>
+        <span class="category">{{ newBlog.category }}</span>
+        <span class="date" *ngIf="newBlog.createdAt">
+          {{ newBlog.createdAt | date:'mediumDate' }}
+        </span>
+      </div>
+      
+      <div class="blog-image" *ngIf="newBlog.bannerImageUrl">
+        <img [src]="newBlog.bannerImageUrl" [alt]="newBlog.title">
+      </div>
+      
+      <div class="blog-excerpt" *ngIf="newBlog.excerpt">
+        <em>{{ newBlog.excerpt }}</em>
+      </div>
+      
+      <div class="blog-content">
+        <!-- For proper Markdown rendering, consider using ngx-markdown or a similar library -->
+        <pre>{{ newBlog.content }}</pre>
+      </div>
+      
+      <div class="blog-tags" *ngIf="selectedTags.length > 0">
+        <span class="tag" *ngFor="let tag of selectedTags">
+          {{ tag }}
+        </span>
+      </div>
+      
+      <div class="blog-references" *ngIf="newBlog.references && newBlog.references.length > 0">
+        <h3>References</h3>
+        <ul>
+          <li *ngFor="let ref of newBlog.references">
+            <a [href]="ref" target="_blank">{{ ref }}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Existing Blogs List -->
+  <h2 class="mt-5">Blog Posts</h2>
+  <div class="blog-list">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Author</th>
+          <th>Category</th>
+          <th>Date</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Loop through existing blogs -->
+        <tr *ngFor="let blog of blogs">
+          <td>{{ blog.title }}</td>
+          <td>{{ blog.author || 'Unknown' }}</td>
+          <td>{{ blog.category }}</td>
+          <td>{{ blog.createdAt | date:'mediumDate' }}</td>
+          <td>
+            <!-- Edit and Delete, no publish/unpublish logic -->
+            <button
+              class="btn btn-sm btn-info"
+              (click)="editBlog(blog)"
+            >
+              Edit
+            </button>
+            <button
+              class="btn btn-sm btn-danger"
+              (click)="deleteBlog(blog._id!)"
+            >
+              Delete
+            </button>
+          </td>
+        </tr>
+        <!-- No blogs found -->
+        <tr *ngIf="blogs.length === 0">
+          <td colspan="5" class="text-center">No blog posts found</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

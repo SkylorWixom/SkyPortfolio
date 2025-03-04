@@ -1,0 +1,265 @@
+<div class="project-manager">
+  <h1>Project Manager</h1>
+  
+  <div class="messages">
+    <div class="alert alert-success" *ngIf="successMessage">{{ successMessage }}</div>
+    <div class="alert alert-danger" *ngIf="errorMessage">{{ errorMessage }}</div>
+  </div>
+  
+  <div class="project-form-container">
+    <h2>{{ editMode ? 'Edit Project' : 'Add New Project' }}</h2>
+    
+    <div class="form-tabs">
+      <button [class.active]="!showPreview" (click)="showPreview = false">Edit</button>
+      <button [class.active]="showPreview" (click)="showPreview = true">Preview</button>
+    </div>
+    
+    <!-- Edit Form -->
+    <div class="project-form" *ngIf="!showPreview">
+      <!-- TITLE -->
+      <div class="form-group">
+        <label for="title">Project Title</label>
+        <input 
+          type="text" 
+          id="title" 
+          [(ngModel)]="newProject.title" 
+          class="form-control" 
+          placeholder="Project Title"
+          required
+        >
+      </div>
+      
+      <!-- DESCRIPTION -->
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea 
+          id="description" 
+          [(ngModel)]="newProject.description" 
+          class="form-control" 
+          placeholder="Detailed project description"
+          rows="5"
+          required
+        ></textarea>
+      </div>
+      
+      <!-- CATEGORY -->
+      <div class="form-group">
+        <label for="category">Category</label>
+        <select 
+          id="category" 
+          [(ngModel)]="newProject.category" 
+          class="form-control"
+        >
+          <option *ngFor="let category of categories" [value]="category">
+            {{ category | titlecase }}
+          </option>
+        </select>
+      </div>
+      
+      <!-- DATE -->
+      <div class="form-group">
+        <label for="date">Date</label>
+        <input 
+          type="date" 
+          id="date" 
+          [(ngModel)]="newProject.date" 
+          class="form-control"
+        >
+      </div>
+      
+      <!-- DEMO LINK -->
+      <div class="form-group">
+        <label for="demoLink">Demo Link</label>
+        <input 
+          type="text" 
+          id="demoLink" 
+          [(ngModel)]="newProject.demoLink" 
+          class="form-control" 
+          placeholder="https://example.com"
+        >
+      </div>
+      
+      <!-- GITHUB LINK -->
+      <div class="form-group">
+        <label for="githubLink">GitHub Link</label>
+        <input 
+          type="text" 
+          id="githubLink" 
+          [(ngModel)]="newProject.githubLink" 
+          class="form-control" 
+          placeholder="https://github.com/username/repo"
+        >
+      </div>
+      
+      <!-- IMAGE URL -->
+      <div class="form-group">
+        <label for="imageUrl">Banner Image URL</label>
+        <input 
+          type="text" 
+          id="imageUrl" 
+          [(ngModel)]="newProject.imageUrl" 
+          class="form-control" 
+          placeholder="https://example.com/image.jpg"
+        >
+      </div>
+      
+      <!-- THUMBNAIL URL -->
+      <div class="form-group">
+        <label for="thumbnail">Thumbnail Image URL</label>
+        <input 
+          type="text" 
+          id="thumbnail" 
+          [(ngModel)]="newProject.thumbnail" 
+          class="form-control" 
+          placeholder="https://example.com/thumbnail.jpg"
+        >
+      </div>
+      
+      <!-- STACK -->
+      <div class="form-group">
+        <label>Technology Stack</label>
+        <div class="stack-input-group">
+          <input 
+            type="text" 
+            [(ngModel)]="stackInput" 
+            class="form-control" 
+            placeholder="Add technology..."
+            (keyup.enter)="addStackItem()"
+          >
+          <button 
+            type="button" 
+            class="btn btn-secondary" 
+            (click)="addStackItem()"
+          >
+            Add
+          </button>
+        </div>
+        
+        <div class="stack-items" *ngIf="newProject.stack && newProject.stack.length > 0">
+          <div class="stack-item" *ngFor="let tech of newProject.stack">
+            {{ tech }}
+            <button class="remove-item" (click)="removeStackItem(tech)">×</button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- FEATURED CHECKBOX -->
+      <div class="form-group form-check">
+        <input 
+          type="checkbox" 
+          id="featured" 
+          [(ngModel)]="newProject.featured" 
+          class="form-check-input"
+        >
+        <label class="form-check-label" for="featured">Featured Project</label>
+      </div>
+      
+      <!-- ACTION BUTTONS -->
+      <div class="form-actions">
+        <button 
+          type="button" 
+          class="btn btn-primary" 
+          (click)="saveProject()"
+          [disabled]="!newProject.title || !newProject.description"
+        >
+          {{ editMode ? 'Update' : 'Create' }} Project
+        </button>
+        
+        <button 
+          type="button" 
+          class="btn btn-secondary" 
+          (click)="cancelEdit()"
+        >
+          Cancel
+        </button>
+      </div>
+    </div>
+    
+    <!-- Preview -->
+    <div class="project-preview" *ngIf="showPreview">
+      <div class="preview-project-card">
+        <div class="project-banner" *ngIf="newProject.imageUrl">
+          <img [src]="newProject.imageUrl" alt="{{ newProject.title }}">
+        </div>
+        
+        <div class="project-content">
+          <h2 class="project-title">{{ newProject.title }}</h2>
+          
+          <div class="project-meta">
+            <span class="project-category">{{ newProject.category | titlecase }}</span>
+            <span class="project-date" *ngIf="newProject.date">{{ newProject.date }}</span>
+            <span class="project-featured" *ngIf="newProject.featured">Featured</span>
+          </div>
+          
+          <p class="project-description">{{ newProject.description }}</p>
+          
+          <div class="project-stack">
+            <span class="stack-item" *ngFor="let tech of newProject.stack">{{ tech }}</span>
+          </div>
+          
+          <div class="project-links">
+            <a 
+              *ngIf="newProject.demoLink" 
+              [href]="newProject.demoLink" 
+              target="_blank" 
+              class="project-link demo-link"
+            >
+              View Demo
+            </a>
+            <a 
+              *ngIf="newProject.githubLink" 
+              [href]="newProject.githubLink" 
+              target="_blank"
+              class="project-link github-link"
+            >
+              View Code
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Existing Projects List -->
+  <h2 class="mt-5">Projects</h2>
+  <div class="projects-list">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Category</th>
+          <th>Date</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let project of projects">
+          <td>{{ project.title }}</td>
+          <td>{{ project.category | titlecase }}</td>
+          <td>{{ project.date }}</td>
+          <td>
+            <span class="badge" [class.badge-success]="project.featured" [class.badge-secondary]="!project.featured">
+              {{ project.featured ? 'Featured' : 'Standard' }}
+            </span>
+          </td>
+          <td>
+            <button class="btn btn-sm btn-info" (click)="editProject(project)">Edit</button>
+            <button 
+              class="btn btn-sm" 
+              [class.btn-warning]="project.featured" 
+              [class.btn-success]="!project.featured" 
+              (click)="toggleFeatured(project)"
+            >
+              {{ project.featured ? 'Unfeature' : 'Feature' }}
+            </button>
+            <button class="btn btn-sm btn-danger" (click)="deleteProject(project._id!)">Delete</button>
+          </td>
+        </tr>
+        <tr *ngIf="projects.length === 0">
+          <td colspan="5" class="text-center">No projects found</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

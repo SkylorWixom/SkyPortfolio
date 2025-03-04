@@ -12,11 +12,14 @@ export const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'blog', component: BlogComponent },
   { path: 'learn-with-me', component: LwmComponent },
-
-  // <-- New route for the alt version
   { path: 'learn-with-me-alt', component: LwmComponent },
-
   { path: 'projects', component: ProjectsComponent },
   { path: 'contact', component: ContactComponent },
-  { path: 'resume', component: ResumeComponent }
+  { path: 'resume', component: ResumeComponent },
+  
+  // Add admin route with lazy loading
+  { 
+    path: 'admin', 
+    loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) 
+  }
 ];
