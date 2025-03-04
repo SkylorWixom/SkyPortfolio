@@ -1,110 +1,74 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
-import { JwtHelperService } from '@auth0/angular-jwt';
-import { environment } from '../../../environments/environment';
+import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private readonly JWT_SECRET = environment.jwtSecret;
-  private readonly tokenKey = 'auth_token';
-  private readonly adminUsername = environment.authConfig.adminUsername;
-  private readonly adminPassword = environment.authConfig.adminPassword;
+  private readonly tokenKey = 'auth_token';              // localStorage key
+  private isAuthenticatedSubject: BehaviorSubject<boolean>;
 
-  // Create a new instance of the service
-  private jwtHelperInstance = new JwtHelperService();
+  // Expose an observable for other components to subscribe to
+  public isAuthenticated$: Observable<boolean>;
 
-  // Initialize subject AFTER the helper is created
-  private isAuthenticatedSubject = new BehaviorSubject<boolean>(this.checkAuthentication());
-  public isAuthenticated$ = this.isAuthenticatedSubject.asObservable();
-  
-  constructor(private jwtHelper: JwtHelperService) {
-    this.checkTokenValidity();
+  constructor(private http: HttpClient) {
+    // Initialize BehaviorSubject based on current token validity
+    this.isAuthenticatedSubject = new BehaviorSubject<boolean>(this.checkAuthentication());
+    this.isAuthenticated$ = this.isAuthenticatedSubject.asObservable();
   }
 
   /**
-   * Authenticates the admin user
+   * Attempt login by sending credentials to the server.
+   * On success, store the returned JWT in localStorage.
    */
   login(username: string, password: string): Observable<boolean> {
-    // Simple authentication for single admin user
-    if (username === this.adminUsername && password === this.adminPassword) {
-      // Create a proper JWT token
-      const token = this.generateJWT();
-      localStorage.setItem(this.tokenKey, token);
-      
-      this.isAuthenticatedSubject.next(true);
-      return of(true);
-    } else {
-      return throwError(() => new Error('Invalid credentials'));
-    }
+    return this.http.post<{ token: string }>('/api/auth/login', { username, password }).pipe(
+      map(res => {
+        // Server response contains { token: '...' }
+        localStorage.setItem(this.tokenKey, res.token);
+
+        // Mark as authenticated
+        this.isAuthenticatedSubject.next(true);
+        return true;
+      }),
+      catchError(err => {
+        // If server returns 401 or error, the credentials are invalid
+        this.isAuthenticatedSubject.next(false);
+        return throwError(() => err);
+      })
+    );
   }
 
   /**
-   * Logs out the admin user
+   * Logs out by removing the JWT and updating isAuthenticated$
    */
   logout(): void {
     localStorage.removeItem(this.tokenKey);
     this.isAuthenticatedSubject.next(false);
   }
 
-  // Use our own implementation that doesn't rely on JwtHelperService
-  private checkAuthentication(): boolean {
-    const token = localStorage.getItem(this.tokenKey);
-    if (!token) return false;
-    
-    try {
-      // Simple check for token expiration
-      const payload = JSON.parse(atob(token.split('.')[1]));
-      return payload.exp > Date.now() / 1000;
-    } catch (e) {
-      return false;
-    }
-  }
-
   /**
-   * Checks if the user is authenticated
+   * Synchronous check used by components / route guards if needed
    */
   isAuthenticated(): boolean {
     return this.checkAuthentication();
   }
 
   /**
-   * Checks token validity and logs out if invalid
+   * 1) Retrieve token from localStorage
+   * 2) Decode payload to check if it's still valid (exp > now)
    */
-  private checkTokenValidity(): void {
-    if (!this.isAuthenticated()) {
-      this.logout();
+  private checkAuthentication(): boolean {
+    const token = localStorage.getItem(this.tokenKey);
+    if (!token) return false;
+
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      return payload.exp > (Date.now() / 1000);
+    } catch (e) {
+      return false;
     }
-  }
-
-  /**
-   * Generates a JWT token
-   */
-  private generateJWT(): string {
-    const header = {
-      alg: 'HS256',
-      typ: 'JWT'
-    };
-    
-    const payload = {
-      sub: this.adminUsername,
-      name: 'Admin User',
-      exp: Math.floor(Date.now() / 1000) + (24 * 60 * 60) // 24 hours from now
-    };
-    
-    const headerBase64 = btoa(JSON.stringify(header));
-    const payloadBase64 = btoa(JSON.stringify(payload));
-    const signature = this.generateSignature(`${headerBase64}.${payloadBase64}`);
-    
-    return `${headerBase64}.${payloadBase64}.${signature}`;
-  }
-
-  /**
-   * Generates a signature for the JWT
-   */
-  private generateSignature(data: string): string {
-    // This is a simplified implementation - not secure for production
-    return btoa(data + this.JWT_SECRET);
   }
 }
