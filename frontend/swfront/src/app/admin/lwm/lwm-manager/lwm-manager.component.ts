@@ -59,7 +59,7 @@ export class LwmManagerComponent implements OnInit {
   }
 
   buildHierarchy(): void {
-    // Build the "tree" of HierarchyItem objects
+    //"tree" of HierarchyItem objects
     this.hierarchyItems = this.subjects.map(subject => ({
       id: subject._id,
       title: subject.subjectTitle,

@@ -21,7 +21,6 @@ router.post('/login', (req, res) => {
 
   // Check credentials
   if (username === adminUser && password === adminPass) {
-    // Sign a real JWT
     const payload = {
       sub: adminUser,
       name: 'Admin User',

@@ -1,4 +1,3 @@
-// File: backend/models/lwm/Course.js
 import mongoose from 'mongoose';
 
 const CourseSchema = new mongoose.Schema({

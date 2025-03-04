@@ -18,7 +18,7 @@ export class ContactComponent {
 
   constructor(
     private fb: FormBuilder,
-    private contactService: ContactService  // inject here
+    private contactService: ContactService
   ) {
     this.contactForm = this.fb.group({
       name: ['', Validators.required],

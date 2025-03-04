@@ -1,4 +1,3 @@
-// backend/models/lwm/Subject.js
 import mongoose from 'mongoose';
 
 const SubjectSchema = new mongoose.Schema({
@@ -7,7 +6,7 @@ const SubjectSchema = new mongoose.Schema({
     required: true
   },
 
-  // (A) The new optional fields for images/icons
+  //optional fields for images/icons
   iconUrl: {
     type: String,
     required: false
@@ -17,7 +16,7 @@ const SubjectSchema = new mongoose.Schema({
     required: false
   },
 
-  // (B) The array of Course references
+  //The array of Course references
   courses: [
     {
       type: mongoose.Schema.Types.ObjectId,

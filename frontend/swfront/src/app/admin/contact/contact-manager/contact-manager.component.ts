@@ -48,7 +48,6 @@ export class ContactManagerComponent implements OnInit {
     });
   }
 
-  // === ADD THIS for DELETE ===
   deleteContact(contactId: string): void {
     if (!confirm('Are you sure you want to delete this contact?')) {
       return;

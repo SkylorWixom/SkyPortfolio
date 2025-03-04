@@ -24,7 +24,7 @@ router.post('/', async (req, res) => {
   }
 });
 
-// (Optional) PUT update (e.g. to move from 'backlog' to 'active' or 'completed')
+// PUT update
 router.put('/:id', async (req, res) => {
   try {
     const updated = await Task.findByIdAndUpdate(
@@ -41,7 +41,7 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-// (Optional) DELETE
+// DELETE
 router.delete('/:id', async (req, res) => {
   try {
     const removed = await Task.findByIdAndDelete(req.params.id);

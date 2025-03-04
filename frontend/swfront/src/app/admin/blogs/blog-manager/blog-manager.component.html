@@ -61,7 +61,7 @@
           [(ngModel)]="newBlog.category"
           class="form-control"
         >
-          <!-- Use the enum values from your Blog.js: ['learning', 'reviews', 'responses', 'personal'] -->
+          <!-- Use the enum values from Blog.js: ['learning', 'reviews', 'responses', 'personal'] -->
           <option value="learning">Learning</option>
           <option value="reviews">Reviews</option>
           <option value="responses">Responses</option>
@@ -172,7 +172,6 @@
       </div>
       
       <div class="blog-content">
-        <!-- For proper Markdown rendering, consider using ngx-markdown or a similar library -->
         <pre>{{ newBlog.content }}</pre>
       </div>
       
@@ -214,7 +213,7 @@
           <td>{{ blog.category }}</td>
           <td>{{ blog.createdAt | date:'mediumDate' }}</td>
           <td>
-            <!-- Edit and Delete, no publish/unpublish logic -->
+            <!-- Edit and Delete -->
             <button
               class="btn btn-sm btn-info"
               (click)="editBlog(blog)"

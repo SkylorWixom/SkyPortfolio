@@ -3,7 +3,7 @@ import { TasksService, Task as ServiceTask } from '../../../services/task/task.s
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-// Create a local Task interface that matches your component needs
+//local Task interface that matches component needs
 interface Task {
   _id: string;
   title: string;
@@ -42,7 +42,6 @@ export class TaskManagerComponent implements OnInit {
   loadTasks(): void {
     this.taskService.getAllTasks().subscribe({
       next: (tasks) => {
-        // Ensure details is never undefined
         this.tasks = tasks.map(task => ({
           _id: task._id || '',
           title: task.title,

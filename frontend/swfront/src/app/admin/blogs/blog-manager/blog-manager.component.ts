@@ -19,7 +19,7 @@ export class BlogManagerComponent implements OnInit {
   showPreview = false;
   selectedTags: string[] = [];
 
-  // Example set of tags you might want to let users pick from:
+  // set of tags to select from
   availableTags: string[] = [
     'Angular',
     'React',
@@ -54,7 +54,7 @@ export class BlogManagerComponent implements OnInit {
 
   // Create or update a blog
   saveBlog(): void {
-    // Make sure our new/updated blog includes current tags
+    // Make sure the new/updated blog includes current tags
     this.newBlog.tags = [...this.selectedTags];
 
     if (this.editMode && this.newBlog._id) {
@@ -164,8 +164,7 @@ export class BlogManagerComponent implements OnInit {
       title: '',
       author: 'S. W.',
       content: '',
-      // Set a default category that is in your enum:
-      //   ['learning', 'reviews', 'responses', 'personal']
+      // Set a default category
       category: 'learning',
       tags: [],
       excerpt: ''

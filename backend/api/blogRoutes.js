@@ -32,7 +32,7 @@ router.post('/', async (req, res) => {
   }
 });
 
-// (Optional) GET single by ID
+// GET single by ID
 router.get('/:id', async (req, res) => {
   try {
     const blog = await Blog.findById(req.params.id);
@@ -45,7 +45,7 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// (Optional) PUT update
+//PUT update
 router.put('/:id', async (req, res) => {
   try {
     const updated = await Blog.findByIdAndUpdate(req.params.id, req.body, {
@@ -61,7 +61,7 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-// (Optional) DELETE
+// DELETE
 router.delete('/:id', async (req, res) => {
   try {
     const deleted = await Blog.findByIdAndDelete(req.params.id);

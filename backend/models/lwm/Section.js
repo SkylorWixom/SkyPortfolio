@@ -1,4 +1,3 @@
-// File: backend/models/lwm/Section.js
 import mongoose from 'mongoose';
 
 const SectionSchema = new mongoose.Schema({

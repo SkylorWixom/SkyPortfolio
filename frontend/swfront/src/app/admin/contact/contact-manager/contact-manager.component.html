@@ -86,7 +86,7 @@
             <th>Subject</th>
             <th>Message</th>
             <th>Date</th>
-            <th>Actions</th> <!-- new column -->
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -98,7 +98,6 @@
             <td>{{ c.message }}</td>
             <td>{{ c.createdAt | date:'medium' }}</td>
             <td>
-              <!-- new "delete" button -->
               <button class="btn btn-sm btn-danger" (click)="deleteContact(c._id!)">
                 Delete
               </button>

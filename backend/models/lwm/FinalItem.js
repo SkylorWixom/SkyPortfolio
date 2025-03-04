@@ -1,4 +1,3 @@
-// File: backend/models/lwm/FinalItem.js
 import mongoose from 'mongoose';
 
 const FinalItemSchema = new mongoose.Schema({

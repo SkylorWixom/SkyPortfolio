@@ -1,4 +1,3 @@
-// File: backend/subjectRoutes.js
 import express from 'express';
 import Subject from '../models/lwm/Subject.js';
 import Course from '../models/lwm/Course.js';
@@ -8,9 +7,7 @@ import FinalItem from '../models/lwm/FinalItem.js';
 
 const router = express.Router();
 
-/**
- * GET all subjects (deep populate).
- */
+//GET all subjects (deep populate).
 router.get('/', async (req, res) => {
   try {
     const subjects = await Subject.find()
@@ -30,9 +27,8 @@ router.get('/', async (req, res) => {
   }
 });
 
-/**
- * GET one subject by ID, also deep populate.
- */
+
+//GET one subject by ID, also deep populate.
 router.get('/:id', async (req, res) => {
   try {
     const subject = await Subject.findById(req.params.id)
@@ -56,9 +52,7 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-/**
- * POST: create a new Subject doc in basic form.
- */
+//POST: create a new Subject doc in basic form.
 router.post('/', async (req, res) => {
   try {
     const newSubj = new Subject(req.body);
@@ -69,10 +63,9 @@ router.post('/', async (req, res) => {
   }
 });
 
-/**
- * POST /nested: if you want to create a subject with nested courses→sections→modules→finalItems
- * in one request, unroll them here.
- */
+//POST /nested: to create a subject with nested courses→sections→modules→finalItems
+in one request, unroll them here.
+
 router.post('/nested', async (req, res) => {
   try {
     const { subjectTitle, courses } = req.body;
@@ -140,9 +133,7 @@ router.post('/nested', async (req, res) => {
   }
 });
 
-/**
- * PUT update a subject doc
- */
+//PUT update a subject doc
 router.put('/:id', async (req, res) => {
   try {
     const updated = await Subject.findByIdAndUpdate(
@@ -159,9 +150,8 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-/**
- * DELETE a subject doc
- */
+//DELETE a subject doc
+
 router.delete('/:id', async (req, res) => {
   try {
     const removed = await Subject.findByIdAndDelete(req.params.id);
@@ -174,9 +164,7 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
-/**
- * Add a new course to a subject
- */
+//POST Add a new course to a subject
 router.post('/:id/courses', async (req, res) => {
   try {
     const subject = await Subject.findById(req.params.id);
@@ -196,9 +184,7 @@ router.post('/:id/courses', async (req, res) => {
   }
 });
 
-/**
- * Update a course
- */
+//PUT Update a course
 router.put('/courses/:id', async (req, res) => {
   try {
     const updated = await Course.findByIdAndUpdate(
@@ -217,9 +203,7 @@ router.put('/courses/:id', async (req, res) => {
   }
 });
 
-/**
- * Delete a course
- */
+//Delete a course
 router.delete('/courses/:id', async (req, res) => {
   try {
     const course = await Course.findById(req.params.id);
@@ -242,9 +226,7 @@ router.delete('/courses/:id', async (req, res) => {
   }
 });
 
-/**
- * Add a new section to a course
- */
+//POST Add a new section to a course
 router.post('/courses/:id/sections', async (req, res) => {
   try {
     const course = await Course.findById(req.params.id);
@@ -264,9 +246,7 @@ router.post('/courses/:id/sections', async (req, res) => {
   }
 });
 
-/**
- * Update a section
- */
+//PUT Update a section
 router.put('/sections/:id', async (req, res) => {
   try {
     const updated = await Section.findByIdAndUpdate(
@@ -285,9 +265,8 @@ router.put('/sections/:id', async (req, res) => {
   }
 });
 
-/**
- * Delete a section
- */
+
+//Delete a section
 router.delete('/sections/:id', async (req, res) => {
   try {
     const section = await Section.findById(req.params.id);
@@ -310,9 +289,8 @@ router.delete('/sections/:id', async (req, res) => {
   }
 });
 
-/**
- * Add a new module to a section
- */
+
+// POST Add a new module to a section
 router.post('/sections/:id/modules', async (req, res) => {
   try {
     const section = await Section.findById(req.params.id);
@@ -332,9 +310,7 @@ router.post('/sections/:id/modules', async (req, res) => {
   }
 });
 
-/**
- * Update a module
- */
+//Update a module
 router.put('/modules/:id', async (req, res) => {
   try {
     const updated = await Module.findByIdAndUpdate(
@@ -353,9 +329,7 @@ router.put('/modules/:id', async (req, res) => {
   }
 });
 
-/**
- * Delete a module
- */
+//Delete a module
 router.delete('/modules/:id', async (req, res) => {
   try {
     const module = await Module.findById(req.params.id);
@@ -378,9 +352,7 @@ router.delete('/modules/:id', async (req, res) => {
   }
 });
 
-/**
- * Add a new finalItem to a module
- */
+// POST Add a new finalItem to a module
 router.post('/modules/:id/finalItems', async (req, res) => {
   try {
     const module = await Module.findById(req.params.id);
@@ -400,9 +372,7 @@ router.post('/modules/:id/finalItems', async (req, res) => {
   }
 });
 
-/**
- * Update a finalItem
- */
+//PUT Update a finalItem
 router.put('/finalItems/:id', async (req, res) => {
   try {
     const updated = await FinalItem.findByIdAndUpdate(
@@ -421,9 +391,7 @@ router.put('/finalItems/:id', async (req, res) => {
   }
 });
 
-/**
- * Delete a finalItem
- */
+//Delete a finalItem
 router.delete('/finalItems/:id', async (req, res) => {
   try {
     const finalItem = await FinalItem.findById(req.params.id);

@@ -31,11 +31,7 @@ router.post('/', async (req, res) => {
   }
 });
 
-/**
- * ADD THESE TWO ROUTES:
- */
-
-// 1) PUT (Update existing project by ID)
+//PUT (Update existing project by ID)
 router.put('/:id', async (req, res) => {
   try {
     // findByIdAndUpdate returns the *old* doc by default

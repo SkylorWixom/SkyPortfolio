@@ -221,7 +221,7 @@
   font-size: var(--font-size-s);
   color: var(--color-paragraph);
   max-width: 100%;
-  min-width: 140px; /* Ensures minimum width is the same */
+  min-width: 140px;
 }
 
 /* Posts list styling */
@@ -229,8 +229,8 @@
   display: flex;
   flex-direction: column;
   gap: var(--spacing-m);
-  max-height: unset; /* Remove height restriction */
-  overflow-y: visible; /* Remove scrollbar */
+  max-height: unset; 
+  overflow-y: visible; 
 }
 
 /* No posts message */

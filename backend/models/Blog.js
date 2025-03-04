@@ -8,7 +8,7 @@ const blogSchema = new mongoose.Schema({
   },
   author: {
     type: String,
-    default: 'Anonymous'       // or required: true, if you want to enforce it
+    default: 'Anonymous'
   },
   content: {
     type: String,
@@ -21,14 +21,14 @@ const blogSchema = new mongoose.Schema({
   },
   bannerImageUrl: {
     type: String,
-    default: ''                // store a URL for an image or leave blank
+    default: ''// store a URL for an image or leave blank
   },
   references: {
-    type: [String],            // an array of strings (links, videos, etc.)
+    type: [String],
     default: []
   },
   tags: {
-    type: [String],            // an array of tags if you’d like 
+    type: [String], 
     default: []
   },
   createdAt: {

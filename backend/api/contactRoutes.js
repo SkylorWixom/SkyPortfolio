@@ -1,4 +1,3 @@
-// File: backend/api/contactRoutes.js (or wherever it's located)
 import express from 'express';
 import Contact from '../models/Contact.js';
 
@@ -25,7 +24,6 @@ router.post('/', async (req, res) => {
   }
 });
 
-// === ADD THIS for DELETE by ID ===
 router.delete('/:id', async (req, res) => {
   try {
     const deleted = await Contact.findByIdAndDelete(req.params.id);

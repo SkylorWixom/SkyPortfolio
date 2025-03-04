@@ -24,13 +24,11 @@
     border: 1px solid #f5c6cb;
   }
   
-  /* Container that holds the left hierarchy and right content */
   .lwm-container {
     display: flex;
     gap: 20px;
   }
   
-  /* Left panel for the hierarchy */
   .hierarchy-panel {
     width: 300px;
     background-color: #f8f9fa;
@@ -67,11 +65,11 @@
   }
   
   .item-header:hover {
-    background-color: #e2e6ea; /* Light hover effect */
+    background-color: #e2e6ea;
   }
   
   .item-header.selected {
-    background-color: #b8daff; /* Highlight selected item */
+    background-color: #b8daff;
   }
   
   .expand-icon {
@@ -81,7 +79,6 @@
   }
   
   .expand-icon.spacer {
-    /* used for final items that don't need a caret */
     visibility: hidden;
   }
   
@@ -98,14 +95,12 @@
     font-size: 0.75rem;
   }
   
-  /* Indentation for children */
   .tree-children {
     margin-left: 20px;
     border-left: 1px dashed #ccc;
     padding-left: 10px;
   }
   
-  /* Right content panel */
   .content-panel {
     flex: 1;
     display: flex;
@@ -150,11 +145,10 @@
   }
   
   .content-preview {
-    white-space: pre-line; /* preserve line breaks if needed */
+    white-space: pre-line;
     margin-top: 5px;
   }
   
-  /* Form styling */
   .item-form .form-header {
     display: flex;
     align-items: center;
@@ -187,7 +181,6 @@
     gap: 10px;
   }
   
-  /* Button styling */
   .btn {
     padding: 8px 12px;
     border: none;
@@ -226,7 +219,6 @@
     margin-bottom: 10px;
   }
   
-  /* Responsive */
   @media (max-width: 768px) {
     .lwm-container {
       flex-direction: column;
