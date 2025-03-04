@@ -9,9 +9,10 @@ router.post('/login', (req, res) => {
   const { username, password } = req.body;
 
   // env-based credentials + secret
-  const adminUser = process.env.ADMIN_USERNAME;
-  const adminPass = process.env.ADMIN_PASSWORD;
-  const jwtSecret = process.env.JWT_SECRET;
+  const adminUser = process.env.adminUsername;
+  const adminPass = process.env.adminPassword;
+  const jwtSecret = process.env.jwtSecret;
+  
 
   // If missing env vars, throw an error
   if (!adminUser || !adminPass || !jwtSecret) {
